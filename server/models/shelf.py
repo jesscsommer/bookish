@@ -3,6 +3,7 @@ from models import db
 class Shelf(db.Model):
     __tablename__ = "shelves"
 
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())

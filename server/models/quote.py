@@ -6,7 +6,7 @@ class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
 
-    book_id = db.Column(db.Integer, db.ForeignKey("book.id"))
+    book_id = db.Column(db.Integer, db.ForeignKey("books.id"))
     book = db.relationship("Book", back_populates="quotes")
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
