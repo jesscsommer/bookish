@@ -12,7 +12,7 @@ class User(db.Model):
     bio = db.Column(db.String)
 
     reviews = db.relationship("Review", back_populates="user", cascade="all, delete-orphan")
-    books = association_proxy("reviews", "book")
+    reviewed_books = association_proxy("reviews", "book")
 
     shelves = db.relationship("Shelf", back_populates="user")
 
