@@ -13,13 +13,15 @@ class ShelfSchema(ma.SQLAlchemySchema):
         model = Shelf
         load_instance = True
         ordered = True
-        fields = ("id", "name", "user", "book_shelves", "url")
+        fields = ("id", "name", "user", "url")
+        # fields = ("id", "name", "user", "book_shelves", "url")
 
     name = fields.String(required=True, \
                         validate=validate.Length(min=1, max=100),
                         error="Shelf name must be less than 100 characters")
     user = fields.Nested(UserSchema, only=("id", "username", "url"))
-    book_shelves = fields.Nested("BookShelfSchema", only=("id", "shelf_id", "url"))
+    # book_shelves = fields.Nested("BookShelfSchema", only=("id", "url"))
+    # book_shelves = fields.Nested("BookShelfSchema", only=("id", "shelf_id", "url"))
 
     url = ma.Hyperlinks(
         {

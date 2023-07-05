@@ -11,11 +11,12 @@ class AuthorSchema(ma.SQLAlchemySchema):
         model = Author
         load_instance = True
         ordered = True
-        fields = ("id", "full_name", "bio", "books", "url")
+        fields = ("id", "full_name", "bio", "url")
+        # fields = ("id", "full_name", "bio", "books", "url")
 
     bio = fields.String(validate=validate.Length(max=250, \
                         error="Bio must be less than 250 chars"))
-    books = fields.Nested("BookSchema", only=("id", "title", "url"))
+    # books = fields.Nested("BookSchema", only=("id", "title", "url"))
 
     url = ma.Hyperlinks(
         {

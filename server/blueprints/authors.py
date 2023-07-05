@@ -19,4 +19,4 @@ authors_bp = Blueprint("authors", __name__, url_prefix="/authors")
 class Authors(Resource):
     def get(self): 
         authors = Author.query.order_by(Author.created_at.desc()).all()
-        return make_response(authors, 200)
+        return make_response(authors_schema.dump(authors), 200)

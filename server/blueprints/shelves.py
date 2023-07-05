@@ -19,4 +19,4 @@ shelves_bp = Blueprint("shelves", __name__, url_prefix="/shelves")
 class Shelves(Resource):
     def get(self): 
         shelves = Shelf.query.order_by(Shelf.created_at.desc()).all()
-        return make_response(shelves, 200)
+        return make_response(shelves_schema.dump(shelves), 200)

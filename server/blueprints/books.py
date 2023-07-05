@@ -19,4 +19,4 @@ books_bp = Blueprint("books", __name__, url_prefix="/books")
 class Books(Resource):
     def get(self): 
         books = Book.query.order_by(Book.created_at.desc()).all()
-        return make_response(books, 200)
+        return make_response(books_schema.dump(books), 200)

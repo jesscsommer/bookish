@@ -3,7 +3,8 @@ from marshmallow import (
     validate,
     validates, 
     validates_schema,
-    ValidationError)
+    ValidationError
+)
 from flask_marshmallow import Marshmallow
 
 from models.author import Author
@@ -16,4 +17,6 @@ from models.shelf import Shelf
 from models.tag import Tag
 from models.user import User
 
-ma = Marshmallow()
+from config import app
+
+ma = Marshmallow(app)

@@ -19,4 +19,4 @@ users_bp = Blueprint("users", __name__, url_prefix="/users")
 class Users(Resource):
     def get(self): 
         users = User.query.order_by(User.created_at.desc()).all()
-        return make_response(users, 200)
+        return make_response(users_schema.dump(users), 200)
