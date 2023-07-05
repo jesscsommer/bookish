@@ -49,3 +49,12 @@ jspm_packages
 
 # pytest cache
 .pytest_cache
+
+*.db
+*/*.db
+migrations
+instance
+
+.env
+
+*.pyc
