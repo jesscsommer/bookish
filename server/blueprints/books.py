@@ -10,12 +10,13 @@ from blueprints import (
 
 from config import app 
 from models import db
-from models.author import Author
-from schemas.author_schema import AuthorSchema
+from models.book import Book
+from schemas.book_schema import BookSchema
 
-authors_schema = AuthorSchema(many=True)
-authors_bp = Blueprint("authors", __name__, url_prefix="/authors")
+books_schema = BookSchema(many=True)
+books_bp = Blueprint("books", __name__, url_prefix="/books")
 
-class Authors(Resource):
+class Books(Resource):
     def get(self): 
-        pass 
+        books = Book.query.order_by(Book.created_at.desc()).all()
+        return make_response(books, 200)

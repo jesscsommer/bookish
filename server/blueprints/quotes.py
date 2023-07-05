@@ -10,12 +10,13 @@ from blueprints import (
 
 from config import app 
 from models import db
-from models.author import Author
-from schemas.author_schema import AuthorSchema
+from models.quote import Quote
+from schemas.quote_schema import QuoteSchema
 
-authors_schema = AuthorSchema(many=True)
-authors_bp = Blueprint("authors", __name__, url_prefix="/authors")
+quotes_schema = QuoteSchema(many=True)
+quotes_bp = Blueprint("quotes", __name__, url_prefix="/quotes")
 
-class Authors(Resource):
+class Quotes(Resource):
     def get(self): 
-        pass 
+        quotes = Quote.query.order_by(Quote.created_at.desc()).all()
+        return make_response(quotes, 200)

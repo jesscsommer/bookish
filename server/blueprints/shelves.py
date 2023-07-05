@@ -10,12 +10,13 @@ from blueprints import (
 
 from config import app 
 from models import db
-from models.author import Author
-from schemas.author_schema import AuthorSchema
+from models.shelf import Shelf
+from schemas.shelf_schema import ShelfSchema
 
-authors_schema = AuthorSchema(many=True)
-authors_bp = Blueprint("authors", __name__, url_prefix="/authors")
+shelves_schema = ShelfSchema(many=True)
+shelves_bp = Blueprint("shelves", __name__, url_prefix="/shelves")
 
-class Authors(Resource):
+class Shelves(Resource):
     def get(self): 
-        pass 
+        shelves = Shelf.query.order_by(Shelf.created_at.desc()).all()
+        return make_response(shelves, 200)
