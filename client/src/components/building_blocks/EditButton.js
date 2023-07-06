@@ -1,6 +1,11 @@
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+
 const EditButton = () => {
     return (
-        <h1>EditButton</h1>
+        <IconButton aria-label="edit">
+            <EditIcon />
+        </IconButton>
     )
 }
 
