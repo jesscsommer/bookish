@@ -11,9 +11,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useState, useContext, useEffect } from "react";
+
 const defaultTheme = createTheme();
 
 const AuthForm = () => {
+    const [ isLogin, setIsLogin ] = useState(false)
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -29,19 +33,30 @@ const AuthForm = () => {
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                    Sign in
+                    {isLogin ? "Log in" : "Sign up"}
                     </Typography>
                     <Box component="form" noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
                         autoFocus
                     />
+                    {isLogin ? null :
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            // autoFocus
+                        />}
                     <TextField
                         margin="normal"
                         required
@@ -52,22 +67,18 @@ const AuthForm = () => {
                         id="password"
                         autoComplete="current-password"
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Sign In
+                        {isLogin ? "Log in" : "Sign up"}
                     </Button>
                     <Grid container>
                         <Grid item>
-                        <Link href="#" variant="body2">
-                            {"Don't have an account? Sign Up"}
+                        <Link onClick={() => setIsLogin(isLogin => !isLogin)} variant="body2">
+                            {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Log in"}
                         </Link>
                         </Grid>
                     </Grid>
