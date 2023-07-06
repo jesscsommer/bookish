@@ -11,6 +11,10 @@ class BookShelf(db.Model):
     book = db.relationship("Book", back_populates="book_shelves")
     shelf = db.relationship("Shelf", back_populates="book_shelves")
 
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+
     def __repr__(self):
         return (
             f"BookShelf #{self.id}:"

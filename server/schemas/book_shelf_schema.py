@@ -19,10 +19,11 @@ class BookShelfSchema(ma.SQLAlchemySchema):
         model = BookShelf
         load_instance = True
         ordered = True
-        fields = ("id", "book", "shelf", "url")
+        # fields = ("id", "url")
+        fields = ("id", "book", "shelf", "book_id", "shelf_id", "url")
         
-        book = fields.Nested(BookSchema, only=("id", "title", "url"))
-        shelf = fields.Nested(ShelfSchema, only=("id", "user", "url"))
+    book = fields.Nested(BookSchema, only=("id", "title", "url"))
+    shelf = fields.Nested(ShelfSchema, only=("id", "user", "url"))
 
     url = ma.Hyperlinks(
         {

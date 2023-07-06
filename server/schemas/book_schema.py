@@ -8,7 +8,6 @@ from schemas import (
 )
 from schemas.author_schema import AuthorSchema
 
-
 class BookSchema(ma.SQLAlchemySchema):
     class Meta():
         model = Book
@@ -17,15 +16,15 @@ class BookSchema(ma.SQLAlchemySchema):
         fields = ("id", "title", "cover_photo", "genre", "page_count", \
                 "description", "author", "book_shelves", "url")
         
-        title = fields.String(validate=validate.Length(min=1, max=150), \
-                        error="Title must be less than 150 characters")
-        description = fields.String(validate=validate.Length(min=1, max=2000), \
-                        error="Description must be less than 2000 characters")
-        page_count = fields.Integer(strict=True, \
-                        validate=validate.Range(min=1, max=25000), \
-                        error="Page count must be between 1 and 25000")
-        author = fields.Nested(AuthorSchema, only=("id", "full_name", "url"))
-        book_shelves = fields.Nested("BookShelfSchema", only=("id", "shelf_id", "url"))
+    title = fields.String(validate=validate.Length(min=1, max=150), \
+                    error="Title must be less than 150 characters")
+    description = fields.String(validate=validate.Length(min=1, max=2000), \
+                    error="Description must be less than 2000 characters")
+    page_count = fields.Integer(strict=True, \
+                    validate=validate.Range(min=1, max=25000), \
+                    error="Page count must be between 1 and 25000")
+    author = fields.Nested(AuthorSchema, only=("id", "full_name", "url"))
+    book_shelves = fields.Nested("BookShelfSchema", only=("id", "url"), many=True)
 
     url = ma.Hyperlinks(
         {

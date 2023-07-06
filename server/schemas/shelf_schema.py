@@ -19,7 +19,9 @@ class ShelfSchema(ma.SQLAlchemySchema):
                         validate=validate.Length(min=1, max=100),
                         error="Shelf name must be less than 100 characters")
     user = fields.Nested(UserSchema, only=("id", "username", "url"))
-    book_shelves = fields.Nested("BookShelfSchema", only=("id", "shelf_id", "url"))
+    book_shelves = fields.Nested("BookShelfSchema", \
+                                only=("id", "book_id", "shelf_id", "url"), \
+                                many=True)
 
     url = ma.Hyperlinks(
         {

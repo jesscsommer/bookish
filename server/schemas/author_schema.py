@@ -5,7 +5,6 @@ from schemas import (
     Author
 )
 
-
 class AuthorSchema(ma.SQLAlchemySchema):
     class Meta():
         model = Author
@@ -15,7 +14,7 @@ class AuthorSchema(ma.SQLAlchemySchema):
 
     bio = fields.String(validate=validate.Length(max=250, \
                         error="Bio must be less than 250 chars"))
-    books = fields.Nested("BookSchema", only=("id", "title", "url"))
+    books = fields.Nested("BookSchema", only=("id", "title", "url"), many=True)
 
     url = ma.Hyperlinks(
         {

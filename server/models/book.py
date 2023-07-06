@@ -1,4 +1,4 @@
-from models import db
+from models import db, association_proxy
 
 class Book(db.Model):
     __tablename__ = "books"
@@ -16,6 +16,7 @@ class Book(db.Model):
 
     reviews = db.relationship("Review", back_populates="book", cascade="all, delete-orphan")
     book_tags = db.relationship("BookTag", back_populates="book", cascade="all, delete-orphan")
+    
     book_shelves = db.relationship("BookShelf", back_populates="book")
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())

@@ -26,7 +26,7 @@ class UserSchema(ma.SQLAlchemySchema):
                         error="Display name must be between 5 and 50 chars"))
     bio = fields.String(validate=validate.Length(max=250, \
                         error="Bio must be less than 250 chars"))
-    shelves = fields.Nested("ShelfSchema", exclude=("user",))
+    shelves = fields.Nested("ShelfSchema", exclude=("user",), many=True)
     
     
     url = ma.Hyperlinks(
