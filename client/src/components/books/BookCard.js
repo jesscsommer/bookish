@@ -32,7 +32,11 @@ const BookCard = ({ book }) => {
                 </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">View</Button>
+                    <Button 
+                        size="small"
+                        href={`/books/${book.id}`}>
+                            View
+                    </Button>
                     <Button size="small">Edit</Button>
                 </CardActions>
             </Card>
