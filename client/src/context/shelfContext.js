@@ -23,14 +23,16 @@ const reducer = (state, action) => {
 const ShelfProvider = ({ children }) => {
     const [shelves, dispatch] = useReducer(reducer, initialState)
 
-    useEffect(async () => {
-        const res = await fetch("/shelves")
-        if (res.ok) {
-            const shelves = await res.json()
-            dispatch({ type: "fetch", payload: shelves })
-        } else {
-            // add error handling
-        }
+    useEffect(() => {
+        (async () => {
+            const res = await fetch("/shelves")
+            if (res.ok) {
+                const shelves = await res.json()
+                dispatch({ type: "fetch", payload: shelves })
+            } else {
+                // add error handling
+            }
+        })();
     }, [])
 
     return (
