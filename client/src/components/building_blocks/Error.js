@@ -1,6 +1,8 @@
+import Alert from '@mui/material/Alert';
+
 const Error = () => {
     return (
-        <h1>Error</h1>
+        <Alert severity="error">This is an error alert — check it out!</Alert>
     )
 }
 
