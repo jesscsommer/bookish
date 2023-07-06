@@ -198,7 +198,12 @@ const AuthForm = () => {
                     </Button>
                     <Grid container>
                         <Grid item>
-                        <Link onClick={() => setIsLogin(isLogin => !isLogin)} variant="body2">
+                        <Link 
+                            onClick={() => {
+                                setIsLogin(isLogin => !isLogin)
+                                setErrors(null)
+                            }} 
+                            variant="body2">
                             {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Log in"}
                         </Link>
                         </Grid>
