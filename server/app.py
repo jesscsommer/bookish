@@ -6,6 +6,15 @@ from flask_restful import Resource
 from config import app, db, api
 
 # Import models 
+from models.author import Author
+from models.book_shelf import BookShelf
+from models.book_tag import BookTag
+from models.book import Book
+from models.quote import Quote
+from models.review import Review
+from models.shelf import Shelf
+from models.tag import Tag
+from models.user import User
 
 # Add resources
 
