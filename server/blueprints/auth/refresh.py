@@ -35,4 +35,4 @@ def refresh():
 
     set_access_cookies(res, new_access_token)
 
-    return make_response("Reached refresh!", 200) 
+    return res
