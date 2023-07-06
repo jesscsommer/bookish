@@ -19,7 +19,7 @@ const App = () => {
     <div className="app">
       <Header />
       {/* <AuthForm /> */}
-      <BookCard />
+      {/* <BookCard />
       <EditButton />
       <DeleteButton />
       <Buttons /> 
@@ -29,7 +29,7 @@ const App = () => {
       <Profile />
       <BooksContainer />
       <BookDetail />
-      <Shelf />
+      <Shelf /> */}
     </div>
   )
 }
