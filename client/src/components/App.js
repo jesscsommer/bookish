@@ -4,6 +4,7 @@ import AddShelfForm from "./shelves/AddShelfForm";
 import AuthForm from "./account/AuthForm";
 import BookCard from "./books/BookCard";
 import BooksContainer from "./books/BooksContainer";
+import BookDetail from "./books/BookDetail";
 import Buttons from "./building_blocks/Buttons";
 import DeleteButton from "./building_blocks/DeleteButton";
 import EditButton from "./building_blocks/EditButton";
@@ -26,6 +27,7 @@ const App = () => {
       <AddShelfForm />
       <Profile />
       <BooksContainer />
+      <BookDetail />
     </div>
   )
 }
