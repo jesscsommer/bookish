@@ -12,6 +12,7 @@ import EditProfileForm from "./account/EditProfileForm";
 import Error from "./building_blocks/Error";
 import Header from "./building_blocks/Header";
 import Profile from "./account/Profile";
+import Shelf from "./shelves/Shelf";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
       <Profile />
       <BooksContainer />
       <BookDetail />
+      <Shelf />
     </div>
   )
 }
