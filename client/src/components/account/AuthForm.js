@@ -37,6 +37,8 @@ const AuthForm = () => {
         event.preventDefault();
     };
 
+    const [ errors, setErrors ] = useState(null)
+
     const userSchema = yup.object().shape({
         username: yup
         .string()
@@ -96,10 +98,10 @@ const AuthForm = () => {
                     })
                 } else {
                     res.json()
-                    .then(err => console.log(err.error))
+                    .then(err => setErrors(err.error))
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => setErrors("Sign up not successful, please try again"))
         }
     })
 
@@ -187,6 +189,7 @@ const AuthForm = () => {
                     {formik.errors.password && formik.touched.password ? 
                         <Error severity="warning" error={formik.errors.password} /> 
                         : null}
+                    {errors ? <Error severity="error" error={errors} /> : null}
                     <Button
                         type="submit"
                         fullWidth
