@@ -9,19 +9,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useContext } from "react"
+import { BookContext } from '../../context/bookContext';
+
 const defaultTheme = createTheme()
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const BooksContainer = () => {
+    const { books } = useContext(BookContext)
+
     return (
         <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
             <main>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid container spacing={4}>
-                {cards.map((card) => (
-                    <Grid item key={card} xs={12} sm={6} md={4}>
+                {books.map((book) => (
+                    <Grid item key={book.id} xs={12} sm={6} md={4}>
                     <Card
                         sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                     >
@@ -31,15 +36,14 @@ const BooksContainer = () => {
                             // 16:9
                             pt: '56.25%',
                         }}
-                        image="https://source.unsplash.com/random?wallpapers"
+                        image={book.cover_photo}
                         />
                         <CardContent sx={{ flexGrow: 1 }}>
                         <Typography gutterBottom variant="h5" component="h2">
-                            Heading
+                            {book.title}
                         </Typography>
                         <Typography>
-                            This is a media card. You can use this section to describe the
-                            content.
+                            {book.description}
                         </Typography>
                         </CardContent>
                         <CardActions>

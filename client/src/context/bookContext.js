@@ -23,14 +23,16 @@ const reducer = (state, action) => {
 const BookProvider = ({ children }) => {
     const [books, dispatch] = useReducer(reducer, initialState)
 
-    useEffect(async () => {
-        const res = await fetch("/books")
-        if (res.ok) {
-            const books = await res.json()
-            dispatch({ type: "fetch", payload: books })
-        } else {
-            // add error handling
-        }
+    useEffect(() => {
+        (async () => {
+            const res = await fetch("/books")
+            if (res.ok) {
+                const books = await res.json()
+                dispatch({ type: "fetch", payload: books })
+            } else {
+                // add error handling
+            }
+        })();
     }, [])
 
     return (
