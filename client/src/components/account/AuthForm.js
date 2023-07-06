@@ -10,16 +10,32 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
 
+import Error from '../building_blocks/Error';
+
 const defaultTheme = createTheme();
 
 const AuthForm = () => {
+    const navigate = useNavigate()
+
     const [ isLogin, setIsLogin ] = useState(false)
+
+    const [showPassword, setShowPassword] = useState(false)
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const userSchema = yup.object().shape({
         username: yup
@@ -30,12 +46,29 @@ const AuthForm = () => {
             "valid-chs",
             "Username may only contain letters and numbers",
             (value) => {
-            return /^[A-z0-9]+$/.test(value);
+                return /^[A-z0-9]+$/.test(value);
             }
         )
         .required("Username is required"),
+        email: yup
+        .string()
+        .test(
+            "valid-email",
+            "Email must be valid",
+            (value) => {
+                return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(value)
+            }
+        )
+        .required("Email is required"),
         password: yup
         .string()
+        .test(
+            "valid-pw", 
+            "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+            (value) => {
+                return /[A-Z]/.test(value) && /[0-9]/.test(value) && /[!@#$%^&*]/.test(value);
+            }
+        )
         .min(10, "Password must be at least 10 characters")
         .required("Password is required"),
     });
@@ -43,6 +76,7 @@ const AuthForm = () => {
     const formik = useFormik({
         initialValues: {
             username: "",
+            email: "",
             password: ""
         },
         validationSchema: userSchema,
@@ -101,8 +135,12 @@ const AuthForm = () => {
                         autoComplete="username"
                         autoFocus
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         value={formik.values.username}
                     />
+                    {formik.errors.username && formik.touched.username ? 
+                        <Error severity="warning" error={formik.errors.username} /> 
+                        : null}
                     {isLogin ? null :
                         <TextField
                             margin="normal"
@@ -113,21 +151,42 @@ const AuthForm = () => {
                             name="email"
                             autoComplete="email"
                             onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                             value={formik.values.email}
                             // autoFocus
                         />}
+                        {formik.errors.email && formik.touched.email ? 
+                        <Error severity="warning" error={formik.errors.email} /> 
+                        : null}
                     <TextField
                         margin="normal"
                         required
                         fullWidth
                         name="password"
                         label="Password"
-                        type="password"
                         id="password"
                         autoComplete="current-password"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         value={formik.values.password}
+                        type={showPassword ? "text" : "password"}
+                        InputProps={{
+                            endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                            ),
+                        }}
                     />
+                    {formik.errors.password && formik.touched.password ? 
+                        <Error severity="warning" error={formik.errors.password} /> 
+                        : null}
                     <Button
                         type="submit"
                         fullWidth
