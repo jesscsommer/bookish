@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
+import AuthForm from "./account/AuthForm";
 
 const App = () => {
-  // Code goes here!
+  return (
+    <div className="app">
+      <AuthForm />
+    </div>
+  )
 }
 
 export default App
