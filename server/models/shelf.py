@@ -1,4 +1,4 @@
-from models import db
+from models import db, association_proxy
 
 class Shelf(db.Model):
     __tablename__ = "shelves"
@@ -13,6 +13,7 @@ class Shelf(db.Model):
     user = db.relationship("User", back_populates="shelves")
 
     book_shelves = db.relationship("BookShelf", back_populates="shelf")
+    books = association_proxy("book_shelves", "book")
 
     def __repr__(self):
         return (

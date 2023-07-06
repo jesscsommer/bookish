@@ -15,10 +15,10 @@ class UserSchema(ma.SQLAlchemySchema):
         model = User
         load_instance = True
         ordered = True
-        fields = ("id", "username", "display_name", "bio", "profile_pic", 
-                "email", "url")
         # fields = ("id", "username", "display_name", "bio", "profile_pic", 
-        #         "email", "shelves", "url")
+        #         "email", "url")
+        fields = ("id", "username", "display_name", "bio", "profile_pic", 
+                "email", "shelves", "url")
         
     
     username = fields.String(required=True, \
@@ -28,7 +28,7 @@ class UserSchema(ma.SQLAlchemySchema):
                         error="Display name must be between 5 and 50 chars"))
     bio = fields.String(validate=validate.Length(max=250, \
                         error="Bio must be less than 250 chars"))
-    # shelves = fields.Nested("ShelfSchema", exclude=("user",))
+    shelves = fields.Nested("ShelfSchema", exclude=("user",))
     
     
     url = ma.Hyperlinks(
