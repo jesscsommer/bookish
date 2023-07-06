@@ -81,27 +81,25 @@ const AuthForm = () => {
             email: "",
             password: ""
         },
-        validationSchema: userSchema,
+        validationSchema: isLogin ? null : userSchema,
         onSubmit: (values) => {
-            fetch("/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(values)
-            })
-            .then(res => {
+            (async () => {
+                const endpoint = isLogin ? "/login" : "/signup"
+                const res = await fetch(endpoint, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(values)
+                })
                 if (res.ok) {
-                    res.json()
-                    .then(data => {
-                        console.log(data)
-                    })
+                    const user = await res.json()
+                    console.log(user)
                 } else {
-                    res.json()
-                    .then(err => setErrors(err.error))
+                    const err = await res.json()
+                    setErrors(err.error)
                 }
-            })
-            .catch(err => setErrors("Sign up not successful, please try again"))
+            })();
         }
     })
 
