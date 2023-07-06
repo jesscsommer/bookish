@@ -13,6 +13,7 @@ import Error from "./building_blocks/Error";
 import Header from "./building_blocks/Header";
 import Profile from "./account/Profile";
 import Shelf from "./shelves/Shelf";
+import ShelfContainer from "./shelves/ShelfContainer";
 import NotFound from "./building_blocks/NotFound";
 
 const App = () => {
@@ -40,7 +41,7 @@ const App = () => {
             <Route 
                 path="/shelves" 
                 element={
-                    <Shelf />
+                    <ShelfContainer />
                 }/>
             <Route 
                 path="/profile/:username" 

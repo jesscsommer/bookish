@@ -138,12 +138,13 @@ with app.app_context():
     print("Creating book_shelves ...")
     book_shelves = []
 
-    for _ in range(25): 
-        book_shelf = BookShelf(
-            book=rc(books),
-            shelf=rc(shelves)
-        )
-        book_shelves.append(book_shelf)
+    for shelf in shelves: 
+        for _ in range(5):
+            book_shelf = BookShelf(
+                book=rc(books),
+                shelf=shelf
+            )
+            book_shelves.append(book_shelf)
 
     db.session.add_all(book_shelves)
 
