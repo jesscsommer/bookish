@@ -43,7 +43,7 @@ api = Api(app)
 
 CORS(app)
 
-bycrypt = Bcrypt(app)
+bcrypt = Bcrypt(app)
 
 jwt = JWTManager(app)
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)

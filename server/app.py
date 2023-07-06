@@ -21,6 +21,7 @@ from blueprints.auth.signup import signup_bp
 from blueprints.auth.login import login_bp
 from blueprints.auth.logout import logout_bp
 from blueprints.auth.refresh import refresh_bp
+from blueprints.auth.me import me_bp
 
 from blueprints.authors import Authors
 from blueprints.author_by_id import AuthorById
@@ -40,6 +41,7 @@ app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(logout_bp)
 app.register_blueprint(refresh_bp)
+app.register_blueprint(me_bp)
 
 api.add_resource(Authors, "/authors")
 api.add_resource(AuthorById, "/authors/<int:id>")
