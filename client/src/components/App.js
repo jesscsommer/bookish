@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
-function App() {
+const App = () => {
   // Code goes here!
 }
 
-export default App;
+export default App
