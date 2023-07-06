@@ -9,6 +9,7 @@ import EditButton from "./building_blocks/EditButton";
 import EditProfileForm from "./account/EditProfileForm";
 import Error from "./building_blocks/Error";
 import Header from "./building_blocks/Header";
+import Profile from "./account/Profile";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <Error />
       <EditProfileForm />
       <AddShelfForm />
+      <Profile />
     </div>
   )
 }
