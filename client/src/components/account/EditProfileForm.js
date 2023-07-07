@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Cookies from "js-cookie";
 
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -76,7 +77,8 @@ const EditProfileForm = () => {
                 const res = await fetch(`../users/${user.id}`, {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
                     },
                     body: JSON.stringify(values)
                 })

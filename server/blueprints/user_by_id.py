@@ -22,20 +22,21 @@ class UserById(Resource):
             return make_response(user, 200)
         return make_response({"error": "User not found"}, 404)
     
-    # @jwt_required()
+    @jwt_required()
     def patch(self, id):
         if user := db.session.get(User, id):
-            # if user_id := get_jwt_identity() and id == user_id:
-                try: 
-                    data = request.get_json()
-                    user_schema.validate(data)
+            if user_id := get_jwt_identity():
+                if id == user_id:
+                    try: 
+                        data = request.get_json()
+                        user_schema.validate(data)
 
-                    updated_user = user_schema.load(data, instance=user, \
-                                                    partial=True)
-                    db.session.commit()
-                    return make_response(user_schema.dump(updated_user), 200)
-                except Exception as e: 
-                    db.session.rollback()
-                    return make_response({"error": [str(e)]}, 422)
-            # return make_response({"error": "Unauthorized"}, 401)     
+                        updated_user = user_schema.load(data, instance=user, \
+                                                        partial=True)
+                        db.session.commit()
+                        return make_response(user_schema.dump(updated_user), 200)
+                    except Exception as e: 
+                        db.session.rollback()
+                        return make_response({"error": [str(e)]}, 422)
+            return make_response({"error": "Unauthorized"}, 401)     
         return make_response({"error": "User not found"}, 404)
