@@ -11,7 +11,7 @@ const Profile = () => {
     const { username } = useParams()
     const navigate = useNavigate()
 
-    const { user } = useContext(UserContext)
+    const { user, dispatch : userDispatch } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const Profile = () => {
                 navigate("/404")
             }
         })();
-    }, [username])
+    }, [username, user])
 
     return (
         <Box

@@ -8,7 +8,7 @@ const initialState = null
 const reducer = (state, action) => {
     switch (action.type) {
         case "fetch":
-            return action.payload.user
+            return action.payload
         case "remove":
             return initialState
         default:
@@ -29,8 +29,8 @@ const UserProvider = ({ children }) => {
                 }
             })
             if (res.ok) {
-                const user = await res.json()
-                dispatch({ type: "fetch", payload: user })
+                const data = await res.json()
+                dispatch({ type: "fetch", payload: data.user })
             } else {
                 (async () => {
                     const res = await fetch("/refresh", {
