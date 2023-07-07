@@ -22,11 +22,13 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 import Error from '../building_blocks/Error';
+import { UserContext } from '../../context/userContext';
 
 const defaultTheme = createTheme();
 
 const AuthForm = () => {
     const navigate = useNavigate()
+    const { user, dispatch : userDispatch } = useContext(UserContext)
 
     const [ isLogin, setIsLogin ] = useState(false)
 
@@ -94,7 +96,8 @@ const AuthForm = () => {
                 })
                 if (res.ok) {
                     const user = await res.json()
-                    console.log(user)
+                    userDispatch({type: "fetch", payload: user})
+                    navigate("/")
                 } else {
                     const err = await res.json()
                     setErrors(err.error)
