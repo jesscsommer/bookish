@@ -13,7 +13,7 @@ class ShelfSchema(ma.SQLAlchemySchema):
         model = Shelf
         load_instance = True
         ordered = True
-        fields = ("id", "name", "user", "books", "book_shelves", "url")
+        fields = ("id", "name", "user", "user_id", "books", "book_shelves", "url")
 
     name = fields.String(required=True, \
                         validate=validate.Length(min=1, max=100),

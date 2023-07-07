@@ -17,7 +17,8 @@ from flask_jwt_extended import (
     set_access_cookies,
     set_refresh_cookies,
     unset_jwt_cookies,
-    get_jwt
+    get_jwt,
+    verify_jwt_in_request
 )
 from datetime import timedelta, datetime, timezone
 
@@ -48,7 +49,7 @@ CORS(app)
 bcrypt = Bcrypt(app)
 
 jwt = JWTManager(app)
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=2)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=10)
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
 
 

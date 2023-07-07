@@ -38,12 +38,6 @@ from blueprints.user_by_id import UserById, user_schema
 from blueprints.user_by_username import user_by_username_bp
 
 # Add resources
-app.register_blueprint(signup_bp)
-app.register_blueprint(login_bp)
-app.register_blueprint(logout_bp)
-app.register_blueprint(me_bp)
-
-app.register_blueprint(user_by_username_bp)
 
 api.add_resource(Authors, "/authors")
 api.add_resource(AuthorById, "/authors/<int:id>")
@@ -59,11 +53,15 @@ api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
 
 @app.after_request 
+@signup_bp.after_request
+@login_bp.after_request
+@me_bp.after_request
+@user_by_username_bp.after_request
 def refresh_expiring_jwts(response):
     try:
         exp_timestamp = get_jwt()["exp"]
         now = datetime.now(timezone.utc)
-        target_timestamp = datetime.timestamp(now + timedelta(minutes=1))
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=5))
         if target_timestamp > exp_timestamp:
             access_token = create_access_token(identity=get_jwt_identity())
             set_access_cookies(response, access_token)
@@ -71,6 +69,12 @@ def refresh_expiring_jwts(response):
     except (RuntimeError, KeyError):
         return response
 
+app.register_blueprint(signup_bp)
+app.register_blueprint(login_bp)
+app.register_blueprint(logout_bp)
+app.register_blueprint(me_bp)
+
+app.register_blueprint(user_by_username_bp)
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

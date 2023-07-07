@@ -3,9 +3,11 @@ import { useParams, useNavigate } from "react-router-dom"
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import { Button } from "@mui/material";
 
 import EditProfileForm from './EditProfileForm';
 import { UserContext } from '../../context/userContext';
+import AddShelfForm from "../shelves/AddShelfForm";
 
 const Profile = () => {
     const { username } = useParams()
@@ -42,6 +44,8 @@ const Profile = () => {
                 <h3>{profileUser?.bio}</h3>
             </Paper>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
+            {profileUser?.shelves.map((shelf) => <h1 key={shelf.id}>{shelf.name}</h1>)}
+            <AddShelfForm />
     </Box>
     )
 }

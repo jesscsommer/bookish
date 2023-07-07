@@ -41,11 +41,12 @@ def signup():
 
         token = create_access_token(identity=new_user.id)
         refresh_token = create_refresh_token(identity=new_user.id)
-        res = make_response({"user": user_schema.dump(new_user)}, 201)
+
+        res = make_response({"user": user_schema.dump(new_user)}, 200)
 
         set_access_cookies(res, token)
         set_refresh_cookies(res, refresh_token)
-
+        
         return res
 
     except Exception as e: 
