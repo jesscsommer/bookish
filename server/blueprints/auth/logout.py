@@ -8,8 +8,9 @@ from blueprints import (
     g
 )
 
-from config import app, unset_jwt_cookies 
+from config import app, unset_jwt_cookies, cache 
 from models import db
+from blueprints.auth.me import me
 
 logout_bp = Blueprint("logout", __name__)
 

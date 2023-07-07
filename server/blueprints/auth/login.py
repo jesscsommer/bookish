@@ -13,7 +13,8 @@ from config import (
     create_access_token,
     create_refresh_token,
     set_access_cookies,
-    set_refresh_cookies
+    set_refresh_cookies,
+    cache
 ) 
 
 from models import db
@@ -31,6 +32,7 @@ def login():
         password = data.get("password")
 
         if user := User.query.filter(User.username == username).first():
+
             if user.authenticate(password):
                 token = create_access_token(identity=user.id)
                 refresh_token = create_refresh_token(identity=user.id)
