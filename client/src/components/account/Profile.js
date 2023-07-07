@@ -11,7 +11,7 @@ const Profile = () => {
     const { username } = useParams()
     const navigate = useNavigate()
 
-    const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
     useEffect(() => {

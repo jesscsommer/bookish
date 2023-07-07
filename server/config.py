@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, make_response
 from flask_bcrypt import Bcrypt
 from flask_caching import Cache
 from flask_cors import CORS
@@ -16,9 +16,10 @@ from flask_jwt_extended import (
     JWTManager,
     set_access_cookies,
     set_refresh_cookies,
-    unset_jwt_cookies
+    unset_jwt_cookies,
+    get_jwt
 )
-from datetime import timedelta
+from datetime import timedelta, datetime, timezone
 
 
 app = Flask(__name__)
@@ -47,9 +48,23 @@ CORS(app)
 bcrypt = Bcrypt(app)
 
 jwt = JWTManager(app)
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=1)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=5)
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
 
 
 app.config["CACHE_TYPE"] = "SimpleCache"
 cache = Cache(app)
+
+
+# @refresh_bp.route("/refresh", methods=["POST"])
+# @jwt_required(refresh=True)
+# def refresh():
+#     user_id = get_jwt_identity()
+#     user = db.session.get(User, user_id)
+
+#     new_access_token = create_access_token(identity=user_id)
+#     res = make_response({"user": user_schema.dump(user)}, 200)
+
+#     set_access_cookies(res, new_access_token)
+
+#     return res

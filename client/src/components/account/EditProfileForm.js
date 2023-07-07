@@ -73,6 +73,7 @@ const EditProfileForm = () => {
         validationSchema: userSchema,
         enableReinitialize: true,
         onSubmit: (values) => {
+            // debugger
             (async () => {
                 const res = await fetch(`../users/${user.id}`, {
                     method: "PATCH",
@@ -166,7 +167,13 @@ const EditProfileForm = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={formik.handleSubmit}>Update</Button>
+                    <Button 
+                        onClick={() => {
+                            formik.handleSubmit()
+                            handleClose()
+                        }}>
+                            Update
+                    </Button>
                 </DialogActions>
             </Dialog>
     </div>
