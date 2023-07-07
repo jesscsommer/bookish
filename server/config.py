@@ -17,7 +17,8 @@ from flask_jwt_extended import (
     set_access_cookies,
     set_refresh_cookies,
     unset_jwt_cookies,
-    get_jwt
+    get_jwt,
+    verify_jwt_in_request
 )
 from datetime import timedelta, datetime, timezone
 

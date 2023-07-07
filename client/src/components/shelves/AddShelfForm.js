@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 import Error from '../building_blocks/Error';
+import Cookies from "js-cookie"
 
 const AddShelfForm = () => {
     const [open, setOpen] = useState(false);
@@ -22,22 +23,6 @@ const AddShelfForm = () => {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const addShelf = (values) => {
-        (async () => {
-            const res = await fetch("/shelves", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(values)
-            })
-            if (res.ok) {
-                const new_shelf = await res.json()
-                console.log(new_shelf)
-            }
-        })();
-    }
     
     const shelfSchema = yup.object().shape({
         name: yup
@@ -46,12 +31,30 @@ const AddShelfForm = () => {
         .required("Shelf name is required")
     })
 
+    console.log(Cookies.get("csrf_access_token"))
+
     const formik = useFormik({
         initialValues: {
             name: ""
         },
         validationSchema: shelfSchema,
-        onSubmit: addShelf
+        onSubmit: (values) => {
+            debugger
+            (async () => {
+                const res = await fetch("/shelves", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+                    },
+                    body: JSON.stringify(values)
+                })
+                if (res.ok) {
+                    const new_shelf = await res.json()
+                    console.log(new_shelf)
+                }
+            })();
+        }
     })
 
     return (
