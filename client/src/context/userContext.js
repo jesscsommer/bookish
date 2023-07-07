@@ -31,21 +31,7 @@ const UserProvider = ({ children }) => {
             if (res.ok) {
                 const data = await res.json()
                 dispatch({ type: "fetch", payload: data.user })
-            } else {
-                (async () => {
-                    const res = await fetch("/refresh", {
-                        method: "POST",
-                        credentials: "same-origin",
-                        headers: {
-                            "X-CSRF-TOKEN": Cookie.get("csrf_refresh_token")
-                        }
-                    })
-                    if (res.ok) {
-                        const user = await res.json()
-                        dispatch({ type: "fetch", payload: user })
-                    } 
-                })();
-            }
+            } 
         })();
     }, [])
 
