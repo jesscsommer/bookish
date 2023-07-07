@@ -7,6 +7,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import { useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+import Error from '../building_blocks/Error';
 
 const AddShelfForm = () => {
     const [open, setOpen] = useState(false);
@@ -18,6 +22,35 @@ const AddShelfForm = () => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const addShelf = (values) => {
+        (async () => {
+            const res = await fetch("/shelves", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(values)
+            })
+            if (res.ok) {
+                const new_shelf = await res.json()
+                console.log(new_shelf)
+            }
+        })();
+    }
+    
+    const shelfSchema = yup.object().shape({
+        name: yup
+        .string()
+    })
+
+    const formik = useFormik({
+        initialValues: {
+            name: ""
+        },
+        validationSchema: shelfSchema,
+        onSubmit: addShelf
+    })
     
     return (
         <div>
@@ -25,21 +58,24 @@ const AddShelfForm = () => {
                 Add shelf
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle>Add Shelf</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>
                     <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="name"
+                            label="name"
+                            name="name"
+                            autoComplete="name"
+                            autoFocus
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.name}
+                        />
+                        {formik.errors.name && formik.touched.name ? 
+                            <Error severity="warning" error={formik.errors.name} /> 
+                            : null}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

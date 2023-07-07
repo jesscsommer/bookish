@@ -3,9 +3,11 @@ import { useParams, useNavigate } from "react-router-dom"
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import { Button } from "@mui/material";
 
 import EditProfileForm from './EditProfileForm';
 import { UserContext } from '../../context/userContext';
+import AddShelfForm from "../shelves/AddShelfForm";
 
 const Profile = () => {
     const { username } = useParams()
@@ -13,6 +15,9 @@ const Profile = () => {
 
     const { user } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
+
+    // console.log(user)
+    // console.log(user.shelves)
 
     useEffect(() => {
         (async () => {
@@ -42,6 +47,8 @@ const Profile = () => {
                 <h3>{profileUser?.bio}</h3>
             </Paper>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
+            {user?.shelves.map((shelf) => <h1>{shelf.name}</h1>)}
+            <AddShelfForm />
     </Box>
     )
 }
