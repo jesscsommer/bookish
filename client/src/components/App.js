@@ -16,10 +16,16 @@ import Shelf from "./shelves/Shelf";
 import ShelfContainer from "./shelves/ShelfContainer";
 import NotFound from "./building_blocks/NotFound";
 
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
+
 const App = () => {
+    const { user } = useContext(UserContext)
+
     return (
         <div className="app">
         <Header />
+        { user ? <h1>{`Welcome, ${user.username}`}</h1> : <h1>Not logged in</h1>}
         {/* <AuthForm /> */}
         {/* <BookCard />
         <EditButton />

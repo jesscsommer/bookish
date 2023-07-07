@@ -1,8 +1,8 @@
 import Alert from '@mui/material/Alert';
 
-const Error = () => {
+const Error = ({ severity, error }) => {
     return (
-        <Alert severity="error">This is an error alert — check it out!</Alert>
+        <Alert severity={severity}>{error}</Alert>
     )
 }
 

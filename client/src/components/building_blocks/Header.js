@@ -12,13 +12,17 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate, Link } from 'react-router-dom';
+
+import { UserContext } from '../../context/userContext';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 
 const Header = () => {
+    const navigate = useNavigate()
+    const { user, dispatch : userDispatch } = useContext(UserContext)
+
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -37,6 +41,16 @@ const Header = () => {
         setAnchorElUser(null);
     };
 
+    const handleLogout = () => {
+        (async () => {
+            const res = await fetch("/logout", { method: "DELETE" })
+            if (res.ok) {
+                userDispatch({ type: "remove" })
+                navigate("/")
+            }
+        })();
+    }
+
     return (
         <AppBar position="static">
         <Container maxWidth="xl">
@@ -45,8 +59,8 @@ const Header = () => {
             <Typography
                 variant="h6"
                 noWrap
-                component="a"
-                href="/"
+                component={Link}
+                to="/"
                 sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -149,11 +163,22 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
                 >
-                {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                { user ? 
+                    <MenuItem 
+                        onClick={() => {
+                            handleLogout()
+                            handleCloseUserMenu()
+                            }}>
+                        <Typography textAlign="center">Logout</Typography>
+                    </MenuItem> :
+                    <MenuItem 
+                        onClick={() => {
+                            navigate("/login")
+                            handleCloseUserMenu()
+                            }}>
+                        <Typography textAlign="center">Login</Typography>
                     </MenuItem>
-                ))}
+                }
                 </Menu>
             </Box>
             </Toolbar>
