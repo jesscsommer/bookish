@@ -6,9 +6,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { UserContext } from '../../context/userContext';
 
 const EditProfileForm = () => {
+    const navigate = useNavigate()
+    const { user } = useContext(UserContext)
+
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {

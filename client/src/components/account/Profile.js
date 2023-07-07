@@ -1,7 +1,31 @@
+import { useEffect, useContext, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom"
+
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
+import EditProfileForm from './EditProfileForm';
+import { UserContext } from '../../context/userContext';
+
 const Profile = () => {
+    const { username } = useParams()
+    const navigate = useNavigate()
+
+    const { user } = useContext(UserContext)
+    const [ profileUser, setProfileUser ] = useState(null)
+
+    useEffect(() => (
+        (async() => {
+            const res = await fetch(`/users/${username}`)
+            if (res.ok) {
+                const data = await res.json()
+                setProfileUser(data)
+            } else {
+                navigate("/404")
+            }
+        })()
+    ), [username])
+
     return (
         <Box
             sx={{
@@ -14,9 +38,10 @@ const Profile = () => {
             }}
             >
             <Paper>
-                <h1>Profile: Name</h1>
-                <h3>Profile: Bio</h3>
+                <h1>{profileUser?.username}</h1>
+                <h3>{profileUser?.bio}</h3>
             </Paper>
+            { user.id === profileUser.id ? <EditProfileForm /> : null }
     </Box>
     )
 }
