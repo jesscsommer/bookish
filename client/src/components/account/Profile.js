@@ -16,9 +16,6 @@ const Profile = () => {
     const { user } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
-    console.log(user)
-    console.log(user?.shelves)
-
     useEffect(() => {
         (async () => {
             const res = await fetch(`/users/${username}`)
