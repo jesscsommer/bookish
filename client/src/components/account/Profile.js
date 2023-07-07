@@ -14,8 +14,8 @@ const Profile = () => {
     const { user } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
-    useEffect(() => (
-        (async() => {
+    useEffect(() => {
+        (async () => {
             const res = await fetch(`/users/${username}`)
             if (res.ok) {
                 const data = await res.json()
@@ -23,8 +23,8 @@ const Profile = () => {
             } else {
                 navigate("/404")
             }
-        })()
-    ), [username])
+        })();
+    }, [username, user])
 
     return (
         <Box
@@ -41,7 +41,7 @@ const Profile = () => {
                 <h1>{profileUser?.username}</h1>
                 <h3>{profileUser?.bio}</h3>
             </Paper>
-            { user.id === profileUser.id ? <EditProfileForm /> : null }
+            { user?.id === profileUser?.id ? <EditProfileForm /> : null }
     </Box>
     )
 }

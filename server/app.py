@@ -3,7 +3,8 @@
 from flask import request
 from flask_restful import Resource
 
-from config import app, db, api
+from config import app, db, api, get_jwt, get_jwt_identity, make_response, create_access_token, set_access_cookies, jwt_required
+from datetime import timedelta, datetime, timezone
 
 # Import models 
 from models.author import Author
@@ -34,7 +35,8 @@ from blueprints.quote_by_id import QuoteById
 from blueprints.shelves import Shelves
 from blueprints.shelf_by_id import ShelfById
 from blueprints.users import Users
-from blueprints.user_by_id import UserById
+from blueprints.user_by_id import UserById, user_schema
+from blueprints.user_by_username import user_by_username_bp
 
 # Add resources
 app.register_blueprint(signup_bp)
@@ -42,6 +44,8 @@ app.register_blueprint(login_bp)
 app.register_blueprint(logout_bp)
 app.register_blueprint(refresh_bp)
 app.register_blueprint(me_bp)
+
+app.register_blueprint(user_by_username_bp)
 
 api.add_resource(Authors, "/authors")
 api.add_resource(AuthorById, "/authors/<int:id>")
