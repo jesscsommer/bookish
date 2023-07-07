@@ -45,5 +45,6 @@ def login():
                 return res
             
             return make_response({"error": "Invalid credentials"}, 401)
+        return make_response({"error": "Invalid credentials"}, 401)
     except: 
         return make_response({"error": "Invalid credentials"}, 401)

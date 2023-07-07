@@ -42,6 +42,8 @@ const AddShelfForm = () => {
     const shelfSchema = yup.object().shape({
         name: yup
         .string()
+        .max(100, "Name must be at most 100 characters")
+        .required("Shelf name is required")
     })
 
     const formik = useFormik({
@@ -51,7 +53,7 @@ const AddShelfForm = () => {
         validationSchema: shelfSchema,
         onSubmit: addShelf
     })
-    
+
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
@@ -79,7 +81,13 @@ const AddShelfForm = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
+                    <Button 
+                        onClick={() => {
+                            formik.handleSubmit()
+                            handleClose()
+                        }}>
+                            Add
+                    </Button>
                 </DialogActions>
             </Dialog>
     </div>
