@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 import { useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { UserContext } from '../../context/userContext';
 
@@ -59,8 +59,8 @@ const Header = () => {
             <Typography
                 variant="h6"
                 noWrap
-                component="a"
-                href="/"
+                component={Link}
+                to="/"
                 sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
