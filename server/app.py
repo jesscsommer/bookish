@@ -35,6 +35,7 @@ from blueprints.shelves import Shelves
 from blueprints.shelf_by_id import ShelfById
 from blueprints.users import Users
 from blueprints.user_by_id import UserById
+from blueprints.user_by_username import user_by_username_bp
 
 # Add resources
 app.register_blueprint(signup_bp)
@@ -42,6 +43,8 @@ app.register_blueprint(login_bp)
 app.register_blueprint(logout_bp)
 app.register_blueprint(refresh_bp)
 app.register_blueprint(me_bp)
+
+app.register_blueprint(user_by_username_bp)
 
 api.add_resource(Authors, "/authors")
 api.add_resource(AuthorById, "/authors/<int:id>")
