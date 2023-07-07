@@ -21,7 +21,6 @@ from models.user import User
 from blueprints.auth.signup import signup_bp
 from blueprints.auth.login import login_bp
 from blueprints.auth.logout import logout_bp
-from blueprints.auth.refresh import refresh_bp
 from blueprints.auth.me import me_bp
 
 from blueprints.authors import Authors
@@ -42,7 +41,6 @@ from blueprints.user_by_username import user_by_username_bp
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(logout_bp)
-app.register_blueprint(refresh_bp)
 app.register_blueprint(me_bp)
 
 app.register_blueprint(user_by_username_bp)
@@ -59,6 +57,20 @@ api.add_resource(Shelves, "/shelves")
 api.add_resource(ShelfById, "/shelves/<int:id>")
 api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
+
+@app.after_request 
+def refresh_expiring_jwts(response):
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.now(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=1))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+            set_access_cookies(response, access_token)
+        return response
+    except (RuntimeError, KeyError):
+        return response
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

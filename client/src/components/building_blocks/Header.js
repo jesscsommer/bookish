@@ -16,6 +16,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 
 import { UserContext } from '../../context/userContext';
+import Cookies from "js-cookie";
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -43,7 +44,10 @@ const Header = () => {
 
     const handleLogout = () => {
         (async () => {
-            const res = await fetch("/logout", { method: "DELETE" })
+            const res = await fetch("/logout", { method: "POST", headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+            } })
             if (res.ok) {
                 userDispatch({ type: "remove" })
                 navigate("/")

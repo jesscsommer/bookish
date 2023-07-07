@@ -14,7 +14,7 @@ from blueprints.auth.me import me
 
 logout_bp = Blueprint("logout", __name__)
 
-@logout_bp.route("/logout", methods=["DELETE"])
+@logout_bp.route("/logout", methods=["POST"])
 def logout():
     res = make_response({}, 204)
     unset_jwt_cookies(res)
