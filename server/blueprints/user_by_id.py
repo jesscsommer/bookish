@@ -8,7 +8,7 @@ from blueprints import (
     g
 )
 
-from config import app 
+from config import app, jwt_required, get_jwt_identity
 from models import db
 from models.user import User
 from schemas.user_schema import UserSchema
@@ -20,4 +20,22 @@ class UserById(Resource):
     def get(self, id): 
         if user := user_schema.dump(db.session.get(User, id)):
             return make_response(user, 200)
+        return make_response({"error": "User not found"}, 404)
+    
+    # @jwt_required()
+    def patch(self, id):
+        if user := db.session.get(User, id):
+            # if user_id := get_jwt_identity() and id == user_id:
+                try: 
+                    data = request.get_json()
+                    user_schema.validate(data)
+
+                    updated_user = user_schema.load(data, instance=user, \
+                                                    partial=True)
+                    db.session.commit()
+                    return make_response(user_schema.dump(updated_user), 200)
+                except Exception as e: 
+                    db.session.rollback()
+                    return make_response({"error": [str(e)]}, 422)
+            # return make_response({"error": "Unauthorized"}, 401)     
         return make_response({"error": "User not found"}, 404)
