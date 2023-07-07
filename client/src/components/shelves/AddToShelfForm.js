@@ -5,6 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import MenuItem from '@mui/material/MenuItem';
 
 
 import { useState, useContext } from "react";
@@ -15,7 +16,7 @@ import * as yup from "yup";
 import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 
-const AddShelfForm = () => {
+const AddToShelfForm = ({ book_id }) => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
 
@@ -28,29 +29,32 @@ const AddShelfForm = () => {
     };
     
     const shelfSchema = yup.object().shape({
-        name: yup
-        .string()
-        .max(100, "Name must be at most 100 characters")
-        .required("Shelf name is required")
+        shelf_id: yup
+        .number()
+        .required("Shelf is required")
     })
 
     const formik = useFormik({
         initialValues: {
-            name: ""
+            shelf_id: ""
         },
         validationSchema: shelfSchema,
         onSubmit: (values) => {
+            // console.log("Reached submit!")
             (async () => {
-                const res = await fetch("/shelves", {
+                const res = await fetch("/book_shelves", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
                     },
-                    body: JSON.stringify(values)
+                    body: JSON.stringify({...values, "book_id": book_id})
                 })
                 if (res.ok) {
+                    const data = await res.json()
                     userDispatch({ type: "fetch", payload: {...user} })
+                    console.log(data)
+                    console.log(user.book_shelves)
                 }
             })();
         }
@@ -59,26 +63,29 @@ const AddShelfForm = () => {
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Add shelf
+                Add to shelf
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add Shelf</DialogTitle>
+                <DialogTitle>Add to Shelf</DialogTitle>
                 <DialogContent>
                     <TextField
                             margin="normal"
                             required
+                            select
                             fullWidth
-                            id="name"
-                            label="name"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
+                            id="shelf_id"
+                            label="shelf_id"
+                            name="shelf_id"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.name}
-                        />
-                        {formik.errors.name && formik.touched.name ? 
-                            <Error severity="warning" error={formik.errors.name} /> 
+                            // defaultValue={""}
+                            value={formik.values.shelf_id}
+                        >
+                            {/* <MenuItem value={1}>One</MenuItem> */}
+                            {user?.shelves.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
+                        </TextField>
+                        {formik.errors.shelf_id && formik.touched.shelf_id ? 
+                            <Error severity="warning" error={formik.errors.shelf_id} /> 
                             : null}
                 </DialogContent>
                 <DialogActions>
@@ -96,4 +103,4 @@ const AddShelfForm = () => {
     )
 }
 
-export default AddShelfForm
+export default AddToShelfForm
