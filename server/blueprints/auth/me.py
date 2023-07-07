@@ -27,7 +27,7 @@ me_bp = Blueprint("me", __name__)
 
 @me_bp.route("/me", methods=["GET"])
 @jwt_required()
-@cache.memoize(50)
+# @cache.memoize(50)
 def me():
     if user_id := get_jwt_identity():
         if user := db.session.get(User, user_id):

@@ -6,7 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from '../../context/userContext';
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -15,6 +16,7 @@ import Cookies from "js-cookie"
 
 const AddShelfForm = () => {
     const [open, setOpen] = useState(false);
+    const { user, dispatch : userDispatch } = useContext(UserContext)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -31,15 +33,12 @@ const AddShelfForm = () => {
         .required("Shelf name is required")
     })
 
-    console.log(Cookies.get("csrf_access_token"))
-
     const formik = useFormik({
         initialValues: {
             name: ""
         },
         validationSchema: shelfSchema,
         onSubmit: (values) => {
-            debugger
             (async () => {
                 const res = await fetch("/shelves", {
                     method: "POST",
@@ -50,8 +49,7 @@ const AddShelfForm = () => {
                     body: JSON.stringify(values)
                 })
                 if (res.ok) {
-                    const new_shelf = await res.json()
-                    console.log(new_shelf)
+                    userDispatch({ type: "fetch", payload: {...user} })
                 }
             })();
         }

@@ -16,8 +16,8 @@ const Profile = () => {
     const { user } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
-    // console.log(user)
-    // console.log(user.shelves)
+    console.log(user)
+    console.log(user?.shelves)
 
     useEffect(() => {
         (async () => {
@@ -47,7 +47,7 @@ const Profile = () => {
                 <h3>{profileUser?.bio}</h3>
             </Paper>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
-            {user?.shelves.map((shelf) => <h1>{shelf.name}</h1>)}
+            {profileUser?.shelves.map((shelf) => <h1 key={shelf.id}>{shelf.name}</h1>)}
             <AddShelfForm />
     </Box>
     )
