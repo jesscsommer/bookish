@@ -5,11 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+
 
 import { useState, useContext } from "react";
 import { UserContext } from '../../context/userContext';
@@ -32,9 +29,9 @@ const AddToShelfForm = ({ book_id }) => {
     };
     
     const shelfSchema = yup.object().shape({
-        name: yup
-        .string()
-        .required("Shelf name is required")
+        shelf_id: yup
+        .number()
+        .required("Shelf is required")
     })
 
     const formik = useFormik({
@@ -43,6 +40,7 @@ const AddToShelfForm = ({ book_id }) => {
         },
         validationSchema: shelfSchema,
         onSubmit: (values) => {
+            // console.log("Reached submit!")
             (async () => {
                 const res = await fetch("/book_shelves", {
                     method: "POST",
@@ -53,7 +51,10 @@ const AddToShelfForm = ({ book_id }) => {
                     body: JSON.stringify({...values, "book_id": book_id})
                 })
                 if (res.ok) {
+                    const data = await res.json()
                     userDispatch({ type: "fetch", payload: {...user} })
+                    console.log(data)
+                    console.log(user.book_shelves)
                 }
             })();
         }
@@ -65,25 +66,27 @@ const AddToShelfForm = ({ book_id }) => {
                 Add to shelf
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add To Shelf</DialogTitle>
+                <DialogTitle>Add to Shelf</DialogTitle>
                 <DialogContent>
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Shelf</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="shelf_id"
-                        name="shelf_id"
-                        value={formik.values.shelf_id}
-                        label="name"
-                        onChange={formik.handleChange}
+                    <TextField
+                            margin="normal"
+                            required
+                            select
+                            fullWidth
+                            id="shelf_id"
+                            label="shelf_id"
+                            name="shelf_id"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            // defaultValue={""}
+                            value={formik.values.shelf_id}
                         >
-                        {user.shelves.map(shelf => {
-                            return <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>
-                        })}
-                        </Select>
-                    </FormControl>
-                    </Box>
+                            {/* <MenuItem value={1}>One</MenuItem> */}
+                            {user?.shelves.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
+                        </TextField>
+                        {formik.errors.shelf_id && formik.touched.shelf_id ? 
+                            <Error severity="warning" error={formik.errors.shelf_id} /> 
+                            : null}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

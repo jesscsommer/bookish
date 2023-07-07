@@ -36,8 +36,8 @@ class BookShelfSchema(ma.SQLAlchemySchema):
     )
 
     @validates_schema
-    def validate_object(self, data):
-        if BookShelf.query.filter(BookShelf.book_id == data["book"].id \
-                                and BookShelf.shelf_id == data["shelf"].id) \
-                                .first(): 
+    def validate_object(self, data, **kwargs):
+        if BookShelf.query.filter(BookShelf.book_id == data["book_id"]) \
+                            .filter(BookShelf.shelf_id == data["shelf_id"]) \
+                            .first(): 
             raise ValidationError("Book already on that shelf")
