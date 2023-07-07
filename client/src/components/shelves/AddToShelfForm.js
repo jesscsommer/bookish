@@ -5,7 +5,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 import { useState, useContext } from "react";
 import { UserContext } from '../../context/userContext';
@@ -15,7 +19,7 @@ import * as yup from "yup";
 import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 
-const AddShelfForm = () => {
+const AddToShelfForm = ({ book_id }) => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
 
@@ -30,24 +34,23 @@ const AddShelfForm = () => {
     const shelfSchema = yup.object().shape({
         name: yup
         .string()
-        .max(100, "Name must be at most 100 characters")
         .required("Shelf name is required")
     })
 
     const formik = useFormik({
         initialValues: {
-            name: ""
+            shelf_id: ""
         },
         validationSchema: shelfSchema,
         onSubmit: (values) => {
             (async () => {
-                const res = await fetch("/shelves", {
+                const res = await fetch("/book_shelves", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
                     },
-                    body: JSON.stringify(values)
+                    body: JSON.stringify({...values, "book_id": book_id})
                 })
                 if (res.ok) {
                     userDispatch({ type: "fetch", payload: {...user} })
@@ -59,27 +62,28 @@ const AddShelfForm = () => {
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Add shelf
+                Add to shelf
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add Shelf</DialogTitle>
+                <DialogTitle>Add To Shelf</DialogTitle>
                 <DialogContent>
-                    <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="name"
-                            label="name"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.name}
-                        />
-                        {formik.errors.name && formik.touched.name ? 
-                            <Error severity="warning" error={formik.errors.name} /> 
-                            : null}
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Shelf</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="shelf_id"
+                        name="shelf_id"
+                        value={formik.values.shelf_id}
+                        label="name"
+                        onChange={formik.handleChange}
+                        >
+                        {user.shelves.map(shelf => {
+                            return <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>
+                        })}
+                        </Select>
+                    </FormControl>
+                    </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
@@ -96,4 +100,4 @@ const AddShelfForm = () => {
     )
 }
 
-export default AddShelfForm
+export default AddToShelfForm

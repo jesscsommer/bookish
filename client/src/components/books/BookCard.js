@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,8 +7,12 @@ import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+import AddToShelfForm from "../shelves/AddToShelfForm";
+import { UserContext } from "../../context/userContext";
+
 
 const BookCard = ({ book }) => {
+    const { user } = useContext(UserContext)
 
     return (
         <Grid item key={book.id} xs={12} sm={6} md={4}>
@@ -38,6 +42,7 @@ const BookCard = ({ book }) => {
                             View
                     </Button>
                     <Button size="small">Edit</Button>
+                    {user ? <AddToShelfForm book_id={book.id} /> : null}
                 </CardActions>
             </Card>
         </Grid>
