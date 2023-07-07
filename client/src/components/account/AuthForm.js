@@ -30,7 +30,7 @@ const AuthForm = () => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
 
-    const [ isLogin, setIsLogin ] = useState(false)
+    const [ isLogin, setIsLogin ] = useState(true)
 
     const [showPassword, setShowPassword] = useState(false)
     const handleClickShowPassword = () => setShowPassword((show) => !show);

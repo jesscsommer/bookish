@@ -18,8 +18,6 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Shelves', 'Logout'];
-
 
 const Header = () => {
     const navigate = useNavigate()
@@ -39,18 +37,19 @@ const Header = () => {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = (selectedSetting) => {
+    const handleCloseUserMenu = () => {
         setAnchorElUser(null);
-        if (selectedSetting === "Logout"){
-            (async () => {
-                const res = await fetch("/logout", { method: "DELETE" })
-                if (res.ok) {
-                    userDispatch({ type: "remove" })
-                    navigate("/")
-                }
-            })();
-        }
     };
+
+    const handleLogout = () => {
+        (async () => {
+            const res = await fetch("/logout", { method: "DELETE" })
+            if (res.ok) {
+                userDispatch({ type: "remove" })
+                navigate("/")
+            }
+        })();
+    }
 
     return (
         <AppBar position="static">
@@ -164,11 +163,22 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
                 >
-                {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
-                        <Typography textAlign="center">{setting}</Typography>
+                { user ? 
+                    <MenuItem 
+                        onClick={() => {
+                            handleLogout()
+                            handleCloseUserMenu()
+                            }}>
+                        <Typography textAlign="center">Logout</Typography>
+                    </MenuItem> :
+                    <MenuItem 
+                        onClick={() => {
+                            navigate("/login")
+                            handleCloseUserMenu()
+                            }}>
+                        <Typography textAlign="center">Login</Typography>
                     </MenuItem>
-                ))}
+                }
                 </Menu>
             </Box>
             </Toolbar>
