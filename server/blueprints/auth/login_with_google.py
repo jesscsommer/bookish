@@ -98,13 +98,23 @@ def callback():
         "username": users_name
     }
 
-    user = user_schema.load(data)
+    existing_user = User.query.filter(User.google_unique_id == unique_id).first()
 
-    if not User.query.filter(User.google_unique_id == user.google_unique_id).first(): 
+    if not existing_user: 
+        user = user_schema.load(data)
         db.session.add(user)
         db.session.commit()
+
+        session["user_id"] = user.id
+        # return make_response({"user": user_schema.dump(user)}, 200)
+
+    session["user_id"] = existing_user.id
     
-    login_user(user)
+    # login_user(user)
     # import ipdb; ipdb.set_trace()
+
+    # return make_response({"user": user_schema.dump(existing_user)}, 200)
+    # return redirect(url_for("books")), 301
+    # return url_for("http://localhost:4000"), 301
 
     return redirect("http://localhost:4000"), 301

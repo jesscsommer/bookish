@@ -36,7 +36,7 @@ def login():
 
             if user.authenticate(password):
 
-                login_user(user)
+                session["user_id"] = user.id
 
                 return make_response({"user": user_schema.dump(user)}, 200)
             

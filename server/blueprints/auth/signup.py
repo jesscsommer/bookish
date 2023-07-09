@@ -36,7 +36,7 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        login_user(new_user)
+        session["user_id"] = new_user.id
         
         return make_response({"user": user_schema.dump(new_user)}, 200)
 

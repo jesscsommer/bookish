@@ -78,7 +78,9 @@ api.add_resource(UserById, "/users/<int:id>")
 
 @login_manager.user_loader
 def load_user(user_id):
-    return db.session.get(User, user_id)
+    # import ipdb; ipdb.set_trace()
+    return User.query.filter(User.id == int(user_id)).first()
+    # return db.session.get(User, int(user_id))
 
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
