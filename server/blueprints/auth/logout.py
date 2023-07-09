@@ -8,14 +8,14 @@ from blueprints import (
     g
 )
 
-from config import app, unset_jwt_cookies, cache 
+from config import app, logout_user, login_required
 from models import db
 from blueprints.auth.me import me
 
 logout_bp = Blueprint("logout", __name__)
 
 @logout_bp.route("/logout", methods=["POST"])
+@login_required
 def logout():
-    res = make_response({}, 204)
-    unset_jwt_cookies(res)
-    return res
+    logout_user()
+    return make_response({}, 204)

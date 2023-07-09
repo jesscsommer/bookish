@@ -109,6 +109,10 @@ def login():
 
 @app.route("/login/callback")
 def callback():
+    ## make this work with Marshmallow
+    ## get the info you actually need to instantiate a user
+    ## differentiate between signing a user up & actually logging them in
+    ## do you want a different column/db string to keep track of the Google unique id?? 
     code = request.args.get("code")
 
     google_provider_cfg = get_google_provider_cfg()
