@@ -1,8 +1,22 @@
-from flask import Flask, make_response
+from flask import (
+    Flask, 
+    make_response, 
+    redirect, 
+    request, 
+    url_for
+)
 from flask_bcrypt import Bcrypt
 from flask_caching import Cache
 from flask_cors import CORS
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user
+)
 from flask_migrate import Migrate
+from oauthlib.oauth2 import WebApplicationClient
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
@@ -21,6 +35,7 @@ from flask_jwt_extended import (
     verify_jwt_in_request
 )
 from datetime import timedelta, datetime, timezone
+import requests
 
 
 app = Flask(__name__)
@@ -61,6 +76,11 @@ GOOGLE_CLIENT_SECRET = environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 # @refresh_bp.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)

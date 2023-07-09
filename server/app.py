@@ -3,7 +3,17 @@
 from flask import request
 from flask_restful import Resource
 
-from config import app, db, api, get_jwt, get_jwt_identity, make_response, create_access_token, set_access_cookies, jwt_required
+from config import (
+    app, 
+    db, 
+    api, 
+    get_jwt, 
+    get_jwt_identity,
+    make_response, 
+    create_access_token, 
+    set_access_cookies, 
+    jwt_required,
+    login_manager)
 from datetime import timedelta, datetime, timezone
 
 # Import models 
@@ -52,22 +62,26 @@ api.add_resource(ShelfById, "/shelves/<int:id>")
 api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
 
-@app.after_request 
-@signup_bp.after_request
-@login_bp.after_request
-@me_bp.after_request
-@user_by_username_bp.after_request
-def refresh_expiring_jwts(response):
-    try:
-        exp_timestamp = get_jwt()["exp"]
-        now = datetime.now(timezone.utc)
-        target_timestamp = datetime.timestamp(now + timedelta(minutes=5))
-        if target_timestamp > exp_timestamp:
-            access_token = create_access_token(identity=get_jwt_identity())
-            set_access_cookies(response, access_token)
-        return response
-    except (RuntimeError, KeyError):
-        return response
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
+# @app.after_request 
+# @signup_bp.after_request
+# @login_bp.after_request
+# @me_bp.after_request
+# @user_by_username_bp.after_request
+# def refresh_expiring_jwts(response):
+#     try:
+#         exp_timestamp = get_jwt()["exp"]
+#         now = datetime.now(timezone.utc)
+#         target_timestamp = datetime.timestamp(now + timedelta(minutes=5))
+#         if target_timestamp > exp_timestamp:
+#             access_token = create_access_token(identity=get_jwt_identity())
+#             set_access_cookies(response, access_token)
+#         return response
+#     except (RuntimeError, KeyError):
+#         return response
 
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
