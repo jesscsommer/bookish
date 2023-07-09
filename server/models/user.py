@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     display_name = db.Column(db.String)
     profile_pic = db.Column(db.String)
     bio = db.Column(db.String)
+    google_unique_id = db.Column(db.String)
 
     reviews = db.relationship("Review", back_populates="user", cascade="all, delete-orphan")
     reviewed_books = association_proxy("reviews", "book")
