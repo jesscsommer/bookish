@@ -56,6 +56,11 @@ app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
 app.config["CACHE_TYPE"] = "SimpleCache"
 cache = Cache(app)
 
+GOOGLE_CLIENT_ID = environ.get("GOOGLE_CLIENT_ID", None)
+GOOGLE_CLIENT_SECRET = environ.get("GOOGLE_CLIENT_SECRET", None)
+GOOGLE_DISCOVERY_URL = (
+    "https://accounts.google.com/.well-known/openid-configuration"
+)
 
 # @refresh_bp.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
