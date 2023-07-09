@@ -21,13 +21,7 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch("/me", {
-                method: "GET",
-                credentials: "same-origin",
-                headers: {
-                    "X-CSRF-TOKEN": Cookie.get("csrf_access_token")
-                }
-            })
+            const res = await fetch("/me")
             if (res.ok) {
                 const data = await res.json()
                 dispatch({ type: "fetch", payload: data.user })

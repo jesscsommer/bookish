@@ -79,104 +79,104 @@ api.add_resource(UserById, "/users/<int:id>")
 def load_user(user_id):
     return db.session.get(User, user_id)
 
-@app.route("/")
-def index():
-    if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.username, current_user.email
-            )
-        )
-    else:
-        return '<a class="button" href="/login">Google Login</a>'
+# @app.route("/")
+# def index():
+#     if current_user.is_authenticated:
+#         return (
+#             "<p>Hello, {}! You're logged in! Email: {}</p>"
+#             '<a class="button" href="/logout">Logout</a>'.format(
+#                 current_user.username, current_user.email
+#             )
+#         )
+#     else:
+#         return '<a class="button" href="/login">Google Login</a>'
     
-def get_google_provider_cfg():
-    ## add error handling
-    return requests.get(GOOGLE_DISCOVERY_URL).json()
+# def get_google_provider_cfg():
+#     ## add error handling
+#     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
-@app.route("/login")
-def login():
-    google_provider_cfg = get_google_provider_cfg()
-    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+# @app.route("/login")
+# def login():
+#     google_provider_cfg = get_google_provider_cfg()
+#     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
-    request_uri = client.prepare_request_uri(
-        authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
-        scope=["openid", "email", "profile"],
-    )
-    return redirect(request_uri)
+#     request_uri = client.prepare_request_uri(
+#         authorization_endpoint,
+#         redirect_uri=request.base_url + "/callback",
+#         scope=["openid", "email", "profile"],
+#     )
+#     return redirect(request_uri)
 
-@app.route("/login/callback")
-def callback():
-    ## make this work with Marshmallow
-    ## get the info you actually need to instantiate a user
-    ## differentiate between signing a user up & actually logging them in
-    ## do you want a different column/db string to keep track of the Google unique id?? 
-    code = request.args.get("code")
+# @app.route("/login/callback")
+# def callback():
+#     ## make this work with Marshmallow
+#     ## get the info you actually need to instantiate a user
+#     ## differentiate between signing a user up & actually logging them in
+#     ## do you want a different column/db string to keep track of the Google unique id?? 
+#     code = request.args.get("code")
 
-    google_provider_cfg = get_google_provider_cfg()
-    token_endpoint = google_provider_cfg["token_endpoint"]
+#     google_provider_cfg = get_google_provider_cfg()
+#     token_endpoint = google_provider_cfg["token_endpoint"]
 
-    token_url, headers, body = client.prepare_token_request(
-    token_endpoint,
-    authorization_response=request.url,
-    redirect_url=request.base_url,
-    code=code
-    )
+#     token_url, headers, body = client.prepare_token_request(
+#     token_endpoint,
+#     authorization_response=request.url,
+#     redirect_url=request.base_url,
+#     code=code
+#     )
 
-    token_response = requests.post(
-        token_url,
-        headers=headers,
-        data=body,
-        auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
-    )
+#     token_response = requests.post(
+#         token_url,
+#         headers=headers,
+#         data=body,
+#         auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
+#     )
 
-    client.parse_request_body_response(json.dumps(token_response.json()))
+#     client.parse_request_body_response(json.dumps(token_response.json()))
 
-    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
-    uri, headers, body = client.add_token(userinfo_endpoint)
-    userinfo_response = requests.get(uri, headers=headers, data=body)   
+#     userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+#     uri, headers, body = client.add_token(userinfo_endpoint)
+#     userinfo_response = requests.get(uri, headers=headers, data=body)   
 
-    if userinfo_response.json().get("email_verified"):
-        unique_id = userinfo_response.json()["sub"]
-        users_email = userinfo_response.json()["email"]
-        picture = userinfo_response.json()["picture"]
-        users_name = userinfo_response.json()["given_name"]
-    else:
-        return "User email not available or not verified by Google.", 400
+#     if userinfo_response.json().get("email_verified"):
+#         unique_id = userinfo_response.json()["sub"]
+#         users_email = userinfo_response.json()["email"]
+#         picture = userinfo_response.json()["picture"]
+#         users_name = userinfo_response.json()["given_name"]
+#     else:
+#         return "User email not available or not verified by Google.", 400
 
-    # user = User(
-    #     id=unique_id, display_name=users_name, email=users_email, profile_pic=picture
-    # )
-    # data = {
-    #     "id": unique_id,
-    #     "email": users_email,
-    #     # "profile_pic": picture,
-    #     "display_name": users_name,
-    #     "username": users_name
-    # }
-    # user = user_schema.load(data)
+#     # user = User(
+#     #     id=unique_id, display_name=users_name, email=users_email, profile_pic=picture
+#     # )
+#     # data = {
+#     #     "id": unique_id,
+#     #     "email": users_email,
+#     #     # "profile_pic": picture,
+#     #     "display_name": users_name,
+#     #     "username": users_name
+#     # }
+#     # user = user_schema.load(data)
 
-    user = User(
-        display_name=users_name, email=users_email, username=users_name
-    )
+#     user = User(
+#         display_name=users_name, email=users_email, username=users_name
+#     )
 
-    # if not db.session.get(User, unique_id):
-    #     User.create(unique_id, users_name, users_email, picture)
+#     # if not db.session.get(User, unique_id):
+#     #     User.create(unique_id, users_name, users_email, picture)
 
-    db.session.add(user)
-    db.session.commit() 
+#     db.session.add(user)
+#     db.session.commit() 
 
-    login_user(user)
+#     login_user(user)
 
-    return redirect(url_for("index"))
+#     return redirect(url_for("index"))
 
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("index"))
+# @app.route("/logout")
+# @login_required
+# def logout():
+#     logout_user()
+#     return redirect(url_for("index"))
 
 # @app.after_request 
 # @signup_bp.after_request

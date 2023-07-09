@@ -79,7 +79,7 @@ const AddToShelfForm = ({ book_id }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             // defaultValue={""}
-                            value={formik.values.shelf_id}
+                            value={formik.values?.shelf_id}
                         >
                             {/* <MenuItem value={1}>One</MenuItem> */}
                             {user?.shelves.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
