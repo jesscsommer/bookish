@@ -1,8 +1,8 @@
 from models import db, association_proxy
-from config import bcrypt
+from config import bcrypt, UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
     
     id = db.Column(db.Integer, primary_key=True)

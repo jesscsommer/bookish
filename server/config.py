@@ -13,7 +13,8 @@ from flask_login import (
     current_user,
     login_required,
     login_user,
-    logout_user
+    logout_user,
+    UserMixin
 )
 from flask_migrate import Migrate
 from oauthlib.oauth2 import WebApplicationClient

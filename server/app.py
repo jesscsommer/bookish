@@ -13,8 +13,19 @@ from config import (
     create_access_token, 
     set_access_cookies, 
     jwt_required,
-    login_manager)
+    login_manager,
+    current_user,
+    requests,
+    GOOGLE_DISCOVERY_URL,
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    login_user,
+    client,
+    redirect,
+    url_for
+)
 from datetime import timedelta, datetime, timezone
+import json
 
 # Import models 
 from models.author import Author
@@ -64,7 +75,96 @@ api.add_resource(UserById, "/users/<int:id>")
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return db.session.get(User, user_id)
+
+@app.route("/")
+def index():
+    if current_user.is_authenticated:
+        return (
+            "<p>Hello, {}! You're logged in! Email: {}</p>"
+            '<a class="button" href="/logout">Logout</a>'.format(
+                current_user.username, current_user.email
+            )
+        )
+    else:
+        return '<a class="button" href="/login">Google Login</a>'
+    
+def get_google_provider_cfg():
+    ## add error handling
+    return requests.get(GOOGLE_DISCOVERY_URL).json()
+
+@app.route("/login")
+def login():
+    google_provider_cfg = get_google_provider_cfg()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+    request_uri = client.prepare_request_uri(
+        authorization_endpoint,
+        redirect_uri=request.base_url + "/callback",
+        scope=["openid", "email", "profile"],
+    )
+    return redirect(request_uri)
+
+@app.route("/login/callback")
+def callback():
+    code = request.args.get("code")
+
+    google_provider_cfg = get_google_provider_cfg()
+    token_endpoint = google_provider_cfg["token_endpoint"]
+
+    token_url, headers, body = client.prepare_token_request(
+    token_endpoint,
+    authorization_response=request.url,
+    redirect_url=request.base_url,
+    code=code
+    )
+
+    token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
+    )
+
+    client.parse_request_body_response(json.dumps(token_response.json()))
+
+    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+    uri, headers, body = client.add_token(userinfo_endpoint)
+    userinfo_response = requests.get(uri, headers=headers, data=body)   
+
+    if userinfo_response.json().get("email_verified"):
+        unique_id = userinfo_response.json()["sub"]
+        users_email = userinfo_response.json()["email"]
+        picture = userinfo_response.json()["picture"]
+        users_name = userinfo_response.json()["given_name"]
+    else:
+        return "User email not available or not verified by Google.", 400
+
+    # user = User(
+    #     id=unique_id, display_name=users_name, email=users_email, profile_pic=picture
+    # )
+    # data = {
+    #     "id": unique_id,
+    #     "email": users_email,
+    #     # "profile_pic": picture,
+    #     "display_name": users_name,
+    #     "username": users_name
+    # }
+    # user = user_schema.load(data)
+
+    user = User(
+        display_name=users_name, email=users_email, username=users_name
+    )
+
+    # if not db.session.get(User, unique_id):
+    #     User.create(unique_id, users_name, users_email, picture)
+
+    db.session.add(user)
+    db.session.commit() 
+
+    login_user(user)
+
+    return redirect(url_for("index"))
 
 # @app.after_request 
 # @signup_bp.after_request
@@ -91,4 +191,4 @@ app.register_blueprint(me_bp)
 app.register_blueprint(user_by_username_bp)
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+    app.run(port=5555, debug=True, ssl_context="adhoc")
