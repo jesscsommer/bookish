@@ -22,7 +22,9 @@ from config import (
     login_user,
     client,
     redirect,
-    url_for
+    url_for,
+    login_required,
+    logout_user
 )
 from datetime import timedelta, datetime, timezone
 import json
@@ -164,6 +166,12 @@ def callback():
 
     login_user(user)
 
+    return redirect(url_for("index"))
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
     return redirect(url_for("index"))
 
 # @app.after_request 
