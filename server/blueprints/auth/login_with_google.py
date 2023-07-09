@@ -35,7 +35,7 @@ def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
-@login_with_google_bp.route("/login_with_google", methods=["POST"])
+@login_with_google_bp.route("/login_with_google")
 def login_with_google():
     google_provider_cfg = get_google_provider_cfg()
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
@@ -45,6 +45,7 @@ def login_with_google():
         redirect_uri=request.base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
+    # import ipdb; ipdb.set_trace()
     return redirect(request_uri)
 
 
@@ -104,5 +105,6 @@ def callback():
         db.session.commit()
     
     login_user(user)
+    # import ipdb; ipdb.set_trace()
 
-    return redirect(url_for("index"))
+    return redirect("http://localhost:4000"), 301
