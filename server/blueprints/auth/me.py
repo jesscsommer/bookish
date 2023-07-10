@@ -28,13 +28,9 @@ from blueprints.user_by_id import user_schema
 me_bp = Blueprint("me", __name__)
 
 @me_bp.route("/me")
-# @login_required
-# @login_required()
 # @cache.memoize(50)
 def me():
-    # import ipdb; ipdb.set_trace()
     if id_ := session.get("user_id"):
         if user := db.session.get(User, id_):
-    # if current_user.is_authenticated:
             return make_response({"user": user_schema.dump(user)}, 200)
-    # return make_response({"error": "Unauthorized"}, 401) 
+

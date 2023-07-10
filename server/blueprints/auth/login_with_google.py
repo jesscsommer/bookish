@@ -31,7 +31,7 @@ from blueprints.user_by_id import user_schema
 login_with_google_bp = Blueprint("login_with_google", __name__)
 
 def get_google_provider_cfg():
-#     ## add error handling
+    ## add error handling
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
@@ -45,17 +45,11 @@ def login_with_google():
         redirect_uri=request.base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
-    # import ipdb; ipdb.set_trace()
     return redirect(request_uri)
 
 
 @login_with_google_bp.route("/login_with_google/callback")
 def callback():
-    ## make this work with Marshmallow
-#   ## get the info you actually need to instantiate a user
-#   ## differentiate between signing a user up & actually logging them in
-#   ## do you want a different column/db string to keep track of the Google unique id?? 
-    
     code = request.args.get("code")
 
     google_provider_cfg = get_google_provider_cfg()
@@ -105,14 +99,9 @@ def callback():
         db.session.add(user)
         db.session.commit()
 
-        session["user_id"] = user.id
-        # return make_response({"user": user_schema.dump(user)}, 200)
-
-    session["user_id"] = existing_user.id
+        session["user_id"] = user.id 
+        return redirect("http://127.0.0.1:4000"), 301
     
-    # login_user(user)
-    # import ipdb; ipdb.set_trace()
-
-    # return make_response({"user": user_schema.dump(existing_user)}, 200)
-
+    
+    session["user_id"] = existing_user.id 
     return redirect("http://127.0.0.1:4000"), 301
