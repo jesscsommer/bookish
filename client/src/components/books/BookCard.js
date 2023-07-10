@@ -8,11 +8,29 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import AddToShelfForm from "../shelves/AddToShelfForm";
+import DeleteButton from "../building_blocks/DeleteButton";
 import { UserContext } from "../../context/userContext";
+import { useLocation } from "react-router-dom";
 
 
-const BookCard = ({ book }) => {
-    const { user } = useContext(UserContext)
+const BookCard = ({ book, shelf }) => {
+    const { user, dispatch: userDispatch } = useContext(UserContext)
+    const location = useLocation()
+
+
+    const book_shelf_id = user.shelves.find(s => s.id === shelf.id).book_shelves.find(b_s => b_s.book_id === book.id).id
+    // console.log("book shelf id")
+    // console.log(book_shelf_id)
+
+
+    const removeFromShelf = () => {
+        (async () => {
+            const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
+            if (res.ok) {
+                userDispatch({ type: "fetch", payload: { ...user }})
+            }
+        })();
+    }
 
     return (
         <Grid item key={book.id} xs={12} sm={6} md={4}>
@@ -44,6 +62,7 @@ const BookCard = ({ book }) => {
                     <Button size="small">Edit</Button>
                     {user ? <AddToShelfForm book_id={book.id} /> : null}
                 </CardActions>
+                {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
             </Card>
         </Grid>
     )

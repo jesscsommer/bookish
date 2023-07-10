@@ -21,3 +21,11 @@ class ShelfById(Resource):
         if shelf := shelf_schema.dump(db.session.get(Shelf, id)):
             return make_response(shelf, 200)
         return make_response({"error": "Shelf not found"}, 404)
+    def delete(self, id):
+        try:
+            shelf = db.session.get(Shelf, id)
+            db.session.delete(shelf)
+            db.session.commit()
+            return make_response({}, 204)
+        except Exception as e:
+            return make_response({"error": "Shelf not found"}, 404)
