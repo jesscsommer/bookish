@@ -12,12 +12,25 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { v4 as uuid } from "uuid";
 
 import BookCard from '../books/BookCard';
+import DeleteButton from "../building_blocks/DeleteButton"
+import { UserContext } from '../../context/userContext';
+import { useContext } from 'react';
 
 const defaultTheme = createTheme()
 
 const cards = [1, 2, 3];
 
 const Shelf = ({ shelf }) => {
+    const { user, dispatch : userDispatch } = useContext(UserContext)
+
+    const handleClick = (shelf_id) => {
+        (async () => {
+            const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
+            if (res.ok){
+                userDispatch({ type: "fetch", payload: { ...user }})
+            }
+        })();
+    }
 
     return (
         <Grid container spacing={4}>
@@ -25,6 +38,7 @@ const Shelf = ({ shelf }) => {
                 <Typography variant="h5">
                     {shelf.name}
                 </Typography>
+                <DeleteButton handleClick={() => handleClick(shelf.id)} />
             </Box>
             {shelf.books.map((book) => (
                 <BookCard key={uuid()} book={book} />
