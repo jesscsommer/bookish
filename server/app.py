@@ -3,8 +3,31 @@
 from flask import request
 from flask_restful import Resource
 
-from config import app, db, api, get_jwt, get_jwt_identity, make_response, create_access_token, set_access_cookies, jwt_required
+from config import (
+    app, 
+    db, 
+    api, 
+    get_jwt, 
+    get_jwt_identity,
+    make_response, 
+    create_access_token, 
+    set_access_cookies, 
+    jwt_required,
+    login_manager,
+    current_user,
+    requests,
+    GOOGLE_DISCOVERY_URL,
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    login_user,
+    client,
+    redirect,
+    url_for,
+    login_required,
+    logout_user
+)
 from datetime import timedelta, datetime, timezone
+import json
 
 # Import models 
 from models.author import Author
@@ -20,6 +43,7 @@ from models.user import User
 # Import blueprints
 from blueprints.auth.signup import signup_bp
 from blueprints.auth.login import login_bp
+from blueprints.auth.login_with_google import login_with_google_bp
 from blueprints.auth.logout import logout_bp
 from blueprints.auth.me import me_bp
 
@@ -52,29 +76,13 @@ api.add_resource(ShelfById, "/shelves/<int:id>")
 api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
 
-@app.after_request 
-@signup_bp.after_request
-@login_bp.after_request
-@me_bp.after_request
-@user_by_username_bp.after_request
-def refresh_expiring_jwts(response):
-    try:
-        exp_timestamp = get_jwt()["exp"]
-        now = datetime.now(timezone.utc)
-        target_timestamp = datetime.timestamp(now + timedelta(minutes=5))
-        if target_timestamp > exp_timestamp:
-            access_token = create_access_token(identity=get_jwt_identity())
-            set_access_cookies(response, access_token)
-        return response
-    except (RuntimeError, KeyError):
-        return response
-
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
+app.register_blueprint(login_with_google_bp)
 app.register_blueprint(logout_bp)
 app.register_blueprint(me_bp)
 
 app.register_blueprint(user_by_username_bp)
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+    app.run(port=5555, debug=True, ssl_context="adhoc")

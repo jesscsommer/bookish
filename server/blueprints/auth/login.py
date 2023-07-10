@@ -10,11 +10,12 @@ from blueprints import (
 
 from config import (
     app,
-    create_access_token,
-    create_refresh_token,
-    set_access_cookies,
-    set_refresh_cookies,
-    cache
+    login_user,
+    client,
+    redirect,
+    url_for,
+    login_required,
+    logout_user
 ) 
 
 from models import db
@@ -34,15 +35,10 @@ def login():
         if user := User.query.filter(User.username == username).first():
 
             if user.authenticate(password):
-                token = create_access_token(identity=user.id)
-                refresh_token = create_refresh_token(identity=user.id)
 
-                res = make_response({"user": user_schema.dump(user)}, 200)
+                session["user_id"] = user.id
 
-                set_access_cookies(res, token)
-                set_refresh_cookies(res, refresh_token)
-
-                return res
+                return make_response({"user": user_schema.dump(user)}, 200)
             
             return make_response({"error": "Invalid credentials"}, 401)
         return make_response({"error": "Invalid credentials"}, 401)

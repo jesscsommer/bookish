@@ -8,7 +8,7 @@ from blueprints import (
     g
 )
 
-from config import app, jwt_required, get_jwt_identity, verify_jwt_in_request
+from config import app, current_user
 from models import db
 from models.shelf import Shelf
 from models.user import User
@@ -23,13 +23,12 @@ class Shelves(Resource):
         shelves = Shelf.query.order_by(Shelf.created_at.desc()).all()
         return make_response(shelves_schema.dump(shelves), 200)
     
-    @jwt_required()
     def post(self):
         try: 
+            # import ipdb; ipdb.set_trace()
             data = request.get_json()
             shelf_schema.validate(data)
-            user_id = get_jwt_identity()
-            data["user_id"] = user_id
+            data["user_id"] = session["user_id"]
 
             new_shelf = shelf_schema.load(data)
             db.session.add(new_shelf)

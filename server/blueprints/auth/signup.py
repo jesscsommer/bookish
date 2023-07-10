@@ -10,10 +10,7 @@ from blueprints import (
 
 from config import (
     app,
-    create_access_token,
-    create_refresh_token,
-    set_access_cookies,
-    set_refresh_cookies
+    login_user
 ) 
 from models import db
 from models.user import User
@@ -39,15 +36,9 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        token = create_access_token(identity=new_user.id)
-        refresh_token = create_refresh_token(identity=new_user.id)
-
-        res = make_response({"user": user_schema.dump(new_user)}, 200)
-
-        set_access_cookies(res, token)
-        set_refresh_cookies(res, refresh_token)
+        session["user_id"] = new_user.id
         
-        return res
+        return make_response({"user": user_schema.dump(new_user)}, 200)
 
     except Exception as e: 
         return make_response({"error": [str(e)]}, 422)

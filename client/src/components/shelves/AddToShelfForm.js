@@ -45,8 +45,7 @@ const AddToShelfForm = ({ book_id }) => {
                 const res = await fetch("/book_shelves", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({...values, "book_id": book_id})
                 })
@@ -79,10 +78,10 @@ const AddToShelfForm = ({ book_id }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             // defaultValue={""}
-                            value={formik.values.shelf_id}
+                            value={formik.values?.shelf_id}
                         >
                             {/* <MenuItem value={1}>One</MenuItem> */}
-                            {user?.shelves.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
+                            {user?.shelves?.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
                         </TextField>
                         {formik.errors.shelf_id && formik.touched.shelf_id ? 
                             <Error severity="warning" error={formik.errors.shelf_id} /> 

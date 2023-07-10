@@ -22,7 +22,6 @@ class BookShelves(Resource):
         book_shelves = BookShelf.query.order_by(BookShelf.created_at.desc()).all()
         return make_response(book_shelves_schema.dump(book_shelves), 200)
     
-    @jwt_required()
     def post(self):
         try: 
             data = request.get_json()

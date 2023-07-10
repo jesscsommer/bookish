@@ -16,6 +16,10 @@ marshmallow-sqlalchemy = "*"
 python-dotenv = "*"
 flask-jwt-extended = "*"
 flask-caching = "*"
+oauthlib = "*"
+flask-login = "*"
+requests = "*"
+pyopenssl = "*"
 
 [dev-packages]
 ipdb = "*"

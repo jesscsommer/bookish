@@ -78,8 +78,7 @@ const EditProfileForm = () => {
                 const res = await fetch(`../users/${user.id}`, {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify(values)
                 })

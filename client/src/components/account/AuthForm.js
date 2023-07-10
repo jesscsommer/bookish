@@ -106,6 +106,19 @@ const AuthForm = () => {
         }
     })
 
+    // const handleLoginWithGoogle = () => {
+    //     (async () => {
+    //         const res = await fetch("/login_with_google", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Access-Control-Allow-Origin": "*",
+    //                 "Access-Control-Allow-Headers": "Content-Type",
+    //             },
+    //             // mode: "no-cors"
+    //         })
+    //     })();
+    // }
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -199,6 +212,16 @@ const AuthForm = () => {
                     >
                         {isLogin ? "Log in" : "Sign up"}
                     </Button>
+                    <Link
+                        href="https://127.0.0.1:5555/login_with_google">
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Login with Google
+                        </Button>
+                    </Link>
                     <Grid container>
                         <Grid item>
                         <Link 

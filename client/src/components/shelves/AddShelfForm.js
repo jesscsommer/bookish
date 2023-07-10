@@ -40,12 +40,12 @@ const AddShelfForm = () => {
         },
         validationSchema: shelfSchema,
         onSubmit: (values) => {
+            // debugger 
             (async () => {
                 const res = await fetch("/shelves", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify(values)
                 })

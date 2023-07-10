@@ -1,8 +1,8 @@
 from models import db, association_proxy
-from config import bcrypt
+from config import bcrypt, UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
     
     id = db.Column(db.Integer, primary_key=True)
@@ -12,6 +12,7 @@ class User(db.Model):
     display_name = db.Column(db.String)
     profile_pic = db.Column(db.String)
     bio = db.Column(db.String)
+    google_unique_id = db.Column(db.String)
 
     reviews = db.relationship("Review", back_populates="user", cascade="all, delete-orphan")
     reviewed_books = association_proxy("reviews", "book")
@@ -38,3 +39,4 @@ class User(db.Model):
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, 
                                             password.encode('utf-8'))
+    
