@@ -41,7 +41,7 @@ const Shelf = ({ shelf }) => {
                 <DeleteButton handleClick={() => handleClick(shelf.id)} />
             </Box>
             {shelf.books.map((book) => (
-                <BookCard key={uuid()} book={book} />
+                <BookCard key={uuid()} book={book} shelf={shelf}/>
             ))}
         </Grid>
     )

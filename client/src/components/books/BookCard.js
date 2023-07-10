@@ -13,12 +13,23 @@ import { UserContext } from "../../context/userContext";
 import { useLocation } from "react-router-dom";
 
 
-const BookCard = ({ book }) => {
-    const { user } = useContext(UserContext)
+const BookCard = ({ book, shelf }) => {
+    const { user, dispatch: userDispatch } = useContext(UserContext)
     const location = useLocation()
 
-    const removeFromShelf = () => {
 
+    const book_shelf_id = user.shelves.find(s => s.id === shelf.id).book_shelves.find(b_s => b_s.book_id === book.id).id
+    // console.log("book shelf id")
+    // console.log(book_shelf_id)
+
+
+    const removeFromShelf = () => {
+        (async () => {
+            const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
+            if (res.ok) {
+                userDispatch({ type: "fetch", payload: { ...user }})
+            }
+        })();
     }
 
     return (
@@ -50,8 +61,8 @@ const BookCard = ({ book }) => {
                     </Button>
                     <Button size="small">Edit</Button>
                     {user ? <AddToShelfForm book_id={book.id} /> : null}
-                    {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
                 </CardActions>
+                {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
             </Card>
         </Grid>
     )
