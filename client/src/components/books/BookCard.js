@@ -8,11 +8,18 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import AddToShelfForm from "../shelves/AddToShelfForm";
+import DeleteButton from "../building_blocks/DeleteButton";
 import { UserContext } from "../../context/userContext";
+import { useLocation } from "react-router-dom";
 
 
 const BookCard = ({ book }) => {
     const { user } = useContext(UserContext)
+    const location = useLocation()
+
+    const removeFromShelf = () => {
+
+    }
 
     return (
         <Grid item key={book.id} xs={12} sm={6} md={4}>
@@ -43,6 +50,7 @@ const BookCard = ({ book }) => {
                     </Button>
                     <Button size="small">Edit</Button>
                     {user ? <AddToShelfForm book_id={book.id} /> : null}
+                    {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
                 </CardActions>
             </Card>
         </Grid>
