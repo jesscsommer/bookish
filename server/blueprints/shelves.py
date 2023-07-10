@@ -25,10 +25,10 @@ class Shelves(Resource):
     
     def post(self):
         try: 
+            # import ipdb; ipdb.set_trace()
             data = request.get_json()
             shelf_schema.validate(data)
-            user_id = current_user.id
-            data["user_id"] = user_id
+            data["user_id"] = session["user_id"]
 
             new_shelf = shelf_schema.load(data)
             db.session.add(new_shelf)

@@ -45,8 +45,7 @@ const AddToShelfForm = ({ book_id }) => {
                 const res = await fetch("/book_shelves", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({...values, "book_id": book_id})
                 })
