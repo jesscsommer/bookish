@@ -11,6 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useContext } from "react"
 import { ShelfContext } from '../../context/shelfContext';
+import { UserContext } from '../../context/userContext';
 
 import Shelf from "./Shelf"
 
@@ -18,6 +19,7 @@ const defaultTheme = createTheme()
 
 const ShelfContainer = () => {
     const { shelves } = useContext(ShelfContext)
+    const { user } = useContext(UserContext)
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -25,7 +27,7 @@ const ShelfContainer = () => {
             <main>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid container spacing={4}>
-                {shelves.map((shelf) => (
+                {user?.shelves.map((shelf) => (
                     <Shelf key={shelf.id} shelf={shelf}/>
                 ))}
                 </Grid>
