@@ -114,7 +114,5 @@ def callback():
     # import ipdb; ipdb.set_trace()
 
     # return make_response({"user": user_schema.dump(existing_user)}, 200)
-    # return redirect(url_for("books")), 301
-    # return url_for("http://localhost:4000"), 301
 
-    return redirect("http://localhost:4000"), 301
+    return redirect("http://127.0.0.1:4000"), 301

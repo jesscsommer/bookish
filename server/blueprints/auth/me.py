@@ -32,7 +32,7 @@ me_bp = Blueprint("me", __name__)
 # @login_required()
 # @cache.memoize(50)
 def me():
-    import ipdb; ipdb.set_trace()
+    # import ipdb; ipdb.set_trace()
     if id_ := session.get("user_id"):
         if user := db.session.get(User, id_):
     # if current_user.is_authenticated:
