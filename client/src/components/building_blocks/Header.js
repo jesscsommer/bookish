@@ -167,6 +167,8 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
                 >
+                { user ? <MenuItem onClick={() => navigate(`/profile/${user.username}`)}>My profile</MenuItem> : null }
+                { user ? <MenuItem onClick={() => navigate("/shelves")}>My shelves</MenuItem> : null }
                 { user ? 
                     <MenuItem 
                         onClick={() => {
