@@ -56,7 +56,7 @@ const Header = () => {
         <AppBar position="static">
         <Container maxWidth="xl">
             <Toolbar disableGutters>
-            <Box component="img" src="orange-glasses.png" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box>
+            <Box component="img" src="orange-glasses.PNG" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box>
             <Typography
                 variant="h6"
                 noWrap

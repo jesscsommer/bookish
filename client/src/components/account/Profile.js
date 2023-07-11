@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 import EditProfileForm from './EditProfileForm';
 import { UserContext } from '../../context/userContext';
@@ -39,22 +39,26 @@ const Profile = () => {
 
     return (
         <Box
-            sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                '& > :not(style)': {
-                m: 1,
-                padding: 3
-                },
-            }}
+            // sx={{
+            //     display: 'flex',
+            //     flexWrap: 'wrap',
+            //     '& > :not(style)': {
+            //     m: 1,
+            //     padding: 3
+            //     },
+            // }}
+            // maxWidth={false}
+            // alignItems="center"
             >
             <Paper>
                 <h1>{profileUser?.username}</h1>
                 <h3>{profileUser?.bio}</h3>
-            </Paper>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
             { user?.id === profileUser?.id ? <Button onClick={handleDelete}>Delete account</Button> : null }
-            {profileUser?.shelves.map((shelf) => <h1 key={shelf.id}>{shelf.name}</h1>)}
+            </Paper>
+            <Grid>
+            {profileUser?.shelves.map((shelf) => <Grid item key={shelf.id}>{shelf.name}</Grid>)}
+            </Grid>
             <AddShelfForm />
     </Box>
     )

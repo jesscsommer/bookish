@@ -73,7 +73,7 @@ const AddToShelfForm = ({ book_id }) => {
                             select
                             fullWidth
                             id="shelf_id"
-                            label="shelf_id"
+                            label="Shelf name"
                             name="shelf_id"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}

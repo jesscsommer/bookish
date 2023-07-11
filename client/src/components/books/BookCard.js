@@ -17,13 +17,12 @@ const BookCard = ({ book, shelf }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const location = useLocation()
 
-
-    const book_shelf_id = user?.shelves?.find(s => s.id === shelf.id)?.book_shelves?.find(b_s => b_s.book_id === book.id)?.id
     // console.log("book shelf id")
     // console.log(book_shelf_id)
 
 
     const removeFromShelf = () => {
+        const book_shelf_id = user?.shelves?.find(s => s.id === shelf.id)?.book_shelves?.find(b_s => b_s.book_id === book.id)?.id
         (async () => {
             const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
             if (res.ok) {
