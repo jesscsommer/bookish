@@ -37,30 +37,103 @@ with app.app_context():
     # Creating initial tables 
 
     print("Creating authors ...")
-    authors = []
-    for _ in range(10):
-        author = Author(
-            full_name=fake.name(),
-            bio=fake.paragraph()
-        )
-
-        authors.append(author)
+    a1 = Author(full_name="Amy Gerstler", bio=fake.paragraph())
+    a2 = Author(full_name="R.F. Kuang", bio=fake.paragraph())
+    a3 = Author(full_name="Richard Powers", bio=fake.paragraph())
+    a4 = Author(full_name="Edward Albee", bio=fake.paragraph())
+    a5 = Author(full_name="Maurice Sendak", bio=fake.paragraph())
+    a6 = Author(full_name="Meg Wolitzer", bio=fake.paragraph())
+    a7 = Author(full_name="Gerda Weissmann Klein", bio=fake.paragraph())
+    authors = [a1, a2, a3, a4, a5, a6, a7]
     db.session.add_all(authors)
 
     print("Creating books ...")
-    books = []
     genres = ["Poetry", "Fantasy", "Historical Fiction", "Memoir", 
-                "Literary Fiction", "Horror", "Drama"]
-    for _ in range(20):
-        book = Book(
-            title=fake.sentence(nb_words=3), 
-            genre=rc(genres),
-            description=fake.paragraph(),
-            page_count=randint(100, 500),
-            cover_photo=fake.image_url()
-        )
-        book.author = rc(authors) 
-        books.append(book)
+                "Literary Fiction", "Horror", "Drama", "Children's"]
+    
+    b1 = Book(
+        title="Dearest Creature",
+        description=fake.paragraph(), 
+        genre="Poetry",
+        page_count=96,
+        cover_photo="https://books.google.com/books/publisher/content?id=2aeMEAAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE71oSTl2BQzDaU2U5EQTWWGNUxF9H47idhvzErS_XdrCq7Yh5jzdgX6xfADx8oZiPLSpXqhwc3yiPsBdB0xdVKNcteOYhafyrp0f6h294xps3QYRFxwv6ipvE3z8KdrK207zuibk",
+        author=a1
+    )
+
+    b2 = Book(
+        title="The Poppy War",
+        description=fake.paragraph(), 
+        genre="Fantasy",
+        page_count=544,
+        cover_photo=fake.image_url(),
+        author=a2
+    )
+
+    b3 = Book(
+        title="The Dragon Republic",
+        description=fake.paragraph(), 
+        genre="Fantasy",
+        page_count=672,
+        cover_photo=fake.image_url(),
+        author=a2
+    )
+    
+
+    b4 = Book(
+        title="The Burning God",
+        description=fake.paragraph(), 
+        genre="Fantasy",
+        page_count=656,
+        cover_photo=fake.image_url(),
+        author=a2
+    )
+    
+    b5 = Book(
+        title="The Overstory",
+        description=fake.paragraph(), 
+        genre="Literary Fiction",
+        page_count=512,
+        cover_photo=fake.image_url(),
+        author=a3
+    )
+
+    b6 = Book(
+        title="Who's Afraid of Virginia Woolf?",
+        description=fake.paragraph(), 
+        genre="Drama",
+        page_count=272,
+        cover_photo=fake.image_url(),
+        author=a4
+    )
+
+    b7 = Book(
+        title="Where the Wild Things Are",
+        description=fake.paragraph(), 
+        genre="Children's",
+        page_count=48,
+        cover_photo=fake.image_url(),
+        author=a5
+    )
+
+    b8 = Book(
+        title="The Interestings",
+        description=fake.paragraph(), 
+        genre="Literary Fiction",
+        page_count=460,
+        cover_photo=fake.image_url(),
+        author=a6
+    )
+
+    b9 = Book(
+        title="All But My Life",
+        description=fake.paragraph(), 
+        genre="Memoir",
+        page_count=272,
+        cover_photo=fake.image_url(),
+        author=a7
+    )
+
+    books = [b1, b2, b3, b4, b5, b6, b7, b8, b9]
     
     db.session.add_all(books)
 
@@ -75,15 +148,15 @@ with app.app_context():
 
     db.session.add_all(quotes)
 
-    print("Creating tags ...")
-    tags = []
-    for _ in range(10): 
-        tag = Tag(
-            name=fake.sentence(nb_words=1)
-        )
-        tags.append(tag)
+    # print("Creating tags ...")
+    # tags = []
+    # for _ in range(10): 
+    #     tag = Tag(
+    #         name=fake.sentence(nb_words=1)
+    #     )
+    #     tags.append(tag)
     
-    db.session.add_all(tags)
+    # db.session.add_all(tags)
 
     print("Creating users ...")
     users = []
@@ -119,7 +192,7 @@ with app.app_context():
     shelves = []
     for user in users: 
         s1 = Shelf(
-            name="Favorites",
+            name="Read",
             user=user
         )
         s2 = Shelf(
@@ -127,7 +200,7 @@ with app.app_context():
             user=user
         )
         s3 = Shelf(
-            name="Birthday wishlist",
+            name="Favorites",
             user=user
         )
         shelves.extend([s1, s2, s3])
@@ -148,31 +221,31 @@ with app.app_context():
 
     db.session.add_all(book_shelves)
 
-    print("Creating book_tags ...")
-    book_tags = []
+    # print("Creating book_tags ...")
+    # book_tags = []
 
-    for _ in range(50):
-        book_tag = BookTag(
-            book=rc(books),
-            tag=rc(tags)
-        )
-        book_tags.append(book_tag)
+    # for _ in range(50):
+    #     book_tag = BookTag(
+    #         book=rc(books),
+    #         tag=rc(tags)
+    #     )
+    #     book_tags.append(book_tag)
     
-    db.session.add_all(book_tags)
+    # db.session.add_all(book_tags)
 
-    print("Creating reviews ...")
-    reviews = []
+    # print("Creating reviews ...")
+    # reviews = []
     
-    for _ in range(50):
-        review = Review(
-            rating=randint(0,5),
-            comment=fake.paragraph(),
-            book=rc(books),
-            user=rc(users)
-        )
-        reviews.append(review)
+    # for _ in range(50):
+    #     review = Review(
+    #         rating=randint(0,5),
+    #         comment=fake.paragraph(),
+    #         book=rc(books),
+    #         user=rc(users)
+    #     )
+    #     reviews.append(review)
 
-    db.session.add_all(reviews)
+    # db.session.add_all(reviews)
 
     print("Committing to db ...")
 

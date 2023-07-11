@@ -33,17 +33,20 @@ const BookCard = ({ book, shelf }) => {
     }
 
     return (
-        <Grid item key={book.id} xs={12} sm={6} md={4}>
+        <Grid item key={book.id} xs={12} sm={8} md={4}>
             <Card
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
             >
                 <CardMedia
-                component="div"
-                sx={{
-                    // 16:9
-                    pt: '56.25%',
-                }}
+                // component="div"
+                // sx={{
+                //     16:9,
+                //     pt: '100%'
+                // }}
+                component="img"
+                sx={{ objectFit: "contain" }}
                 image={book.cover_photo}
+                width="100%"
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -59,7 +62,6 @@ const BookCard = ({ book, shelf }) => {
                         href={`/books/${book.id}`}>
                             View
                     </Button>
-                    <Button size="small">Edit</Button>
                     {user ? <AddToShelfForm book_id={book.id} /> : null}
                 </CardActions>
                 {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}

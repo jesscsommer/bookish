@@ -39,6 +39,6 @@ class BookSchema(ma.SQLAlchemySchema):
     @validates("genre")
     def validates_genre(self, genre): 
         ACCEPTED_GENRES = ["Poetry", "Fantasy", "Historical Fiction", "Memoir", 
-                "Literary Fiction", "Horror", "Drama"]
+                "Literary Fiction", "Horror", "Drama", "Children's"]
         if genre not in ACCEPTED_GENRES: 
             raise ValidationError("Genre not valid")
