@@ -39,7 +39,7 @@ const AddShelfForm = () => {
             name: ""
         },
         validationSchema: shelfSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, { resetForm }) => {
             // debugger 
             (async () => {
                 const res = await fetch("/shelves", {
@@ -51,6 +51,7 @@ const AddShelfForm = () => {
                 })
                 if (res.ok) {
                     userDispatch({ type: "fetch", payload: {...user} })
+                    resetForm()
                 }
             })();
         }

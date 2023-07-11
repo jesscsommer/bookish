@@ -3,17 +3,19 @@ import { useParams, useNavigate } from "react-router-dom"
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { Button } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
 
 import EditProfileForm from './EditProfileForm';
 import { UserContext } from '../../context/userContext';
 import AddShelfForm from "../shelves/AddShelfForm";
+import DeleteButton from "../building_blocks/DeleteButton";
 
 const Profile = () => {
     const { username } = useParams()
     const navigate = useNavigate()
 
-    const { user } = useContext(UserContext)
+    const { user, dispatch: userDispatch } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
     useEffect(() => {
@@ -28,33 +30,57 @@ const Profile = () => {
         })();
     }, [username, user])
 
-    const handleDelete = () => {
+    const handleClick = (shelf_id) => {
         (async () => {
-            const res = await fetch(`/users/${user.id}`, { method : "DELETE" })
-            if (res.ok) {
-                navigate("/")
+            const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
+            if (res.ok){
+                userDispatch({ type: "fetch", payload: { ...user }})
             }
         })();
     }
 
     return (
         <Box
-            sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                '& > :not(style)': {
-                m: 1,
-                padding: 3
-                },
-            }}
+            // sx={{
+            //     display: 'flex',
+            //     flexWrap: 'wrap',
+            //     '& > :not(style)': {
+            //     m: 1,
+            //     padding: 3
+            //     },
+            // }}
+            // maxWidth={false}
+            // alignItems="center"
             >
-            <Paper>
-                <h1>{profileUser?.username}</h1>
-                <h3>{profileUser?.bio}</h3>
-            </Paper>
+                <Box
+                    sx={{ padding: 3}}
+                    display="flex"
+                    alignItems="top"
+                >
+                    <Avatar alt={user?.username} src={user?.profile_pic} sx={{ width : 56, height : 56}} />
+                    {/* <Avatar sx={{ objectFit : "contain", width : 1/4 }} component="img" mr={3} src={profileUser?.profile_pic}></Avatar> */}
+                    <Box ml={3} display="block">
+                        <Typography variant="h3" mb={3}>{profileUser?.username}</Typography>
+                        <Typography mb={3}>{profileUser?.bio}</Typography>
+                        { user?.id === profileUser?.id ? <EditProfileForm /> : null }
+                    </Box>
+                </Box>
+            {/* <Paper sx={{ padding: 3 }} display="flex" alignItems="top">
+                <Box component="img" src={profileUser?.profile_pic}></Box>
+                <Typography variant="h3" mb={3}>{profileUser?.username}</Typography>
+                <Typography>{profileUser?.bio}</Typography>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
-            { user?.id === profileUser?.id ? <Button onClick={handleDelete}>Delete account</Button> : null }
-            {profileUser?.shelves.map((shelf) => <h1 key={shelf.id}>{shelf.name}</h1>)}
+            </Paper> */}
+            <Grid>
+                <Typography variant="h4" mt={3}>Manage shelves</Typography>
+            {profileUser?.shelves.map((shelf) => 
+                <Grid item mt={1} key={shelf.id}>
+                    <Typography variant="h6">
+                        {shelf.name}
+                        <DeleteButton handleClick={() => handleClick(shelf.id)} />
+                    </Typography>
+                </Grid>)}
+            </Grid>
             <AddShelfForm />
     </Box>
     )

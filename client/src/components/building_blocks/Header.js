@@ -18,8 +18,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 import Cookies from "js-cookie";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-
 const Header = () => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
@@ -45,8 +43,7 @@ const Header = () => {
     const handleLogout = () => {
         (async () => {
             const res = await fetch("/logout", { method: "POST", headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+                "Content-Type": "application/json"
             } })
             if (res.ok) {
                 userDispatch({ type: "remove" })
@@ -59,7 +56,7 @@ const Header = () => {
         <AppBar position="static">
         <Container maxWidth="xl">
             <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <Box component="img" src="orange-glasses.PNG" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box>
             <Typography
                 variant="h6"
                 noWrap
@@ -75,7 +72,7 @@ const Header = () => {
                 textDecoration: 'none',
                 }}
             >
-                LOGO
+                bookish
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -107,48 +104,16 @@ const Header = () => {
                     display: { xs: 'block', md: 'none' },
                 }}
                 >
-                {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                    </MenuItem>
-                ))}
                 </Menu>
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                href=""
-                sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                }}
-            >
-                LOGO
-            </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map((page) => (
-                <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                    {page}
-                </Button>
-                ))}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Avatar alt={user?.username} src={user?.profile_pic} />
                 </IconButton>
                 </Tooltip>
                 <Menu

@@ -87,7 +87,7 @@ def callback():
     data = {
         "google_unique_id": unique_id,
         "email": users_email,
-        # "profile_pic": picture,
+        "profile_pic": picture,
         "display_name": users_name,
         "username": users_name
     }

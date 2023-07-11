@@ -39,7 +39,7 @@ const AddToShelfForm = ({ book_id }) => {
             shelf_id: ""
         },
         validationSchema: shelfSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, { resetForm }) => {
             // console.log("Reached submit!")
             (async () => {
                 const res = await fetch("/book_shelves", {
@@ -52,8 +52,7 @@ const AddToShelfForm = ({ book_id }) => {
                 if (res.ok) {
                     const data = await res.json()
                     userDispatch({ type: "fetch", payload: {...user} })
-                    console.log(data)
-                    console.log(user.book_shelves)
+                    resetForm()
                 }
             })();
         }
@@ -73,7 +72,7 @@ const AddToShelfForm = ({ book_id }) => {
                             select
                             fullWidth
                             id="shelf_id"
-                            label="shelf_id"
+                            label="Shelf name"
                             name="shelf_id"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -90,7 +89,7 @@ const AddToShelfForm = ({ book_id }) => {
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button 
-                        onClick={() => {
+                        onClick={(e) => {
                             formik.handleSubmit()
                             handleClose()
                         }}>
