@@ -22,8 +22,8 @@ const BookCard = ({ book, shelf }) => {
 
 
     const removeFromShelf = () => {
-        const book_shelf_id = user?.shelves?.find(s => s.id === shelf.id)?.book_shelves?.find(b_s => b_s.book_id === book.id)?.id
         (async () => {
+            const book_shelf_id = user?.shelves?.find(s => s.id === shelf.id)?.book_shelves?.find(b_s => b_s.book_id === book.id)?.id
             const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
             if (res.ok) {
                 userDispatch({ type: "fetch", payload: { ...user }})
