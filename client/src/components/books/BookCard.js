@@ -42,17 +42,18 @@ const BookCard = ({ book, shelf }) => {
                     <CardMedia
                     // component="div"
                     // sx={{
-                    //     16:9,
-                    //     pt: '100%'
+                    //     9:16,
+                    //     pt: '100%',
+                    //     objectFit: "contain"
                     // }}
                     component="img"
-                    sx={{ objectFit: "contain" }}
+                    sx={{ objectFit: "contain"}}
                     image={book.cover_photo}
                     // height="65%"
                     // width="85%"
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h6" component="h2">
                         {book.title}
                     </Typography>
                     <Typography>
