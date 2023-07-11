@@ -28,15 +28,6 @@ const Profile = () => {
         })();
     }, [username, user])
 
-    const handleDelete = () => {
-        (async () => {
-            const res = await fetch(`/users/${user.id}`, { method : "DELETE" })
-            if (res.ok) {
-                navigate("/")
-            }
-        })();
-    }
-
     return (
         <Box
             // sx={{
@@ -54,10 +45,13 @@ const Profile = () => {
                 <h1>{profileUser?.username}</h1>
                 <h3>{profileUser?.bio}</h3>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
-            { user?.id === profileUser?.id ? <Button onClick={handleDelete}>Delete account</Button> : null }
             </Paper>
             <Grid>
-            {profileUser?.shelves.map((shelf) => <Grid item key={shelf.id}>{shelf.name}</Grid>)}
+                <h1>My shelves</h1>
+            {profileUser?.shelves.map((shelf) => 
+                <Grid item key={shelf.id}>
+                    <h3>{shelf.name}</h3>
+                </Grid>)}
             </Grid>
             <AddShelfForm />
     </Box>

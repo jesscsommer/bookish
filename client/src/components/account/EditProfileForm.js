@@ -95,6 +95,15 @@ const EditProfileForm = () => {
         }
     })
 
+    const handleDelete = () => {
+        (async () => {
+            const res = await fetch(`/users/${user.id}`, { method : "DELETE" })
+            if (res.ok) {
+                navigate("/")
+            }
+        })();
+    }
+
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
@@ -165,8 +174,17 @@ const EditProfileForm = () => {
                         : null}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    {/* <Button onClick={handleClose}>Cancel</Button> */}
+                    <Button
+                        // sx={{ maxWidth: 1/8 }}
+                        onClick={handleDelete}
+                        variant="text">
+                            Delete account
+                    </Button>
                     <Button 
+                        // sx={{ maxWidth: 1/3 }}
+                        // justifyContent="center"
+                        variant="contained"
                         onClick={() => {
                             formik.handleSubmit()
                             handleClose()
