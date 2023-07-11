@@ -41,7 +41,7 @@ const Profile = () => {
             // maxWidth={false}
             // alignItems="center"
             >
-            <Paper>
+            <Paper sx={{ padding: 3 }}>
                 <h1>{profileUser?.username}</h1>
                 <h3>{profileUser?.bio}</h3>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
