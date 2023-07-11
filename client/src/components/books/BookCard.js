@@ -18,7 +18,7 @@ const BookCard = ({ book, shelf }) => {
     const location = useLocation()
 
 
-    const book_shelf_id = user.shelves.find(s => s.id === shelf.id).book_shelves.find(b_s => b_s.book_id === book.id).id
+    const book_shelf_id = user?.shelves?.find(s => s.id === shelf.id)?.book_shelves?.find(b_s => b_s.book_id === book.id)?.id
     // console.log("book shelf id")
     // console.log(book_shelf_id)
 
