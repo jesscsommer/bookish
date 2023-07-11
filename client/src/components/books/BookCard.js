@@ -34,12 +34,12 @@ const BookCard = ({ book, shelf }) => {
 
     return (
         <Grid item key={book.id} xs={12} sm={8} md={4}>
-            <Link to={`/books/${book.id}`} style={{ textDecoration: "none" }}>
                 <Card
                     // component={Link}
                     // to={`/books/${book.id}`}
                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
+                    <Link to={`/books/${book.id}`} style={{ textDecoration: "none", color: "black" }}>
                     <CardMedia
                     // component="div"
                     // sx={{
@@ -59,12 +59,12 @@ const BookCard = ({ book, shelf }) => {
                         {book.genre}
                     </Typography>
                     </CardContent>
+                    </Link>
                     <CardActions>
                         {user ? <AddToShelfForm book_id={book.id} /> : null}
                     </CardActions>
                     {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
                 </Card>
-            </Link>
         </Grid>
     )
 }

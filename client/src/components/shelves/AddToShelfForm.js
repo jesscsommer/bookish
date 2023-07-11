@@ -90,7 +90,7 @@ const AddToShelfForm = ({ book_id }) => {
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button 
-                        onClick={() => {
+                        onClick={(e) => {
                             formik.handleSubmit()
                             handleClose()
                         }}>

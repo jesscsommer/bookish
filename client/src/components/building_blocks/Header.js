@@ -43,8 +43,7 @@ const Header = () => {
     const handleLogout = () => {
         (async () => {
             const res = await fetch("/logout", { method: "POST", headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": Cookies.get("csrf_access_token")
+                "Content-Type": "application/json"
             } })
             if (res.ok) {
                 userDispatch({ type: "remove" })
