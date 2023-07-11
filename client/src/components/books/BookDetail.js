@@ -40,7 +40,7 @@ const BookDetail = () => {
                 alt="alt text"
                 src={currentBook?.cover_photo}
             />
-            <Box>
+            <Box sx={{ padding: "0 5em 0 5em" }}>
                 <Typography variant="h4">
                     {currentBook?.title}
                 </Typography>
