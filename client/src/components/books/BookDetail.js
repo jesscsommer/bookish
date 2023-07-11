@@ -47,7 +47,7 @@ const BookDetail = () => {
                 <Typography variant="h6">
                     {currentBook?.author.full_name}
                 </Typography>
-                <Typography variant="h8">
+                <Typography variant="body1">
                     {currentBook?.description}
                 </Typography>
             </Box>

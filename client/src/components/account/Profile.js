@@ -52,15 +52,15 @@ const Profile = () => {
             // alignItems="center"
             >
             <Paper sx={{ padding: 3 }}>
-                <h1>{profileUser?.username}</h1>
-                <h3>{profileUser?.bio}</h3>
+                <Typography variant="h3" mb={3}>{profileUser?.username}</Typography>
+                <Typography>{profileUser?.bio}</Typography>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
             </Paper>
             <Grid>
-                <h1>My shelves</h1>
+                <Typography variant="h4" mt={3}>Manage shelves</Typography>
             {profileUser?.shelves.map((shelf) => 
-                <Grid item mt={5} key={shelf.id}>
-                    <Typography>
+                <Grid item mt={1} key={shelf.id}>
+                    <Typography variant="h6">
                         {shelf.name}
                         <DeleteButton handleClick={() => handleClick(shelf.id)} />
                     </Typography>
