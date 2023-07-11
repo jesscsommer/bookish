@@ -52,6 +52,7 @@ const Profile = () => {
             // alignItems="center"
             >
             <Paper sx={{ padding: 3 }}>
+                <Box component="img" src={profileUser?.profile_pic}></Box>
                 <Typography variant="h3" mb={3}>{profileUser?.username}</Typography>
                 <Typography>{profileUser?.bio}</Typography>
             { user?.id === profileUser?.id ? <EditProfileForm /> : null }
