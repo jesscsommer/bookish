@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
 import { UserContext } from "../../context/userContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 
 const BookCard = ({ book, shelf }) => {
@@ -34,38 +34,37 @@ const BookCard = ({ book, shelf }) => {
 
     return (
         <Grid item key={book.id} xs={12} sm={8} md={4}>
-            <Card
-                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-            >
-                <CardMedia
-                // component="div"
-                // sx={{
-                //     16:9,
-                //     pt: '100%'
-                // }}
-                component="img"
-                sx={{ objectFit: "contain" }}
-                image={book.cover_photo}
-                width="100%"
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {book.title}
-                </Typography>
-                <Typography>
-                    {book.genre}
-                </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button 
-                        size="small"
-                        href={`/books/${book.id}`}>
-                            View
-                    </Button>
-                    {user ? <AddToShelfForm book_id={book.id} /> : null}
-                </CardActions>
-                {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
-            </Card>
+            <Link to={`/books/${book.id}`} style={{ textDecoration: "none" }}>
+                <Card
+                    // component={Link}
+                    // to={`/books/${book.id}`}
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
+                    <CardMedia
+                    // component="div"
+                    // sx={{
+                    //     16:9,
+                    //     pt: '100%'
+                    // }}
+                    component="img"
+                    sx={{ objectFit: "contain" }}
+                    image={book.cover_photo}
+                    width="100%"
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {book.title}
+                    </Typography>
+                    <Typography>
+                        {book.genre}
+                    </Typography>
+                    </CardContent>
+                    <CardActions>
+                        {user ? <AddToShelfForm book_id={book.id} /> : null}
+                    </CardActions>
+                    {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
+                </Card>
+            </Link>
         </Grid>
     )
 }
