@@ -23,22 +23,22 @@ const cards = [1, 2, 3];
 const Shelf = ({ shelf }) => {
     const { user, dispatch : userDispatch } = useContext(UserContext)
 
-    const handleClick = (shelf_id) => {
-        (async () => {
-            const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
-            if (res.ok){
-                userDispatch({ type: "fetch", payload: { ...user }})
-            }
-        })();
-    }
+    // const handleClick = (shelf_id) => {
+    //     (async () => {
+    //         const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
+    //         if (res.ok){
+    //             userDispatch({ type: "fetch", payload: { ...user }})
+    //         }
+    //     })();
+    // }
 
     return (
-        <Grid container spacing={4}>
-            <Box mt={5} sx={{ width: 1 }}>
+        <Grid container mt={2} spacing={4}>
+            <Box sx={{ width: 1 }}>
                 <Typography variant="h5">
                     {shelf.name}
+                    {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
                 </Typography>
-                <DeleteButton handleClick={() => handleClick(shelf.id)} />
             </Box>
             {shelf.books.map((book) => (
                 <BookCard key={uuid()} book={book} shelf={shelf}/>

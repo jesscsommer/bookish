@@ -3,17 +3,18 @@ import { useParams, useNavigate } from "react-router-dom"
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 
 import EditProfileForm from './EditProfileForm';
 import { UserContext } from '../../context/userContext';
 import AddShelfForm from "../shelves/AddShelfForm";
+import DeleteButton from "../building_blocks/DeleteButton";
 
 const Profile = () => {
     const { username } = useParams()
     const navigate = useNavigate()
 
-    const { user } = useContext(UserContext)
+    const { user, dispatch: userDispatch } = useContext(UserContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
     useEffect(() => {
@@ -27,6 +28,15 @@ const Profile = () => {
             }
         })();
     }, [username, user])
+
+    const handleClick = (shelf_id) => {
+        (async () => {
+            const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
+            if (res.ok){
+                userDispatch({ type: "fetch", payload: { ...user }})
+            }
+        })();
+    }
 
     return (
         <Box
@@ -49,8 +59,11 @@ const Profile = () => {
             <Grid>
                 <h1>My shelves</h1>
             {profileUser?.shelves.map((shelf) => 
-                <Grid item key={shelf.id}>
-                    <h3>{shelf.name}</h3>
+                <Grid item mt={5} key={shelf.id}>
+                    <Typography>
+                        {shelf.name}
+                        <DeleteButton handleClick={() => handleClick(shelf.id)} />
+                    </Typography>
                 </Grid>)}
             </Grid>
             <AddShelfForm />
