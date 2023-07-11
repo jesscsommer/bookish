@@ -48,7 +48,8 @@ const BookCard = ({ book, shelf }) => {
                     component="img"
                     sx={{ objectFit: "contain" }}
                     image={book.cover_photo}
-                    width="100%"
+                    // height="65%"
+                    // width="85%"
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
