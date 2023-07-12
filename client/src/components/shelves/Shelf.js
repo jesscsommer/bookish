@@ -25,6 +25,9 @@ const Shelf = ({ shelf }) => {
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
 
+    // console.log("This is the shelf")
+    // console.log
+
     // console.log(shelf.books)
 
     // const handleClick = (shelf_id) => {

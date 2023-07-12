@@ -25,19 +25,6 @@ const App = () => {
     return (
         <div className="app">
         <Header />
-        {/* { user ? <h1>{`Welcome, ${user.username}`}</h1> : <h1>Not logged in</h1>} */}
-        {/* <AuthForm /> */}
-        {/* <BookCard />
-        <EditButton />
-        <DeleteButton />
-        <Buttons /> 
-        <Error />
-        <EditProfileForm />
-        <AddShelfForm />
-        <Profile />
-        <BooksContainer />
-        <BookDetail />
-        <Shelf /> */}
         <Routes>
             <Route 
             path="/login" 

@@ -53,9 +53,11 @@ const AddToShelfForm = ({ book_id }) => {
                 })
                 if (res.ok) {
                     const data = await res.json()
+                    // console.log(data)
                     // userDispatch({ type: "fetch", payload: {...user} })
-                    // shelfDispatch({ type: "patch", payload: data.shelf })
+                    shelfDispatch({ type: "patch", payload: data.shelf })
                     // console.log(shelves)
+                    // shelfDispatch({ type : "fetch" })
                     resetForm()
                 }
             })();

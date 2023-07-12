@@ -263,7 +263,8 @@ with app.app_context():
         for _ in range(5):
             book_shelf = BookShelf(
                 book=rc(books),
-                shelf=shelf
+                shelf=shelf,
+                user=shelf.user
             )
             book_shelves.append(book_shelf)
 

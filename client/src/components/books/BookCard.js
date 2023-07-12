@@ -26,9 +26,10 @@ const BookCard = ({ book, shelf }) => {
             const book_shelf_id = user?.book_shelves?.find(bs => bs.book_id === book.id && bs.shelf_id === shelf.id)?.id
             const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
             if (res.ok) {
-                shelfDispatch({ type : "patch", payload : shelf })
-                shelfDispatch({ type : "fetch" })
-                bookShelfDispatch({ type: "fetch" })
+                // shelfDispatch({ type : "patch", payload : shelf })
+                // shelfDispatch({ type : "fetch" })
+                // bookShelfDispatch({ type: "fetch" })
+                shelfDispatch({ type: "patch", payload: shelf })
             }
         })();
     }
@@ -64,7 +65,7 @@ const BookCard = ({ book, shelf }) => {
                     </CardContent>
                     </Link>
                     <CardActions>
-                        {user &&  user.shelves.length ? <AddToShelfForm book_id={book.id} /> : null}
+                        {user &&  shelves.length ? <AddToShelfForm book_id={book.id} /> : null}
                         {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
                     </CardActions>
                 </Card>

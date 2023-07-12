@@ -23,7 +23,7 @@ class BookShelfSchema(ma.SQLAlchemySchema):
         fields = ("id", "book", "shelf", "book_id", "shelf_id", "user_id", "url")
         
     book = fields.Nested(BookSchema, only=("id", "title", "url"))
-    shelf = fields.Nested(ShelfSchema, only=("id", "user", "url"))
+    shelf = fields.Nested(ShelfSchema, only=("id", "name", "user", "books", "url"))
 
     url = ma.Hyperlinks(
         {

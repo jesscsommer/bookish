@@ -25,6 +25,7 @@ const ShelfContainer = () => {
 
     // console.log(bookShelves)
     // console.log(bookShelves[0].shelf)
+    // const test = bookShelves.map(bs => console.log(bs.shelf))
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -33,7 +34,7 @@ const ShelfContainer = () => {
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid container spacing={4}>
                 {shelves?.map((shelf) => (
-                    <Shelf key={shelf.id} shelf={shelf}/>
+                    <Shelf key={shelf.id} shelf={shelf} />
                 ))}
                 </Grid>
             </Container>
