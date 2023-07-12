@@ -21,13 +21,9 @@ const BookCard = ({ book, shelf }) => {
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const location = useLocation()
 
-    // console.log("book shelf id")
-    // console.log(book_shelf_id)
-
-
     const removeFromShelf = () => {
         (async () => {
-            const book_shelf_id = user?.shelves?.find(s => s.id === shelf.id)?.book_shelves?.find(b_s => b_s.book_id === book.id)?.id
+            const book_shelf_id = user?.book_shelves?.find(bs => bs.book_id === book.id && bs.shelf_id === shelf.id)?.id
             const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
             if (res.ok) {
                 shelfDispatch({ type : "patch", payload : shelf })
