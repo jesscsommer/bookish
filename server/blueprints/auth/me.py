@@ -33,4 +33,5 @@ def me():
     if id_ := session.get("user_id"):
         if user := db.session.get(User, id_):
             return make_response({"user": user_schema.dump(user)}, 200)
+    return {}
 

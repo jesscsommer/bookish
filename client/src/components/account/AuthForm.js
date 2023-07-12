@@ -95,9 +95,9 @@ const AuthForm = () => {
                     body: JSON.stringify(values)
                 })
                 if (res.ok) {
-                    const user = await res.json()
-                    userDispatch({type: "fetch", payload: user})
-                    navigate("/")
+                    const new_user = await res.json()
+                    userDispatch({type: "fetch", payload: new_user.user })
+                    isLogin ? navigate("/") : navigate(`/profile/${new_user.user.username}`)
                 } else {
                     const err = await res.json()
                     setErrors(err.error)

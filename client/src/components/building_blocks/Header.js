@@ -16,11 +16,13 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 
 import { UserContext } from '../../context/userContext';
+import { ShelfContext } from '../../context/shelfContext';
 import Cookies from "js-cookie";
 
 const Header = () => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -47,6 +49,7 @@ const Header = () => {
             } })
             if (res.ok) {
                 userDispatch({ type: "remove" })
+                shelfDispatch({ type: "reset"})
                 navigate("/")
             }
         })();

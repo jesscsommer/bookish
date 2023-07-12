@@ -15,6 +15,8 @@ const reducer = (state, action) => {
                             action.payload : shelf)
         case "remove":
             return state.filter(shelf => shelf.id !== action.payload)
+        case "reset":
+            return initialState
         default:
             return state;
     }
@@ -29,7 +31,7 @@ const ShelfProvider = ({ children }) => {
             // debugger
             if (res.ok) {
                 const data = await res.json()
-                dispatch({ type: "fetch", payload: data.user.shelves })
+                dispatch({ type: "fetch", payload: data.user?.shelves })
             } 
         })();
     }, [])
