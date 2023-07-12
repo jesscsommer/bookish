@@ -16,11 +16,13 @@ import * as yup from "yup";
 import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
+import { BookContext } from '../../context/bookContext';
 
 const AddToShelfForm = ({ book }) => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
+    const { books, dispatch : bookDispatch } = useContext(BookContext)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -55,6 +57,7 @@ const AddToShelfForm = ({ book }) => {
                     shelfDispatch({ type: "patch", payload: data.shelf })
                     user.book_shelves.push(data)
                     userDispatch({ type: "fetch", payload: user })
+                    bookDispatch({ type: "patch", payload: data.book })
                     // console.log(user)
                     resetForm()
                 }
