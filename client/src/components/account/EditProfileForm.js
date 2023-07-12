@@ -142,18 +142,20 @@ const EditProfileForm = () => {
                     {formik.errors.display_name && formik.touched.display_name ? 
                         <Error severity="warning" error={formik.errors.display_name} /> 
                         : null}
-                    <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.email}
-                        />
+                    { user?.google_unique_id ? 
+                        null :
+                        <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.email}
+                            /> } 
                         {formik.errors.email && formik.touched.email ? 
                         <Error severity="warning" error={formik.errors.email} /> 
                         : null}
