@@ -15,6 +15,8 @@ const reducer = (state, action) => {
                             action.payload : shelf)
         case "remove":
             return state.filter(shelf => shelf.id !== action.payload)
+        case "reset":
+            return initialState
         default:
             return state;
     }

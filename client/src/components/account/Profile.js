@@ -49,24 +49,27 @@ const Profile = () => {
                     display="flex"
                     alignItems="top"
                 >
-                    <Avatar alt={user?.username} src={user?.profile_pic} sx={{ width : 56, height : 56}} />
+                    <Avatar alt={profileUser?.username} src={profileUser?.profile_pic} sx={{ width : 56, height : 56}} />
                     <Box ml={3} display="block">
                         <Typography variant="h3" mb={3}>{profileUser?.username}</Typography>
                         <Typography mb={3}>{profileUser?.bio}</Typography>
                         { user?.id === profileUser?.id ? <EditProfileForm /> : null }
                     </Box>
                 </Box>
-            <Grid>
-                <Typography variant="h4" mt={3}>Manage shelves</Typography>
-            {shelves?.map((shelf) => 
-                <Grid item mt={1} key={shelf?.id}>
-                    <Typography variant="h6">
-                        {shelf?.name}
-                        <DeleteButton handleClick={() => handleClick(shelf?.id)} />
-                    </Typography>
-                </Grid>)}
-            </Grid>
-            <AddShelfForm />
+            
+            { user?.id === profileUser?.id ? 
+                <Grid>
+                    <Typography variant="h4" mt={3}>Manage shelves</Typography>
+                {shelves?.map((shelf) => 
+                    <Grid item mt={1} key={shelf?.id}>
+                        <Typography variant="h6">
+                            {shelf?.name}
+                            <DeleteButton handleClick={() => handleClick(shelf?.id)} />
+                        </Typography>
+                    </Grid>)}
+                    <AddShelfForm />
+                </Grid>
+            : null }
     </Box>
     )
 }
