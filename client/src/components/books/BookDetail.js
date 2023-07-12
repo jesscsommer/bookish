@@ -4,11 +4,14 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ErrorContext } from '../../context/errorContext';
+import RecsContainer from "./RecsContainer";
+import { BookContext } from '../../context/bookContext';
 
 
 const BookDetail = () => {
     const { id : book_id } = useParams()
     const { errors, dispatch: errorDispatch } = useContext(ErrorContext)
+    const { books, dispatch: bookDispatch } = useContext(BookContext)
     const [ currentBook, setCurrentBook ] = useState(null)
 
     useEffect(() => {
@@ -23,6 +26,11 @@ const BookDetail = () => {
             }
         })();
     }, [book_id])
+
+    const recs = books?.filter(book => book?.id !== currentBook?.id).filter(book => {
+        return book?.author.full_name === currentBook?.author.full_name ||
+            book?.genre === currentBook?.genre
+    })
 
     return (
         <Box>
@@ -55,9 +63,12 @@ const BookDetail = () => {
                     </Typography>
                 </Box>
             </Box>
-            <Box sx={{ padding: 3}}>
-                <Typography variant="h5">You might also like ... </Typography>
-            </Box>
+            { recs.length ? 
+                <Box sx={{ padding: 3}}>
+                    <Typography variant="h5">You might also like ... </Typography>
+                    <RecsContainer recs={recs} /> 
+                </Box> :
+                null }
         </Box>
     )
 }
