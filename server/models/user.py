@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     reviewed_books = association_proxy("reviews", "book")
 
     shelves = db.relationship("Shelf", back_populates="user")
+    book_shelves = db.relationship("BookShelf", back_populates="user")
     # book_shelves = association_proxy("shelves", "book_shelves")
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())

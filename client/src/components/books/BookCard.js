@@ -11,22 +11,24 @@ import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
 import { UserContext } from "../../context/userContext";
 import { useLocation, Link } from "react-router-dom";
+import { ShelfContext } from "../../context/shelfContext";
+import { BookShelfContext } from "../../context/bookShelfContext";
 
 
 const BookCard = ({ book, shelf }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
+    const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
+    const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const location = useLocation()
-
-    // console.log("book shelf id")
-    // console.log(book_shelf_id)
-
 
     const removeFromShelf = () => {
         (async () => {
-            const book_shelf_id = user?.shelves?.find(s => s.id === shelf.id)?.book_shelves?.find(b_s => b_s.book_id === book.id)?.id
+            const book_shelf_id = user?.book_shelves?.find(bs => bs.book_id === book.id && bs.shelf_id === shelf.id)?.id
             const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
             if (res.ok) {
-                userDispatch({ type: "fetch", payload: { ...user }})
+                shelf["books"] = shelf.books.filter(b => b.id !== book.id)
+                shelfDispatch({ type: "patch", payload: shelf })
+
             }
         })();
     }
@@ -62,7 +64,7 @@ const BookCard = ({ book, shelf }) => {
                     </CardContent>
                     </Link>
                     <CardActions>
-                        {user &&  user.shelves.length ? <AddToShelfForm book_id={book.id} /> : null}
+                        {user &&  shelves.length ? <AddToShelfForm book={book} /> : null}
                         {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
                     </CardActions>
                 </Card>

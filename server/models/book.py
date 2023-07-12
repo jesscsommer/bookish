@@ -18,6 +18,7 @@ class Book(db.Model):
     book_tags = db.relationship("BookTag", back_populates="book", cascade="all, delete-orphan")
     
     book_shelves = db.relationship("BookShelf", back_populates="book")
+    shelves = association_proxy("book_shelves", "shelf")
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())

@@ -3,8 +3,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const DeleteButton = ({ handleClick }) => {
     return (
-        <IconButton aria-label="delete">
-            <DeleteIcon onClick={handleClick} />
+        <IconButton onClick={handleClick} aria-label="delete">
+            <DeleteIcon />
         </IconButton>
     )
 }

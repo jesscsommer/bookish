@@ -14,7 +14,7 @@ const reducer = (state, action) => {
             return state.map(bookShelf => bookShelf.id === action.payload.id ? 
                             action.payload : bookShelf)
         case "remove":
-            return state.filter(bookShelf => bookShelf.id !== action.payload.id)
+            return state.filter(bookShelf => bookShelf.id !== action.payload)
         default:
             return state;
     }
@@ -25,15 +25,15 @@ const BookShelfProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch("/book_shelves")
+            const res = await fetch("/me")
+            // debugger
             if (res.ok) {
-                const bookShelves = await res.json()
-                dispatch({ type: "fetch", payload: bookShelves })
-            } else {
-                // add error handling
-            }
+                const data = await res.json()
+                dispatch({ type: "fetch", payload: data.user.book_shelves })
+            } 
         })();
     }, [])
+
 
     return (
         <BookShelfContext.Provider value={{ bookShelves, dispatch }}>

@@ -14,7 +14,7 @@ const reducer = (state, action) => {
             return state.map(shelf => shelf.id === action.payload.id ? 
                             action.payload : shelf)
         case "remove":
-            return state.filter(shelf => shelf.id !== action.payload.id)
+            return state.filter(shelf => shelf.id !== action.payload)
         default:
             return state;
     }
@@ -25,13 +25,12 @@ const ShelfProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch("/shelves")
+            const res = await fetch("/me")
+            // debugger
             if (res.ok) {
-                const shelves = await res.json()
-                dispatch({ type: "fetch", payload: shelves })
-            } else {
-                // add error handling
-            }
+                const data = await res.json()
+                dispatch({ type: "fetch", payload: data.user.shelves })
+            } 
         })();
     }, [])
 

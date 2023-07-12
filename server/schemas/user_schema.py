@@ -16,7 +16,7 @@ class UserSchema(ma.SQLAlchemySchema):
         load_instance = True
         ordered = True
         fields = ("id", "username", "display_name", "bio", "profile_pic", 
-                "email", "shelves", "google_unique_id", "url")
+                "email", "shelves", "book_shelves", "google_unique_id", "url")
         
     
     username = fields.String(required=True, \
