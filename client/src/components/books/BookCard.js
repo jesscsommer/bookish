@@ -65,7 +65,7 @@ const BookCard = ({ book, shelf }) => {
                     </CardContent>
                     </Link>
                     <CardActions>
-                        {user &&  shelves.length ? <AddToShelfForm book_id={book.id} /> : null}
+                        {user &&  shelves.length ? <AddToShelfForm book={book} /> : null}
                         {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
                     </CardActions>
                 </Card>

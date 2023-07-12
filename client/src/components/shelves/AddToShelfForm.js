@@ -17,7 +17,7 @@ import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
 
-const AddToShelfForm = ({ book_id }) => {
+const AddToShelfForm = ({ book }) => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
@@ -42,27 +42,26 @@ const AddToShelfForm = ({ book_id }) => {
         },
         validationSchema: shelfSchema,
         onSubmit: (values, { resetForm }) => {
-            // console.log("Reached submit!")
             (async () => {
                 const res = await fetch("/book_shelves", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({...values, "book_id": book_id, "user_id": user.id })
+                    body: JSON.stringify({...values, "book_id": book.id, "user_id": user.id })
                 })
                 if (res.ok) {
                     const data = await res.json()
-                    // console.log(data)
-                    // userDispatch({ type: "fetch", payload: {...user} })
                     shelfDispatch({ type: "patch", payload: data.shelf })
-                    // console.log(shelves)
-                    // shelfDispatch({ type : "fetch" })
                     resetForm()
                 }
             })();
         }
     })
+
+
+    const alreadyInShelves = book.shelves.filter(s => s.user_id === user.id).map(s => s.id)
+    const notInShelves = shelves.filter(shelf => !alreadyInShelves.includes(shelf.id))
 
     return (
         <div>
@@ -86,7 +85,7 @@ const AddToShelfForm = ({ book_id }) => {
                             value={formik.values?.shelf_id}
                         >
                             {/* <MenuItem value={1}>One</MenuItem> */}
-                            {shelves?.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
+                            {notInShelves?.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
                         </TextField>
                         {formik.errors.shelf_id && formik.touched.shelf_id ? 
                             <Error severity="warning" error={formik.errors.shelf_id} /> 
