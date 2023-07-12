@@ -20,6 +20,7 @@ const AddShelfForm = () => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
+    const [ errors, setErrors ] = useState(null)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -56,6 +57,11 @@ const AddShelfForm = () => {
                     // userDispatch({ type: "fetch", payload: {...user} })
                     shelfDispatch({ type: "add", payload : data })
                     resetForm()
+                    setErrors(null)
+                    handleClose()
+                } else {
+                    const err = await res.json()
+                    setErrors("Shelf name must be unique")
                 }
             })();
         }
@@ -85,13 +91,13 @@ const AddShelfForm = () => {
                         {formik.errors.name && formik.touched.name ? 
                             <Error severity="warning" error={formik.errors.name} /> 
                             : null}
+                        {errors ? <Error severity="error" error={errors} /> : null}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button 
                         onClick={() => {
                             formik.handleSubmit()
-                            handleClose()
                         }}>
                             Add
                     </Button>

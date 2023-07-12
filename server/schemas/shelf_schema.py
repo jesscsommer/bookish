@@ -3,10 +3,12 @@ from schemas import (
     ma,
     validate,
     validates, 
-    Shelf
+    Shelf,
+    ValidationError
 )
 
 from schemas.user_schema import UserSchema
+from blueprints import session
 
 class ShelfSchema(ma.SQLAlchemySchema):
     class Meta():
@@ -34,9 +36,13 @@ class ShelfSchema(ma.SQLAlchemySchema):
         }
     )
 
-    @validates
+    @validates("name")
     def validates_name(self, name): 
-        pass
+        # import ipdb; ipdb.set_trace()
+        if Shelf.query.filter(Shelf.user_id == session["user_id"]) \
+                            .filter(Shelf.name == name).first():
+            raise ValidationError("Shelf name must be unique")
+        # pass
         ## get current user id 
         # if Shelf.query.filter(Shelf.name == name \
         #                     and Shelf.user.id == current user id):

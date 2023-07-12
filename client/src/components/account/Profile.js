@@ -59,10 +59,10 @@ const Profile = () => {
             <Grid>
                 <Typography variant="h4" mt={3}>Manage shelves</Typography>
             {shelves?.map((shelf) => 
-                <Grid item mt={1} key={shelf.id}>
+                <Grid item mt={1} key={shelf?.id}>
                     <Typography variant="h6">
-                        {shelf.name}
-                        <DeleteButton handleClick={() => handleClick(shelf.id)} />
+                        {shelf?.name}
+                        <DeleteButton handleClick={() => handleClick(shelf?.id)} />
                     </Typography>
                 </Grid>)}
             </Grid>

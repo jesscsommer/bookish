@@ -36,4 +36,5 @@ class Shelves(Resource):
             return make_response(shelf_schema.dump(new_shelf), 201)
         except Exception as e: 
             db.session.rollback()
+            return make_response({"error": str(e)}, 422)
 
