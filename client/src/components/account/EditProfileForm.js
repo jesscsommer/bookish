@@ -99,6 +99,7 @@ const EditProfileForm = () => {
         (async () => {
             const res = await fetch(`/users/${user.id}`, { method : "DELETE" })
             if (res.ok) {
+                userDispatch({ type: "fetch", payload: null })
                 navigate("/")
             }
         })();

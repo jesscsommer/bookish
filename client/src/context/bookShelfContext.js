@@ -29,7 +29,7 @@ const BookShelfProvider = ({ children }) => {
             // debugger
             if (res.ok) {
                 const data = await res.json()
-                dispatch({ type: "fetch", payload: data.user.book_shelves })
+                dispatch({ type: "fetch", payload: data.user?.book_shelves })
             } 
         })();
     }, [])

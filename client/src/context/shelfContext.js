@@ -29,7 +29,7 @@ const ShelfProvider = ({ children }) => {
             // debugger
             if (res.ok) {
                 const data = await res.json()
-                dispatch({ type: "fetch", payload: data.user.shelves })
+                dispatch({ type: "fetch", payload: data.user?.shelves })
             } 
         })();
     }, [])
