@@ -49,11 +49,13 @@ const AddToShelfForm = ({ book_id }) => {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({...values, "book_id": book_id})
+                    body: JSON.stringify({...values, "book_id": book_id, "user_id": user.id })
                 })
                 if (res.ok) {
                     const data = await res.json()
-                    userDispatch({ type: "fetch", payload: {...user} })
+                    // userDispatch({ type: "fetch", payload: {...user} })
+                    // shelfDispatch({ type: "patch", payload: data.shelf })
+                    // console.log(shelves)
                     resetForm()
                 }
             })();

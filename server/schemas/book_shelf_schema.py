@@ -20,7 +20,7 @@ class BookShelfSchema(ma.SQLAlchemySchema):
         load_instance = True
         ordered = True
         # fields = ("id", "url")
-        fields = ("id", "book", "shelf", "book_id", "shelf_id", "url")
+        fields = ("id", "book", "shelf", "book_id", "shelf_id", "user_id", "url")
         
     book = fields.Nested(BookSchema, only=("id", "title", "url"))
     shelf = fields.Nested(ShelfSchema, only=("id", "user", "url"))

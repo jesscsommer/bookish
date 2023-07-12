@@ -25,6 +25,8 @@ const Shelf = ({ shelf }) => {
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
 
+    // console.log(shelf.books)
+
     // const handleClick = (shelf_id) => {
     //     (async () => {
     //         const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
@@ -42,7 +44,7 @@ const Shelf = ({ shelf }) => {
                     {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
                 </Typography>
             </Box>
-            {shelf.books.map((book) => (
+            {shelf?.books?.map((book) => (
                 <BookCard key={uuid()} book={book} shelf={shelf}/>
             ))}
         </Grid>
