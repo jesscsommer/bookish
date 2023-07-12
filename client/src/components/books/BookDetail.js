@@ -25,33 +25,38 @@ const BookDetail = () => {
     }, [book_id])
 
     return (
-        <Box sx={{padding: 3}} display="flex" alignItems="top">
-        {/* <Box sx={{padding: 3}} alignItems="top"> */}
-            <Box
-                component="img"
-                sx={{
-                    width: 1/3,
-                    // height: 300,
-                    // backgroundColor: 'primary.dark',
-                    // '&:hover': {
-                    //     backgroundColor: 'primary.main',
-                    //     opacity: [0.9, 0.8, 0.7],
-                    // },
-                    objectFit: "contain"
-                }}
-                alt="alt text"
-                src={currentBook?.cover_photo}
-            />
-            <Box sx={{ padding: "0 3em 0 3em", width: 2/3 }}>
-                <Typography variant="h4">
-                    {currentBook?.title}
-                </Typography>
-                <Typography variant="h6">
-                    {currentBook?.author.full_name}
-                </Typography>
-                <Typography variant="body1">
-                    {currentBook?.description}
-                </Typography>
+        <Box>
+            <Box sx={{padding: 3}} display="flex" alignItems="top">
+            {/* <Box sx={{padding: 3}} alignItems="top"> */}
+                <Box
+                    component="img"
+                    sx={{
+                        width: 1/3,
+                        // height: 300,
+                        // backgroundColor: 'primary.dark',
+                        // '&:hover': {
+                        //     backgroundColor: 'primary.main',
+                        //     opacity: [0.9, 0.8, 0.7],
+                        // },
+                        objectFit: "contain"
+                    }}
+                    alt="alt text"
+                    src={currentBook?.cover_photo}
+                />
+                <Box sx={{ padding: "0 3em 0 3em", width: 2/3 }}>
+                    <Typography variant="h4">
+                        {currentBook?.title}
+                    </Typography>
+                    <Typography variant="h6">
+                        {currentBook?.author.full_name}
+                    </Typography>
+                    <Typography variant="body1">
+                        {currentBook?.description}
+                    </Typography>
+                </Box>
+            </Box>
+            <Box sx={{ padding: 3}}>
+                <Typography variant="h5">You might also like ... </Typography>
             </Box>
         </Box>
     )
