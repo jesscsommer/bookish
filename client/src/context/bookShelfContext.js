@@ -14,7 +14,7 @@ const reducer = (state, action) => {
             return state.map(bookShelf => bookShelf.id === action.payload.id ? 
                             action.payload : bookShelf)
         case "remove":
-            return state.filter(bookShelf => bookShelf.id !== action.payload.id)
+            return state.filter(bookShelf => bookShelf.id !== action.payload)
         default:
             return state;
     }

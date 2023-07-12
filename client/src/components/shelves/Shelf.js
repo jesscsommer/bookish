@@ -15,6 +15,7 @@ import BookCard from '../books/BookCard';
 import DeleteButton from "../building_blocks/DeleteButton"
 import { UserContext } from '../../context/userContext';
 import { useContext } from 'react';
+import { BookShelfContext } from '../../context/bookShelfContext';
 
 const defaultTheme = createTheme()
 
@@ -22,6 +23,7 @@ const cards = [1, 2, 3];
 
 const Shelf = ({ shelf }) => {
     const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
 
     // const handleClick = (shelf_id) => {
     //     (async () => {
@@ -36,7 +38,7 @@ const Shelf = ({ shelf }) => {
         <Grid container mt={2} spacing={4}>
             <Box sx={{ width: 1 }}>
                 <Typography variant="h5">
-                    {shelf.name}
+                    {shelf?.name}
                     {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
                 </Typography>
             </Box>

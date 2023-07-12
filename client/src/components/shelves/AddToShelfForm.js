@@ -15,10 +15,12 @@ import * as yup from "yup";
 
 import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
+import { ShelfContext } from '../../context/shelfContext';
 
 const AddToShelfForm = ({ book_id }) => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -80,7 +82,7 @@ const AddToShelfForm = ({ book_id }) => {
                             value={formik.values?.shelf_id}
                         >
                             {/* <MenuItem value={1}>One</MenuItem> */}
-                            {user?.shelves?.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
+                            {shelves?.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
                         </TextField>
                         {formik.errors.shelf_id && formik.touched.shelf_id ? 
                             <Error severity="warning" error={formik.errors.shelf_id} /> 

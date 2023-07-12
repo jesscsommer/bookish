@@ -14,10 +14,12 @@ import * as yup from "yup";
 
 import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
+import { ShelfContext } from '../../context/shelfContext';
 
 const AddShelfForm = () => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -50,7 +52,9 @@ const AddShelfForm = () => {
                     body: JSON.stringify(values)
                 })
                 if (res.ok) {
-                    userDispatch({ type: "fetch", payload: {...user} })
+                    const data = await res.json()
+                    // userDispatch({ type: "fetch", payload: {...user} })
+                    shelfDispatch({ type: "add", payload : data })
                     resetForm()
                 }
             })();
