@@ -26,10 +26,10 @@ const BookCard = ({ book, shelf }) => {
             const book_shelf_id = user?.book_shelves?.find(bs => bs.book_id === book.id && bs.shelf_id === shelf.id)?.id
             const res = await fetch(`/book_shelves/${book_shelf_id}`, { method: "DELETE"})
             if (res.ok) {
-                // shelfDispatch({ type : "patch", payload : shelf })
-                // shelfDispatch({ type : "fetch" })
-                // bookShelfDispatch({ type: "fetch" })
+                const removedBook = shelf.books.find(b => b.id === book.id)
+                delete shelf.books[shelf.books.indexOf(removedBook)]
                 shelfDispatch({ type: "patch", payload: shelf })
+
             }
         })();
     }
