@@ -16,7 +16,7 @@ import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
 import Rating from "./Rating"
 
-const ReviewCard = () => {
+const ReviewCard = ({ review }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
@@ -37,14 +37,12 @@ const ReviewCard = () => {
                     adjective
                 </Typography>
                 <Typography variant="body2">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
+                    {review?.comment}
                 </Typography>
                 </CardContent>
-                <CardActions>
+                {/* <CardActions>
                 <Button size="small">Learn More</Button>
-                </CardActions>
+                </CardActions> */}
             </Card>
         </Box>
     )

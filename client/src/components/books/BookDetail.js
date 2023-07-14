@@ -74,7 +74,7 @@ const BookDetail = () => {
                 </Box> :
                 null }
             { user ? < AddReviewForm book={currentBook} /> : null }
-            <ReviewsContainer />
+            <ReviewsContainer book={currentBook} />
         </Box>
     )
 }
