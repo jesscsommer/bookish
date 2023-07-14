@@ -26,7 +26,7 @@ class BookSchema(ma.SQLAlchemySchema):
     author = fields.Nested(AuthorSchema, only=("id", "full_name", "url"))
     book_shelves = fields.Nested("BookShelfSchema", only=("id", "url"), many=True)
     shelves = fields.Nested("ShelfSchema", only=("id", "name", "user_id"), many=True)
-    reviews = fields.Nested("ReviewSchema", only=("id", "rating", "comment"), many=True)
+    reviews = fields.Nested("ReviewSchema", only=("id", "rating", "user", "comment"), many=True)
 
     url = ma.Hyperlinks(
         {
