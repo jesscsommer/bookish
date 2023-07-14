@@ -26,8 +26,8 @@ const ReviewCard = ({ review }) => {
     const location = useLocation()
     const onProfile = location.pathname.includes("profile")
 
-    console.log(review)
-    console.log(user.reviews)
+    // console.log(review)
+    // console.log(user.reviews)
 
     const handleDelete = (review_id) => {
         (async () => {
@@ -53,8 +53,8 @@ const ReviewCard = ({ review }) => {
                         <Typography ml={1} variant="h6" component="div">
                             {review?.user.username}
                         </Typography>
-                        <EditReviewForm review={review} />
-                        <DeleteButton handleClick={() => handleDelete(review?.id)} /> 
+                        { onProfile ? <EditReviewForm review={review} /> : null }
+                        { onProfile ? <DeleteButton handleClick={() => handleDelete(review?.id)} /> : null }
                     </Box>
                 </Link>
                 <Rating 
