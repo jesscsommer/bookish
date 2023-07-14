@@ -8,6 +8,7 @@ import RecsContainer from "./RecsContainer";
 import { BookContext } from '../../context/bookContext';
 import AddReviewForm from '../reviews/AddReviewForm';
 import { UserContext } from '../../context/userContext';
+import ReviewsContainer from '../reviews/ReviewsContainer';
 
 
 const BookDetail = () => {
@@ -73,6 +74,7 @@ const BookDetail = () => {
                 </Box> :
                 null }
             { user ? < AddReviewForm book={currentBook} /> : null }
+            <ReviewsContainer />
         </Box>
     )
 }
