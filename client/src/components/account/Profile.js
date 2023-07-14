@@ -34,7 +34,7 @@ const Profile = () => {
 
     const handleClick = (shelf_id) => {
         (async () => {
-            const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
+            const res = await fetch(`/api/v1/shelves/${shelf_id}`, { method: "DELETE" })
             if (res.ok){
                 userDispatch({ type: "fetch", payload: { ...user }})
                 shelfDispatch({ type: "remove", payload: shelf_id })
