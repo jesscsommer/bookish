@@ -32,13 +32,18 @@ from datetime import timedelta, datetime, timezone
 import requests
 
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path="",
+    static_folder="../client/build",
+    template_folder="../client/build"
+)
 
 load_dotenv(".env")
 app.secret_key = environ.get("SECRET_KEY")
 app.config["JWT_SECRET_KEY"] = environ.get("JWT_SECRET_KEY")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get("DATABASE_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.json.compact = False
