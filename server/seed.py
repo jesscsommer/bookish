@@ -282,19 +282,19 @@ with app.app_context():
     
     # db.session.add_all(book_tags)
 
-    # print("Creating reviews ...")
-    # reviews = []
+    print("Creating reviews ...")
+    reviews = []
     
-    # for _ in range(50):
-    #     review = Review(
-    #         rating=randint(0,5),
-    #         comment=fake.paragraph(),
-    #         book=rc(books),
-    #         user=rc(users)
-    #     )
-    #     reviews.append(review)
+    for _ in range(50):
+        review = Review(
+            rating=randint(1,5),
+            comment=fake.paragraph(),
+            book=rc(books),
+            user=rc(users)
+        )
+        reviews.append(review)
 
-    # db.session.add_all(reviews)
+    db.session.add_all(reviews)
 
     print("Committing to db ...")
 

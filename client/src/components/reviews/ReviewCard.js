@@ -53,8 +53,8 @@ const ReviewCard = ({ review }) => {
                         <Typography ml={1} variant="h6" component="div">
                             {review?.user.username}
                         </Typography>
-                        { onProfile ? <EditReviewForm review={review} /> : null }
-                        { onProfile ? <DeleteButton handleClick={() => handleDelete(review?.id)} /> : null }
+                        { onProfile && review?.user?.id === user?.id ? <EditReviewForm review={review} /> : null }
+                        { onProfile && review?.user?.id === user?.id ? <DeleteButton handleClick={() => handleDelete(review?.id)} /> : null }
                     </Box>
                 </Link>
                 <Rating 

@@ -75,8 +75,8 @@ const Profile = () => {
             : null }
 
             <Grid>
-                <Typography variant="h4" mt={3}>Manage reviews</Typography>
-                <ReviewsContainer reviews={user?.reviews} /> 
+                <Typography variant="h4" mt={3}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
+                <ReviewsContainer reviews={profileUser?.reviews} /> 
             </Grid>
     </Box>
     )
