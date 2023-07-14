@@ -6,10 +6,13 @@ import { useParams } from "react-router-dom";
 import { ErrorContext } from '../../context/errorContext';
 import RecsContainer from "./RecsContainer";
 import { BookContext } from '../../context/bookContext';
+import AddReviewForm from '../reviews/AddReviewForm';
+import { UserContext } from '../../context/userContext';
 
 
 const BookDetail = () => {
     const { id : book_id } = useParams()
+    const { user } = useContext(UserContext)
     const { errors, dispatch: errorDispatch } = useContext(ErrorContext)
     const { books, dispatch: bookDispatch } = useContext(BookContext)
     const [ currentBook, setCurrentBook ] = useState(null)
@@ -69,6 +72,7 @@ const BookDetail = () => {
                     <RecsContainer recs={recs} /> 
                 </Box> :
                 null }
+            { user ? < AddReviewForm book={currentBook} /> : null }
         </Box>
     )
 }
