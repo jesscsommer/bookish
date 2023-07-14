@@ -27,8 +27,8 @@ class Reviews(Resource):
         try: 
             # import ipdb; ipdb.set_trace()
             data = request.get_json()
-            review_schema.validate(data)
             data["user_id"] = session["user_id"]
+            review_schema.validate(data)
 
             new_review = review_schema.load(data)
             db.session.add(new_review)

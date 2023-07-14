@@ -23,9 +23,15 @@ const AddReviewForm = ({ book }) => {
 
     const reviewSchema = yup.object().shape({
         rating: yup
-        .number(),
+        .number()
+        .min(0.5, "Rating must be at least 0.5 stars")
+        .max(5, "Rating must be at most 5 stars")
+        .required("Rating is required"),
         comment: yup
         .string()
+        .min(100, "Comment must be at least 100 characters")
+        .max(2000, "Comment must be at most 2000 characters")
+        .required("Comment is required")
     })
 
     const formik = useFormik({
@@ -37,9 +43,22 @@ const AddReviewForm = ({ book }) => {
         onSubmit: (values, { resetForm }) => {
             // debugger 
             (async () => {
-                const res = await fetch("/api/v1/reviews")
+                const res = await fetch("/api/v1/reviews", {
+                    method: "POST", 
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ ...values, "book_id": book.id })
+                })
+                if (res.ok) {
+                    const data = await res.json()
+                    // set context 
+                    console.log(data)
+                } else {
+                    const err = await res.json()
+                    setErrors(err.error)
                 }
-            )();
+            })();
         }
     })
 
@@ -47,30 +66,37 @@ const AddReviewForm = ({ book }) => {
         <Box sx={{ padding: 3, maxWidth: 500 }}>
             <Typography mb={3} variant="h5">Review {book?.title}</Typography>
             <Typography component="legend">Rating</Typography>
-            <Rating name="half-rating" precision={0.5} />
+            <Rating 
+                id="rating"
+                name="rating" 
+                precision={0.5} 
+                value={Number(formik.values?.rating)} 
+                onChange={formik.handleChange} 
+                onBlur={formik.handleBlur} />
+            {formik.errors.rating && formik.touched.rating ? 
+                <Error severity="warning" error={formik.errors.rating} /> 
+                : null}
             <TextField
                 margin="normal"
-                required
                 fullWidth
                 multiline
-                id="review"
+                id="comment"
                 label="Comment"
-                name="review"
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // // defaultValue={""}
-                // value={formik.values?.shelf_id}
+                name="comment"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values?.comment}
             >
             </TextField>
-            {/* {formik.errors.shelf_id && formik.touched.shelf_id ? 
-                <Error severity="warning" error={formik.errors.shelf_id} /> 
-                : null} */}
+            {formik.errors.comment && formik.touched.comment ? 
+                <Error severity="warning" error={formik.errors.comment} /> 
+                : null}
+            {errors ? <Error severity="error" error={errors} /> : null}
             <Button 
-                // onClick={(e) => {
-                //     formik.handleSubmit()
-                //     handleClose()
-                // }}
-                        >
+                onClick={(e) => {
+                    formik.handleSubmit()
+                }}
+                    >
                     Add
             </Button>
         </Box>

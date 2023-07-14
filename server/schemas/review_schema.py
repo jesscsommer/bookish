@@ -29,8 +29,8 @@ class ReviewSchema(ma.SQLAlchemySchema):
                     validate=validate.Range(min=0.5, max=5), \
                     error="Rating must be between 0.5 and 5")
     comment = fields.String(required=True, \
-                    validate=validate.Length(min=1, max=2000), \
-                    error="Comment must be less than 2000 characters")
+                    validate=validate.Length(min=100, max=2000), \
+                    error="Comment must be between 100 and 2000 characters")
 
     url = ma.Hyperlinks(
         {
