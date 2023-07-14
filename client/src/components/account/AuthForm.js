@@ -23,12 +23,14 @@ import * as yup from "yup";
 
 import Error from '../building_blocks/Error';
 import { UserContext } from '../../context/userContext';
+import { ShelfContext } from '../../context/shelfContext';
 
 const defaultTheme = createTheme();
 
 const AuthForm = () => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { dispatch : shelfDispatch } = useContext(ShelfContext)
 
     const [ isLogin, setIsLogin ] = useState(true)
 
@@ -97,6 +99,7 @@ const AuthForm = () => {
                 if (res.ok) {
                     const new_user = await res.json()
                     userDispatch({type: "fetch", payload: new_user.user })
+                    shelfDispatch({ type: "fetch", payload: new_user.user.shelves })
                     isLogin ? navigate("/") : navigate(`/profile/${new_user.user.username}`)
                 } else {
                     const err = await res.json()

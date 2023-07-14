@@ -65,7 +65,7 @@ const Profile = () => {
                     <Grid item mt={1} key={shelf?.id}>
                         <Typography variant="h6">
                             {shelf?.name}
-                            <DeleteButton handleClick={() => handleClick(shelf?.id)} />
+                            {shelf?.default ? null : <DeleteButton handleClick={() => handleClick(shelf?.id)} />} 
                         </Typography>
                     </Grid>)}
                     <AddShelfForm />
