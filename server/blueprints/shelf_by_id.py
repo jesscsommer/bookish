@@ -24,8 +24,12 @@ class ShelfById(Resource):
     def delete(self, id):
         try:
             shelf = db.session.get(Shelf, id)
-            db.session.delete(shelf)
-            db.session.commit()
-            return make_response({}, 204)
+
+            if shelf.default != True: 
+                db.session.delete(shelf)
+                db.session.commit()
+                return make_response({}, 204)
+            
+            return make_response({"error": "Shelf cannot be deleted"}, 422)
         except Exception as e:
             return make_response({"error": "Shelf not found"}, 404)

@@ -20,7 +20,7 @@ signup_bp = Blueprint("signup", __name__)
 def create_default_shelves(new_user): 
     SHELF_NAMES = ["Read", "Currently reading", "Want to read", "Favorites"]
     for name in SHELF_NAMES: 
-        new_shelf = shelf_schema.load({ "name": name, "user_id": new_user.id })
+        new_shelf = shelf_schema.load({ "name": name, "user_id": new_user.id, "default": True })
         db.session.add(new_shelf)
         db.session.commit()
 
