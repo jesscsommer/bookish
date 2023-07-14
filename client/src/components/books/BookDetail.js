@@ -36,6 +36,8 @@ const BookDetail = () => {
             book?.genre === currentBook?.genre
     })
 
+    const reviewedByUser = currentBook?.reviews.find(review => review.user.id === user?.id)
+
     return (
         <Box>
             <Box sx={{padding: 3}} display="flex" alignItems="top">
@@ -73,7 +75,7 @@ const BookDetail = () => {
                     <RecsContainer recs={recs} /> 
                 </Box> :
                 null }
-            { user ? < AddReviewForm book={currentBook} /> : null }
+            { user && !reviewedByUser ? < AddReviewForm book={currentBook} /> : null }
             <ReviewsContainer book={currentBook} />
         </Box>
     )
