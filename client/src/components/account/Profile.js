@@ -34,7 +34,7 @@ const Profile = () => {
 
     const handleClick = (shelf_id) => {
         (async () => {
-            const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
+            const res = await fetch(`/api/v1/shelves/${shelf_id}`, { method: "DELETE" })
             if (res.ok){
                 userDispatch({ type: "fetch", payload: { ...user }})
                 shelfDispatch({ type: "remove", payload: shelf_id })
@@ -51,7 +51,8 @@ const Profile = () => {
                 >
                     <Avatar alt={profileUser?.username} src={profileUser?.profile_pic} sx={{ width : 56, height : 56}} />
                     <Box ml={3} display="block">
-                        <Typography variant="h3" mb={3}>{profileUser?.username}</Typography>
+                        <Typography variant="h3" mb={3}>{profileUser?.display_name}</Typography>
+                        <Typography variant="h5" mb={3}>{profileUser?.username}</Typography>
                         <Typography mb={3}>{profileUser?.bio}</Typography>
                         { user?.id === profileUser?.id ? <EditProfileForm /> : null }
                     </Box>

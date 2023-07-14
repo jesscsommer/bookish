@@ -8,14 +8,7 @@ from flask import (
 from flask_bcrypt import Bcrypt
 from flask_caching import Cache
 from flask_cors import CORS
-from flask_login import (
-    LoginManager,
-    current_user,
-    login_required,
-    login_user,
-    logout_user,
-    UserMixin
-)
+
 from flask_migrate import Migrate
 from oauthlib.oauth2 import WebApplicationClient
 from flask_restful import Api
@@ -58,7 +51,7 @@ db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
 
-api = Api(app)
+api = Api(app, prefix="/api/v1")
 
 CORS(app)
 
@@ -78,20 +71,4 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
-
-# @refresh_bp.route("/refresh", methods=["POST"])
-# @jwt_required(refresh=True)
-# def refresh():
-#     user_id = get_jwt_identity()
-#     user = db.session.get(User, user_id)
-
-#     new_access_token = create_access_token(identity=user_id)
-#     res = make_response({"user": user_schema.dump(user)}, 200)
-
-#     set_access_cookies(res, new_access_token)
-
-#     return res

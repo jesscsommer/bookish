@@ -75,7 +75,7 @@ const EditProfileForm = () => {
         onSubmit: (values) => {
             // debugger
             (async () => {
-                const res = await fetch(`../users/${user.id}`, {
+                const res = await fetch(`../api/v1/users/${user.id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"
@@ -97,7 +97,7 @@ const EditProfileForm = () => {
 
     const handleDelete = () => {
         (async () => {
-            const res = await fetch(`/users/${user.id}`, { method : "DELETE" })
+            const res = await fetch(`/api/v1/users/${user.id}`, { method : "DELETE" })
             if (res.ok) {
                 userDispatch({ type: "fetch", payload: null })
                 navigate("/")
