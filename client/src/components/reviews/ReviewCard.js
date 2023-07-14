@@ -16,19 +16,31 @@ import { UserContext } from "../../context/userContext";
 import { useLocation, Link } from "react-router-dom";
 import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
+import EditButton from "../building_blocks/EditButton";
+import EditReviewForm from "./EditReviewForm";
 
 const ReviewCard = ({ review }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const location = useLocation()
+    const onProfile = location.pathname.includes("profile")
 
+    const handleDelete = (review_id) => {
+        (async () => {
+            const res = await fetch(`/api/v1/reviews/${review_id}`, { method: "DELETE" })
+            if (res.ok){
+                userDispatch({ type: "fetch", payload: { ...user }})
+                // shelfDispatch({ type: "remove", payload: shelf_id })
+            }
+        })();
+    }
 
     return (
         <Box sx={{ minWidth: 275 }}>
             <Card variant="outlined">
             <CardContent>
-                <Link to={`/profile/${review?.user.username}`} style={{ textDecoration: "none", color: "black" }}>
+                <Link to={`/profile/${review?.user?.username}`} style={{ textDecoration: "none", color: "black" }}>
                     <Box
                         display="flex"
                         alignItems="top"
@@ -38,6 +50,8 @@ const ReviewCard = ({ review }) => {
                         <Typography ml={1} variant="h6" component="div">
                             {review?.user.username}
                         </Typography>
+                        <EditReviewForm review={review} />
+                        <DeleteButton handleClick={() => handleDelete(review?.id)} /> 
                     </Box>
                 </Link>
                 <Rating 

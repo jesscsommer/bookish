@@ -10,7 +10,7 @@ import ReviewCard from './ReviewCard';
 
 const defaultTheme = createTheme()
 
-const ReviewsContainer = ({ book }) => {
+const ReviewsContainer = ({ reviews }) => {
     // const { books } = useContext(BookContext)
 
     return (
@@ -19,7 +19,7 @@ const ReviewsContainer = ({ book }) => {
             <main>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid container spacing={4}>
-                {book?.reviews?.map((review) => (
+                {reviews?.map((review) => (
                     <ReviewCard key={review.id} review={review} />
                 ))}
                 </Grid>

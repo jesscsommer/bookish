@@ -23,7 +23,7 @@ class ReviewSchema(ma.SQLAlchemySchema):
         model = Review
         load_instance = True
         ordered = True
-        fields = ("id", "rating", "comment", "book_id", "user_id", "user", "url")
+        fields = ("id", "rating", "comment", "book_id", "book", "user_id", "user", "url")
         
     rating = fields.Number(required=True, \
                     validate=validate.Range(min=0.5, max=5), \
@@ -31,6 +31,7 @@ class ReviewSchema(ma.SQLAlchemySchema):
     comment = fields.String(required=True, \
                     validate=validate.Length(min=100, max=2000), \
                     error="Comment must be between 100 and 2000 characters")
+    book = fields.Nested(BookSchema, only=("id", "title", "url"))
     user = fields.Nested(UserSchema, only=("id", "display_name", "username", "profile_pic", "url"))
 
     url = ma.Hyperlinks(

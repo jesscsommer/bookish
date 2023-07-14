@@ -11,6 +11,8 @@ import { UserContext } from '../../context/userContext';
 import AddShelfForm from "../shelves/AddShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
 import { ShelfContext } from "../../context/shelfContext";
+import ReviewsContainer from "../reviews/ReviewsContainer";
+import EditReviewForm from "../reviews/EditReviewForm";
 
 const Profile = () => {
     const { username } = useParams()
@@ -71,6 +73,11 @@ const Profile = () => {
                     <AddShelfForm />
                 </Grid>
             : null }
+
+            <Grid>
+                <Typography variant="h4" mt={3}>Manage reviews</Typography>
+                <ReviewsContainer reviews={user?.reviews} /> 
+            </Grid>
     </Box>
     )
 }
