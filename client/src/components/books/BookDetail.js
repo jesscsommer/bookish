@@ -17,6 +17,11 @@ const BookDetail = () => {
     const { errors, dispatch: errorDispatch } = useContext(ErrorContext)
     const { books, dispatch: bookDispatch } = useContext(BookContext)
     const [ currentBook, setCurrentBook ] = useState(null)
+    const [ reviews, setReviews ] = useState(null)
+
+    const addReview = (newReview) => {
+        setReviews(reviews => [...reviews, newReview])
+    }
 
     useEffect(() => {
         (async () => {
@@ -24,6 +29,7 @@ const BookDetail = () => {
             if (res.ok) {
                 const bookData = await res.json()
                 setCurrentBook(bookData)
+                setReviews(bookData.reviews)
             } else {
                 const errorData = await res.json()
                 errorDispatch({ type: "add", payload: errorData })
@@ -75,8 +81,8 @@ const BookDetail = () => {
                     <RecsContainer recs={recs} /> 
                 </Box> :
                 null }
-            { user && !reviewedByUser ? < AddReviewForm book={currentBook} /> : null }
-            <ReviewsContainer reviews={currentBook?.reviews} />
+            { user && !reviewedByUser ? < AddReviewForm book={currentBook} addReview={addReview} /> : null }
+            <ReviewsContainer reviews={reviews} />
         </Box>
     )
 }

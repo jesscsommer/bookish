@@ -24,7 +24,7 @@ import Error from '../building_blocks/Error';
 import EditButton from '../building_blocks/EditButton';
 import { FormControl } from '@mui/material';
 
-const EditReviewForm = ({ review }) => {
+const EditReviewForm = ({ review, updateReview }) => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const [ errors, setErrors ] = useState(null)
@@ -72,7 +72,8 @@ const EditReviewForm = ({ review }) => {
                 if (res.ok) {
                     const data = await res.json()
                     // set context 
-                    console.log(data)
+                    // console.log(data)
+                    updateReview(data)
                     handleClose()
                     resetForm()
                 } else {
@@ -107,8 +108,8 @@ const EditReviewForm = ({ review }) => {
                     // }} 
                     onClick={e => {
                         // debugger
-                        console.log(e.target)
-                        console.log(Number(e.target.children[1].innerText.split(" ")[0]))
+                        // console.log(e.target)
+                        // console.log(Number(e.target.children[1].innerText.split(" ")[0]))
                         setRating(Number(e.target.children[1].innerText.split(" ")[0]))
                     }}
                     // onBlur={formik.handleBlur} 

@@ -19,7 +19,7 @@ import { BookShelfContext } from "../../context/bookShelfContext";
 import EditButton from "../building_blocks/EditButton";
 import EditReviewForm from "./EditReviewForm";
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review, updateReview, deleteReview }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
@@ -34,6 +34,7 @@ const ReviewCard = ({ review }) => {
             const res = await fetch(`/api/v1/reviews/${review_id}`, { method: "DELETE" })
             if (res.ok){
                 userDispatch({ type: "fetch", payload: { ...user }})
+                deleteReview(review_id)
                 // shelfDispatch({ type: "remove", payload: shelf_id })
             }
         })();
@@ -53,7 +54,7 @@ const ReviewCard = ({ review }) => {
                         <Typography ml={1} variant="h6" component="div">
                             {review?.user.username}
                         </Typography>
-                        { onProfile && review?.user?.id === user?.id ? <EditReviewForm review={review} /> : null }
+                        { onProfile && review?.user?.id === user?.id ? <EditReviewForm review={review} updateReview={updateReview} /> : null }
                         { onProfile && review?.user?.id === user?.id ? <DeleteButton handleClick={() => handleDelete(review?.id)} /> : null }
                     </Box>
                 </Link>

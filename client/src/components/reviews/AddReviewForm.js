@@ -16,7 +16,7 @@ import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
 import { BookContext } from '../../context/bookContext';
 
-const AddReviewForm = ({ book }) => {
+const AddReviewForm = ({ book, addReview }) => {
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const { books, dispatch : bookDispatch } = useContext(BookContext)
@@ -54,6 +54,7 @@ const AddReviewForm = ({ book }) => {
                 if (res.ok) {
                     const data = await res.json()
                     // set context 
+                    addReview(data)
                     console.log(data)
                     resetForm()
                 } else {
