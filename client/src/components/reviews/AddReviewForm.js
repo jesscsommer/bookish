@@ -55,6 +55,7 @@ const AddReviewForm = ({ book }) => {
                     const data = await res.json()
                     // set context 
                     console.log(data)
+                    resetForm()
                 } else {
                     const err = await res.json()
                     setErrors(err.error)

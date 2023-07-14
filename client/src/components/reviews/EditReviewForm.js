@@ -74,6 +74,7 @@ const EditReviewForm = ({ review }) => {
                     // set context 
                     console.log(data)
                     handleClose()
+                    resetForm()
                 } else {
                     const err = await res.json()
                     setErrors(err.error)
