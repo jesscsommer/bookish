@@ -24,7 +24,8 @@ class UserSchema(ma.SQLAlchemySchema):
                             error="Username must be between 5 and 20 chars"))
     display_name = fields.String(validate=validate.Length(min=5, max=50, \
                         error="Display name must be between 5 and 50 chars"))
-    bio = fields.String(validate=validate.Length(max=250, \
+    bio = fields.String(allow_none=True, \
+                        validate=validate.Length(max=250, \
                         error="Bio must be less than 250 chars"))
     shelves = fields.Nested("ShelfSchema", exclude=("user",), many=True)
     book_shelves = fields.Nested("BookShelfSchema", many=True)

@@ -22,17 +22,17 @@ fake = Faker()
 with app.app_context(): 
 
     print("Deleting all records ...")
+    BookShelf.query.delete()
+    BookTag.query.delete()
+    Review.query.delete()
 
-    Author.query.delete()
-    Book.query.delete()
     Quote.query.delete()
+    Book.query.delete()
+    Author.query.delete()
     Shelf.query.delete()
     Tag.query.delete()
     User.query.delete()
 
-    BookShelf.query.delete()
-    BookTag.query.delete()
-    Review.query.delete()
 
     # Creating initial tables 
 
