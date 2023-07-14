@@ -25,7 +25,7 @@ class ReviewSchema(ma.SQLAlchemySchema):
         ordered = True
         fields = ("id", "rating", "comment", "book_id", "book", "user_id", "user", "url")
         
-    rating = fields.Number(required=True, \
+    rating = fields.Float(required=True, \
                     validate=validate.Range(min=0.5, max=5), \
                     error="Rating must be between 0.5 and 5")
     comment = fields.String(required=True, \
@@ -46,7 +46,8 @@ class ReviewSchema(ma.SQLAlchemySchema):
 
     @validates_schema
     def validate_object(self, data, **kwargs):
-        if Review.query.filter(Review.book_id == data["book_id"]) \
+        if review := Review.query.filter(Review.book_id == data["book_id"]) \
                             .filter(Review.user_id == data["user_id"]) \
                             .first(): 
-            raise ValidationError("Book already reviewed")
+            if not review.id: 
+                raise ValidationError("Book already reviewed")

@@ -26,6 +26,9 @@ const ReviewCard = ({ review }) => {
     const location = useLocation()
     const onProfile = location.pathname.includes("profile")
 
+    console.log(review)
+    console.log(user.reviews)
+
     const handleDelete = (review_id) => {
         (async () => {
             const res = await fetch(`/api/v1/reviews/${review_id}`, { method: "DELETE" })

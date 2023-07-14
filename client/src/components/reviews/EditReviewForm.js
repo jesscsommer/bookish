@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 
+
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Cookies from "js-cookie";
@@ -21,11 +22,13 @@ import { UserContext } from '../../context/userContext';
 
 import Error from '../building_blocks/Error';
 import EditButton from '../building_blocks/EditButton';
+import { FormControl } from '@mui/material';
 
 const EditReviewForm = ({ review }) => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const [ errors, setErrors ] = useState(null)
+    const [ rating, setRating ] = useState(review?.rating)
 
     const [open, setOpen] = useState(false);
 
@@ -38,11 +41,11 @@ const EditReviewForm = ({ review }) => {
     };
 
     const reviewSchema = yup.object().shape({
-        rating: yup
-        .number()
-        .min(0.5, "Rating must be at least 0.5 stars")
-        .max(5, "Rating must be at most 5 stars")
-        .required("Rating is required"),
+        // rating: yup
+        // .number()
+        // .min(0.5, "Rating must be at least 0.5 stars")
+        // .max(5, "Rating must be at most 5 stars")
+        // .required("Rating is required"),
         comment: yup
         .string()
         .min(100, "Comment must be at least 100 characters")
@@ -52,10 +55,10 @@ const EditReviewForm = ({ review }) => {
 
     const formik = useFormik({
         initialValues: {
-            rating: review?.rating,
             comment: review?.comment
         },
         validationSchema: reviewSchema,
+        enableReinitialize: true,
         onSubmit: (values, { resetForm }) => {
             // debugger 
             (async () => {
@@ -64,7 +67,7 @@ const EditReviewForm = ({ review }) => {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ ...values, "book_id": review.book.id })
+                    body: JSON.stringify({ ...values, "rating": rating, "book_id": review.book.id })
                 })
                 if (res.ok) {
                     const data = await res.json()
@@ -79,25 +82,39 @@ const EditReviewForm = ({ review }) => {
         }
     })
 
+    // console.log(formik.values)
+
     return (
         <div>
             <IconButton onClick={handleClickOpen} aria-label="edit">
                 <EditIcon />
             </IconButton>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog component="form" open={open} onClose={handleClose}>
                 <DialogTitle>Edit review</DialogTitle>
                 <DialogContent>
-                <Typography component="legend">Rating</Typography>
-            <Rating 
-                id="rating"
-                name="rating" 
-                precision={0.5} 
-                value={Number(formik.values?.rating)} 
-                onChange={formik.handleChange} 
-                onBlur={formik.handleBlur} />
-            {formik.errors.rating && formik.touched.rating ? 
+                {/* <Typography component="legend">Rating</Typography> */}
+                <Rating 
+                    id="rating"
+                    name="rating" 
+                    precision={0.5} 
+                    // defaultValue={rating}
+                    value={rating} 
+                    // onChange={(e) => {
+                    //     console.log(e.target.value)
+                    //     setRating(currValue => e.target.value)
+                    //     console.log(rating)
+                    // }} 
+                    onClick={e => {
+                        // debugger
+                        console.log(e.target)
+                        console.log(Number(e.target.children[1].innerText.split(" ")[0]))
+                        setRating(Number(e.target.children[1].innerText.split(" ")[0]))
+                    }}
+                    // onBlur={formik.handleBlur} 
+                    />
+            {/* {formik.errors.rating && formik.touched.rating ? 
                 <Error severity="warning" error={formik.errors.rating} /> 
-                : null}
+                : null} */}
             <TextField
                 margin="normal"
                 fullWidth
