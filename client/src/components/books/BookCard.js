@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -13,13 +13,24 @@ import { UserContext } from "../../context/userContext";
 import { useLocation, Link } from "react-router-dom";
 import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
-
+import BookRating from "../reviews/BookRating";
 
 const BookCard = ({ book, shelf }) => {
+    const [ avgRating, setAvgRating ] = useState(null)
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const location = useLocation()
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`/avg_rating/books/${book?.id}`)
+            if (res.ok) {
+                const data = await res.json()
+                setAvgRating(data.avg_rating)
+            }
+        })()
+    }, [book])
 
     const removeFromShelf = () => {
         (async () => {
@@ -61,6 +72,7 @@ const BookCard = ({ book, shelf }) => {
                     <Typography>
                         {book.genre}
                     </Typography>
+                    <BookRating rating={avgRating} /> 
                     </CardContent>
                     </Link>
                     <CardActions>
