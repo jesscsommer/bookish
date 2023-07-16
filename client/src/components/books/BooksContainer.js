@@ -20,9 +20,19 @@ const BooksContainer = () => {
     const { user } = useContext(UserContext)
     const filteredBooks = books.filter(book => book.avg_rating >= minAvgRating)
 
+    const [selectedTags, setSelectedTags] = useState([]);
 
-    
-    const TAGS = ["booktok", "DNF"]
+    const handleChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setSelectedTags(
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+
+
+    // const TAGS = ["booktok", "DNF"]
     
     const checkTag = (arr, val) => {
         return arr?.some((arrVal) => val === arrVal.name)
@@ -30,8 +40,8 @@ const BooksContainer = () => {
 
     const filteredBooksByTag = filteredBooks.filter(book => {
         const userTags = book.tags.filter(tag => tag.user_id === user?.id)
-        for (let TAG of TAGS) {
-            if (checkTag(userTags, TAG)) {
+        for (let tag of selectedTags) {
+            if (checkTag(userTags, tag)) {
                 return true
             }
         }
@@ -45,9 +55,9 @@ const BooksContainer = () => {
     const sortedBooks = 
         sortBy === "avg_rating" ?
         
-        filteredBooks.sort((a, b) => b.avg_rating - a.avg_rating) :
+        filteredBooksByTag.sort((a, b) => b.avg_rating - a.avg_rating) :
 
-        filteredBooks.sort((a, b) => {
+        filteredBooksByTag.sort((a, b) => {
             const titleA = a.title.toUpperCase()
             const titleB = b.title.toUpperCase()
 
@@ -78,7 +88,9 @@ const BooksContainer = () => {
                     >
                 <Filter 
                     updateMinAvgRating={updateMinAvgRating} 
-                    updateSortBy={updateSortBy} />
+                    updateSortBy={updateSortBy} 
+                    selectedTags={selectedTags} 
+                    handleChange={handleChange} />
                 <Grid container spacing={4}>
                 {sortedBooks.map((book) => (
                     <BookCard key={book.id} book={book} />

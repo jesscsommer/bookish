@@ -15,7 +15,13 @@ const MenuProps = {
     },
     };
 
-const getStyles = (name, selectedTags, theme) => {
+
+const Filter = ({ updateMinAvgRating, updateSortBy, selectedTags, handleChange }) => {
+    const { user } = useContext(UserContext)
+
+    const theme = useTheme();
+
+    const getStyles = (name, selectedTags, theme) => {
         return {
         fontWeight:
             selectedTags.indexOf(name) === -1
@@ -24,20 +30,16 @@ const getStyles = (name, selectedTags, theme) => {
         };
     }
 
-const Filter = ({ updateMinAvgRating, updateSortBy }) => {
-    const { user } = useContext(UserContext)
+    // const [selectedTags, setSelectedTags] = useState([]);
 
-    const theme = useTheme();
-    const [selectedTags, setSelectedTags] = useState([]);
-
-    const handleChange = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setSelectedTags(
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
+    // const handleChange = (event) => {
+    //     const {
+    //         target: { value },
+    //     } = event;
+    //     setSelectedTags(
+    //         typeof value === 'string' ? value.split(',') : value,
+    //     );
+    // };
 
     return (
         <Box>
