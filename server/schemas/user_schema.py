@@ -8,6 +8,8 @@ from schemas import (
 )
 
 from models.user import User
+from schemas.book_tag_schema import BookTagSchema
+from schemas.tag_schema import TagSchema
 import re
 
 class UserSchema(ma.SQLAlchemySchema):
@@ -16,7 +18,7 @@ class UserSchema(ma.SQLAlchemySchema):
         load_instance = True
         ordered = True
         fields = ("id", "username", "display_name", "bio", "profile_pic", 
-                "email", "shelves", "book_shelves", "reviews", "google_unique_id", "url")
+                "email", "shelves", "book_tags", "book_shelves", "tags", "reviews", "google_unique_id", "url")
         
     
     username = fields.String(required=True, \
@@ -30,8 +32,9 @@ class UserSchema(ma.SQLAlchemySchema):
     shelves = fields.Nested("ShelfSchema", exclude=("user",), many=True)
     book_shelves = fields.Nested("BookShelfSchema", many=True)
     reviews = fields.Nested("ReviewSchema", only=("id", "rating", "comment", "user", "book"), many=True)
-    
-    
+    tags = fields.Nested(TagSchema, only=("id", "name", "url"), many=True)
+    book_tags = fields.Nested(BookTagSchema, many=True)
+
     url = ma.Hyperlinks(
         {
             "self": ma.URLFor(
