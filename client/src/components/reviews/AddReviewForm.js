@@ -55,7 +55,6 @@ const AddReviewForm = ({ book, addReview }) => {
                     const data = await res.json()
                     // set context 
                     addReview(data)
-                    console.log(data)
                     resetForm()
                 } else {
                     const err = await res.json()
