@@ -14,11 +14,34 @@ const defaultTheme = createTheme()
 
 const BooksContainer = () => {
     const [ minAvgRating, setMinAvgRating ] = useState(null)
+    const [ sortBy, setSortBy ] = useState(null)
     const { books } = useContext(BookContext)
     const filteredBooks = books.filter(book => book.avg_rating >= minAvgRating)
 
     const updateMinAvgRating = (newAvg) => {
         setMinAvgRating(avg => newAvg)
+    }
+
+    const sortedBooks = 
+        sortBy === "avg_rating" ?
+        
+        filteredBooks.sort((a, b) => b.avg_rating - a.avg_rating) :
+
+        filteredBooks.sort((a, b) => {
+            const titleA = a.title.toUpperCase()
+            const titleB = b.title.toUpperCase()
+
+            if (titleA < titleB) {
+                return -1 
+            }
+            if (titleB > titleA) {
+                return 1
+            }
+            return 0
+    })
+
+    const updateSortBy = (newSort) => {
+        setSortBy(old => newSort)
     }
 
     return (
@@ -33,9 +56,9 @@ const BooksContainer = () => {
                     alignItems="top"
                     // minHeight="100vh"
                     >
-                <Filter updateMinAvgRating={updateMinAvgRating} />
+                <Filter updateMinAvgRating={updateMinAvgRating} updateSortBy={updateSortBy} />
                 <Grid container spacing={4}>
-                {filteredBooks.map((book) => (
+                {sortedBooks.map((book) => (
                     <BookCard key={book.id} book={book} />
                 ))}
                 </Grid>
