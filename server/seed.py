@@ -196,16 +196,6 @@ with app.app_context():
 
     db.session.add_all(quotes)
 
-    # print("Creating tags ...")
-    # tags = []
-    # for _ in range(10): 
-    #     tag = Tag(
-    #         name=fake.sentence(nb_words=1)
-    #     )
-    #     tags.append(tag)
-    
-    # db.session.add_all(tags)
-
     print("Creating users ...")
     users = []
     usernames = []
@@ -255,6 +245,33 @@ with app.app_context():
     
     db.session.add_all(shelves)
 
+    print("Creating tags and book_tags ...")
+    TAGS = ["trending", "booktok", "cliffhanger", "twistsandturns", "booktoscreen", "criticaldarling", "DNF", "beachread"]
+    
+    for user in users: 
+        tags = []
+        for t in TAGS: 
+            tag = Tag(
+                name=t,
+                user=user 
+            )
+            tags.append(tag)
+
+        db.session.add_all(tags)
+        
+        book_tags = []
+        for _ in range(15):
+            book_tag = BookTag(
+                book=rc(books),
+                tag=rc(tags),
+                user=user
+            )
+            book_tags.append(book_tag)
+    
+        db.session.add_all(book_tags)
+
+        
+        
     # Creating join tables 
     print("Creating book_shelves ...")
     book_shelves = []
@@ -270,17 +287,6 @@ with app.app_context():
 
     db.session.add_all(book_shelves)
 
-    # print("Creating book_tags ...")
-    # book_tags = []
-
-    # for _ in range(50):
-    #     book_tag = BookTag(
-    #         book=rc(books),
-    #         tag=rc(tags)
-    #     )
-    #     book_tags.append(book_tag)
-    
-    # db.session.add_all(book_tags)
 
     print("Creating reviews ...")
     reviews = []
