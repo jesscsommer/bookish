@@ -15,6 +15,7 @@ import Profile from "./account/Profile";
 import Shelf from "./shelves/Shelf";
 import ShelfContainer from "./shelves/ShelfContainer";
 import NotFound from "./building_blocks/NotFound";
+import Filter from "./building_blocks/Filter";
 
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
@@ -39,8 +40,8 @@ const App = () => {
             <Route 
                 path="/profile/:username" 
                 element={
-                <Profile />
-            }/>
+                    <Profile />
+                }/>
             <Route 
                 path="/books/:id" 
                 element={
