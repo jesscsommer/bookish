@@ -16,21 +16,10 @@ import { BookShelfContext } from "../../context/bookShelfContext";
 import BookRating from "../reviews/BookRating";
 
 const BookCard = ({ book, shelf }) => {
-    const [ avgRating, setAvgRating ] = useState(null)
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const location = useLocation()
-
-    useEffect(() => {
-        (async () => {
-            const res = await fetch(`/avg_rating/books/${book?.id}`)
-            if (res.ok) {
-                const data = await res.json()
-                setAvgRating(data.avg_rating)
-            }
-        })()
-    }, [book])
 
     const removeFromShelf = () => {
         (async () => {
@@ -72,7 +61,7 @@ const BookCard = ({ book, shelf }) => {
                     <Typography>
                         {book.genre}
                     </Typography>
-                    <BookRating rating={avgRating} /> 
+                    <BookRating rating={book.avg_rating} /> 
                     </CardContent>
                     </Link>
                     <CardActions>
