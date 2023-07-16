@@ -45,8 +45,9 @@ from blueprints.auth.me import me_bp
 from blueprints.authors import Authors
 from blueprints.author_by_id import AuthorById
 from blueprints.books import Books
-from blueprints.book_avg_rating import book_avg_rating_bp
+from blueprints.books_avg_rating import books_avg_rating_bp
 from blueprints.book_by_id import BookById
+from blueprints.book_avg_rating_by_id import book_avg_rating_by_id_bp
 from blueprints.book_shelves import BookShelves
 from blueprints.book_shelf_by_id import BookShelfById
 from blueprints.quotes import Quotes
@@ -83,7 +84,8 @@ app.register_blueprint(logout_bp)
 app.register_blueprint(me_bp)
 
 app.register_blueprint(user_by_username_bp)
-app.register_blueprint(book_avg_rating_bp)
+app.register_blueprint(books_avg_rating_bp)
+app.register_blueprint(book_avg_rating_by_id_bp)
 
 @app.route("/")
 @app.route("/shelves")
