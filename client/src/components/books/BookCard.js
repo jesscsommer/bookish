@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
@@ -32,6 +34,15 @@ const BookCard = ({ book, shelf }) => {
             }
         })();
     }
+
+    const handleClick = () => {
+        console.info('You clicked the Chip.');
+    };
+    
+    const handleDelete = () => {
+        console.info('You clicked the delete icon.');
+    };
+    
 
     return (
         <Grid item key={book.id} xs={12} sm={8} md={4}>
@@ -62,6 +73,19 @@ const BookCard = ({ book, shelf }) => {
                         {book.genre}
                     </Typography>
                     <BookRating rating={book.avg_rating} /> 
+                    <Stack direction="row" spacing={1}>
+                        <Chip
+                            label="Clickable Deletable"
+                            onClick={handleClick}
+                            onDelete={handleDelete}
+                        />
+                        <Chip
+                            label="Clickable Deletable"
+                            variant="outlined"
+                            onClick={handleClick}
+                            onDelete={handleDelete}
+                        />
+                    </Stack>
                     </CardContent>
                     </Link>
                     <CardActions>
