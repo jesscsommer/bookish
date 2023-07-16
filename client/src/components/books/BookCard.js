@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
@@ -32,6 +34,18 @@ const BookCard = ({ book, shelf }) => {
             }
         })();
     }
+
+    const handleClick = () => {
+        console.info('You clicked the Chip.');
+    };
+    
+    const handleDelete = () => {
+        console.info('You clicked the delete icon.');
+    };
+    
+    // console.log(book.book_tags)
+    // console.log(book.tags.filter(tag => tag.user_id === user?.id))
+    const userTags = book.tags.filter(tag => tag.user_id === user?.id)
 
     return (
         <Grid item key={book.id} xs={12} sm={8} md={4}>
@@ -64,6 +78,16 @@ const BookCard = ({ book, shelf }) => {
                     <BookRating rating={book.avg_rating} /> 
                     </CardContent>
                     </Link>
+                    <Stack sx={{ padding : 1 }} direction="row" useFlexGap flexWrap="wrap" spacing={1}>
+                        {userTags.map(tag => 
+                                <Chip
+                                    key={tag.id}
+                                    label={tag.name}
+                                    onClick={handleClick}
+                                    onDelete={handleDelete}
+                                />
+                        )}
+                    </Stack>
                     <CardActions>
                         {user &&  shelves?.length ? <AddToShelfForm book={book} /> : null}
                         {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
