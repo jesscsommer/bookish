@@ -9,6 +9,8 @@ import { BookContext } from '../../context/bookContext';
 import AddReviewForm from '../reviews/AddReviewForm';
 import { UserContext } from '../../context/userContext';
 import ReviewsContainer from '../reviews/ReviewsContainer';
+import BookRating from '../reviews/BookRating';
+import Rating from '@mui/material/Rating';
 
 
 const BookDetail = () => {
@@ -18,6 +20,7 @@ const BookDetail = () => {
     const { books, dispatch: bookDispatch } = useContext(BookContext)
     const [ currentBook, setCurrentBook ] = useState(null)
     const [ reviews, setReviews ] = useState(null)
+    const [ rating, setRating ] = useState(null)
 
     const addReview = (newReview) => {
         setReviews(reviews => [...reviews, newReview])
@@ -30,6 +33,7 @@ const BookDetail = () => {
                 const bookData = await res.json()
                 setCurrentBook(bookData)
                 setReviews(bookData.reviews)
+                setRating(bookData.avg_rating)
             } else {
                 const errorData = await res.json()
                 errorDispatch({ type: "add", payload: errorData })
@@ -70,6 +74,7 @@ const BookDetail = () => {
                     <Typography variant="h6">
                         {currentBook?.author.full_name}
                     </Typography>
+                    <BookRating rating={rating} />
                     <Typography variant="body1">
                         {currentBook?.description}
                     </Typography>

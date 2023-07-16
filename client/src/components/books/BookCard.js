@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -13,7 +13,7 @@ import { UserContext } from "../../context/userContext";
 import { useLocation, Link } from "react-router-dom";
 import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
-
+import BookRating from "../reviews/BookRating";
 
 const BookCard = ({ book, shelf }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
@@ -61,6 +61,7 @@ const BookCard = ({ book, shelf }) => {
                     <Typography>
                         {book.genre}
                     </Typography>
+                    <BookRating rating={book.avg_rating} /> 
                     </CardContent>
                     </Link>
                     <CardActions>
