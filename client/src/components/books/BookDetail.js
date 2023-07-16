@@ -6,13 +6,22 @@ import { useParams } from "react-router-dom";
 import { ErrorContext } from '../../context/errorContext';
 import RecsContainer from "./RecsContainer";
 import { BookContext } from '../../context/bookContext';
+import AddReviewForm from '../reviews/AddReviewForm';
+import { UserContext } from '../../context/userContext';
+import ReviewsContainer from '../reviews/ReviewsContainer';
 
 
 const BookDetail = () => {
     const { id : book_id } = useParams()
+    const { user } = useContext(UserContext)
     const { errors, dispatch: errorDispatch } = useContext(ErrorContext)
     const { books, dispatch: bookDispatch } = useContext(BookContext)
     const [ currentBook, setCurrentBook ] = useState(null)
+    const [ reviews, setReviews ] = useState(null)
+
+    const addReview = (newReview) => {
+        setReviews(reviews => [...reviews, newReview])
+    }
 
     useEffect(() => {
         (async () => {
@@ -20,6 +29,7 @@ const BookDetail = () => {
             if (res.ok) {
                 const bookData = await res.json()
                 setCurrentBook(bookData)
+                setReviews(bookData.reviews)
             } else {
                 const errorData = await res.json()
                 errorDispatch({ type: "add", payload: errorData })
@@ -31,6 +41,8 @@ const BookDetail = () => {
         return book?.author.full_name === currentBook?.author.full_name ||
             book?.genre === currentBook?.genre
     })
+
+    const reviewedByUser = currentBook?.reviews.find(review => review.user.id === user?.id)
 
     return (
         <Box>
@@ -69,6 +81,8 @@ const BookDetail = () => {
                     <RecsContainer recs={recs} /> 
                 </Box> :
                 null }
+            { user && !reviewedByUser ? < AddReviewForm book={currentBook} addReview={addReview} /> : null }
+            <ReviewsContainer reviews={reviews} />
         </Box>
     )
 }

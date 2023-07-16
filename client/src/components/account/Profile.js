@@ -11,6 +11,8 @@ import { UserContext } from '../../context/userContext';
 import AddShelfForm from "../shelves/AddShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
 import { ShelfContext } from "../../context/shelfContext";
+import ReviewsContainer from "../reviews/ReviewsContainer";
+import EditReviewForm from "../reviews/EditReviewForm";
 
 const Profile = () => {
     const { username } = useParams()
@@ -19,6 +21,16 @@ const Profile = () => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { shelves, dispatch: shelfDispatch } = useContext(ShelfContext)
     const [ profileUser, setProfileUser ] = useState(null)
+    const [ reviews, setReviews ] = useState(null)
+
+    const updateReview = (updatedReview) => {
+        setReviews(reviews => reviews.map(review => review.id === updatedReview.id ? 
+            updatedReview : review))
+    }
+
+    const deleteReview = (deletedReviewId) => {
+        setReviews(reviews => reviews.filter(review => review.id !== deletedReviewId))
+    }
 
     useEffect(() => {
         (async () => {
@@ -26,6 +38,7 @@ const Profile = () => {
             if (res.ok) {
                 const data = await res.json()
                 setProfileUser(data)
+                setReviews(data.reviews)
             } else {
                 navigate("/404")
             }
@@ -71,6 +84,11 @@ const Profile = () => {
                     <AddShelfForm />
                 </Grid>
             : null }
+
+            <Grid>
+                <Typography variant="h4" mt={3}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
+                <ReviewsContainer reviews={reviews} updateReview={updateReview} deleteReview={deleteReview} /> 
+            </Grid>
     </Box>
     )
 }

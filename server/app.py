@@ -53,6 +53,8 @@ from blueprints.quote_by_id import QuoteById
 from blueprints.shelves import Shelves
 from blueprints.shelf_by_id import ShelfById
 from blueprints.users import Users
+from blueprints.reviews import Reviews
+from blueprints.review_by_id import ReviewById
 from blueprints.user_by_id import UserById, user_schema
 from blueprints.user_by_username import user_by_username_bp
 
@@ -70,6 +72,8 @@ api.add_resource(Shelves, "/shelves")
 api.add_resource(ShelfById, "/shelves/<int:id>")
 api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
+api.add_resource(Reviews, "/reviews")
+api.add_resource(ReviewById, "/reviews/<int:id>")
 
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)

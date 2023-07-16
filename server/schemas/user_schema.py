@@ -16,7 +16,7 @@ class UserSchema(ma.SQLAlchemySchema):
         load_instance = True
         ordered = True
         fields = ("id", "username", "display_name", "bio", "profile_pic", 
-                "email", "shelves", "book_shelves", "google_unique_id", "url")
+                "email", "shelves", "book_shelves", "reviews", "google_unique_id", "url")
         
     
     username = fields.String(required=True, \
@@ -29,6 +29,7 @@ class UserSchema(ma.SQLAlchemySchema):
                         error="Bio must be less than 250 chars"))
     shelves = fields.Nested("ShelfSchema", exclude=("user",), many=True)
     book_shelves = fields.Nested("BookShelfSchema", many=True)
+    reviews = fields.Nested("ReviewSchema", only=("id", "rating", "comment", "user", "book"), many=True)
     
     
     url = ma.Hyperlinks(
