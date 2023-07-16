@@ -43,6 +43,9 @@ const BookCard = ({ book, shelf }) => {
         console.info('You clicked the delete icon.');
     };
     
+    // console.log(book.book_tags)
+    // console.log(book.tags.filter(tag => tag.user_id === user?.id))
+    const userTags = book.tags.filter(tag => tag.user_id === user?.id)
 
     return (
         <Grid item key={book.id} xs={12} sm={8} md={4}>
@@ -73,21 +76,18 @@ const BookCard = ({ book, shelf }) => {
                         {book.genre}
                     </Typography>
                     <BookRating rating={book.avg_rating} /> 
-                    <Stack direction="row" spacing={1}>
-                        <Chip
-                            label="Clickable Deletable"
-                            onClick={handleClick}
-                            onDelete={handleDelete}
-                        />
-                        <Chip
-                            label="Clickable Deletable"
-                            variant="outlined"
-                            onClick={handleClick}
-                            onDelete={handleDelete}
-                        />
-                    </Stack>
                     </CardContent>
                     </Link>
+                    <Stack sx={{ padding : 1 }} direction="row" useFlexGap flexWrap="wrap" spacing={1}>
+                        {userTags.map(tag => 
+                                <Chip
+                                    key={tag.id}
+                                    label={tag.name}
+                                    onClick={handleClick}
+                                    onDelete={handleDelete}
+                                />
+                        )}
+                    </Stack>
                     <CardActions>
                         {user &&  shelves?.length ? <AddToShelfForm book={book} /> : null}
                         {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
