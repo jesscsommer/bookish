@@ -19,4 +19,10 @@ books_bp = Blueprint("books", __name__, url_prefix="/books")
 class Books(Resource):
     def get(self): 
         books = Book.query.order_by(Book.created_at.desc()).all()
-        return make_response(books_schema.dump(books), 200)
+        serialized_books = books_schema.dump(books)
+        serialized_books_with_ratings = [
+            {**book, \
+            "avg_rating": round(sum(review["rating"] for review in book["reviews"]) / len(book["reviews"]), 1)
+            } 
+        for book in serialized_books ]
+        return make_response(serialized_books_with_ratings, 200)
