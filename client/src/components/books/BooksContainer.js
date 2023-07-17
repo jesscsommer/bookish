@@ -4,6 +4,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Filter from '../building_blocks/Filter';
 import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import IconButton from '@mui/material/IconButton';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import { useContext, useState } from "react"
 import { BookContext } from '../../context/bookContext';
@@ -44,6 +49,7 @@ const BooksContainer = () => {
         setSortBy(old => newSort)
     }
 
+
     return (
             <Box sx={{ py: 8 }} 
                     maxWidth="md"
@@ -62,7 +68,7 @@ const BooksContainer = () => {
                 ))}
                 </Grid>
             </Box>
-    )
+    );
 }
 
 export default BooksContainer;
