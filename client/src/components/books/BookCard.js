@@ -34,11 +34,11 @@ const BookCard = ({ book, shelf }) => {
     }
 
     return (
-        <Grid item key={book.id} xs={12} sm={8} md={5}>
+        <Grid item sx={{objectFit: "contain"}} key={book.id} xs={12} sm={8} md={5}>
                 <Card
                     // component={Link}
                     // to={`/books/${book.id}`}
-                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: "16px" }}
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: "16px", boxShadow: "0px 2px 2px #E3E1E1" }}
                 >
                     <Link to={`/books/${book.id}`} style={{ textDecoration: "none", color: "black" }}>
                     <CardMedia
@@ -49,7 +49,7 @@ const BookCard = ({ book, shelf }) => {
                     //     objectFit: "contain"
                     // }}
                     component="img"
-                    sx={{ objectFit: "contain", borderRadius: "16px", boxShadow: "2px 2px 2px #E3E1E1"}}
+                    sx={{ objectFit: "contain", borderRadius: "16px", boxShadow: "2px 2px 2px #E3E1E1" }}
                     image={book.cover_photo}
                     // height="65%"
                     // width="85%"

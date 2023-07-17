@@ -7,6 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useContext } from "react"
@@ -28,15 +29,16 @@ const ShelfContainer = () => {
     // const test = bookShelves.map(bs => console.log(bs.shelf))
 
     return (
-            <main>
-            <Container sx={{ py: 8 }} maxWidth="md">
-                <Grid container spacing={4}>
+            <Box sx={{ margin: "auto" }}  maxWidth="md">
+                {shelves?.map((shelf) => <Shelf key={shelf.id} shelf={shelf} />)}
+                {/* <Grid container spacing={4}>
                 {shelves?.map((shelf) => (
-                    <Shelf key={shelf.id} shelf={shelf} />
+                    <Box key={shelf.id} mb={3} sx={{ maxHeight: "100%", objectFit: "contain" }}>
+                        <Shelf key={shelf.id} shelf={shelf} />
+                    </Box>
                 ))}
-                </Grid>
-            </Container>
-            </main>
+                </Grid> */}
+            </Box>
     )
 }
 
