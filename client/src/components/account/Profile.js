@@ -73,7 +73,10 @@ const Profile = () => {
             
             { user?.id === profileUser?.id ? 
                 <Grid>
-                    <Typography variant="h4" mt={3}>Manage shelves</Typography>
+                    <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                        <Typography variant="h4" mt={3}>Manage shelves</Typography>
+                        <AddShelfForm />
+                    </Box>
                 {shelves?.map((shelf) => 
                     <Grid item mt={1} key={shelf?.id}>
                         <Typography variant="h6">
@@ -81,7 +84,6 @@ const Profile = () => {
                             {shelf?.default ? null : <DeleteButton handleClick={() => handleClick(shelf?.id)} />} 
                         </Typography>
                     </Grid>)}
-                    <AddShelfForm />
                 </Grid>
             : null }
 

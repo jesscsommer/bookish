@@ -75,6 +75,7 @@ const AddShelfForm = () => {
         <div>
             <IconButton 
                 color="primary"
+                sx={{ px: 2 }}
                 onClick={handleClickOpen}>
                 <AddIcon />
             </IconButton>
