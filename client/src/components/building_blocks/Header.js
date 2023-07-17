@@ -12,12 +12,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+
+
 import { useState, useContext } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 
 import { UserContext } from '../../context/userContext';
 import { ShelfContext } from '../../context/shelfContext';
 import Cookies from "js-cookie";
+import { ClassNames } from '@emotion/react';
 
 const Header = () => {
     const navigate = useNavigate()
@@ -56,60 +59,35 @@ const Header = () => {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar 
+            // elevation={6}
+            sx={{
+            padding: 1,
+            boxShadow: "12px 12px 12px #f7f5f5"
+            }}
+        position="static" 
+        color="secondary">
         <Container maxWidth="xl">
             <Toolbar disableGutters>
             <Box component="img" src="../books.png" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box>
             <Typography
-                // variant="h6"
+                variant="h3"
                 noWrap
                 component={Link}
                 to="/"
                 sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                // fontFamily: 'monospace',
-                // fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
-                textDecoration: 'none',
+                textDecoration: 'none'
                 }}
+                alignSelf="center"
+                justifyContent="center"
             >
                 bookish
             </Typography>
-
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-                >
-                <MenuIcon />
-                </IconButton>
-                <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                    display: { xs: 'block', md: 'none' },
-                }}
-                >
-                </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             </Box>
 

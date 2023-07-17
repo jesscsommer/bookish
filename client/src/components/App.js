@@ -30,15 +30,29 @@ const SpaceMono = "'Space Mono', monospace";
 
 const theme = createTheme({
     palette: {
+        mode: 'light',
         primary: {
-            main: "#EB6B59"
-        }, 
+            main: '#FF6B1C',
+            contrastText: '#ffffff',
+        },
         secondary: {
-            main: purple[500]
-        }
-    },
+            main: '#E3E1E1',
+        },
+        error: {
+            main: '#FF1D0F',
+        },
+        warning: {
+            main: '#FFAE29',
+        },
+        info: {
+            main: '#0383FF',
+        },
+        success: {
+            main: '#36FF85',
+        },
+    },    
     typography: {
-        fontFamily: Syne, 
+        fontFamily: Karla, 
         fontWeightLight: 400,
         fontWeightRegular: 500,
         fontWeightMedium: 600,
@@ -53,13 +67,13 @@ const theme = createTheme({
             fontFamily: YoungSerif
         },
         h4: {
-            fontFamily: Syne
+            fontFamily: YoungSerif
         },
         h5: {
-            fontFamily: Syne
+            fontFamily: YoungSerif
         },
         h6: {
-            fontFamily: Syne
+            fontFamily: YoungSerif
         }
     }
 })
