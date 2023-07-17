@@ -38,11 +38,17 @@ const BooksContainer = () => {
         return arr?.some((arrVal) => val === arrVal.name)
     }
 
+    // console.log(selectedTags.length)
+
     const filteredBooksByTag = filteredBooks.filter(book => {
         const userTags = book.tags.filter(tag => tag.user_id === user?.id)
-        for (let tag of selectedTags) {
-            if (checkTag(userTags, tag)) {
-                return true
+        if (selectedTags.length === 0) {
+            return true
+        } else {
+            for (let tag of selectedTags) {
+                if (checkTag(userTags, tag)) {
+                    return true
+                }
             }
         }
     })
