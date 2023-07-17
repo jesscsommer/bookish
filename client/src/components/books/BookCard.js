@@ -67,16 +67,21 @@ const BookCard = ({ book, shelf }) => {
                     </CardContent>
                     </Link>
                     <CardActions disableSpacing>
-                        {user && shelves?.length ? 
-                            <Box sx={{ px: -5 }}>
-                                <AddToShelfForm book={book} /> 
-                            </Box>
-                            : null}
-                        {location.pathname === "/shelves" ? 
-                            <IconButton color="secondary" handleClick={removeFromShelf}> 
-                                <RemoveCircleOutlineIcon />
-                            </IconButton> 
-                            : null}
+                        <Box 
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "flex-end"
+                            }}>
+                            {user && shelves?.length ? 
+                                    <AddToShelfForm book={book} /> 
+                                : null}
+                            {location.pathname === "/shelves" ? 
+                                <IconButton color="secondary" handleClick={removeFromShelf}> 
+                                    <RemoveCircleOutlineIcon />
+                                </IconButton> 
+                                : null}
+                        </Box>
                     </CardActions>
                 </Card>
         </Grid>
