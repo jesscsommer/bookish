@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Box } from "@mui/material";
-
+import { IconButton } from "@mui/material";
 import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
 import { UserContext } from "../../context/userContext";
@@ -15,6 +15,7 @@ import { useLocation, Link } from "react-router-dom";
 import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
 import BookRating from "../reviews/BookRating";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 const BookCard = ({ book, shelf }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
@@ -67,11 +68,15 @@ const BookCard = ({ book, shelf }) => {
                     </Link>
                     <CardActions disableSpacing>
                         {user && shelves?.length ? 
-                            <Box sx={{ px: 25 }}>
+                            <Box sx={{ px: -5 }}>
                                 <AddToShelfForm book={book} /> 
                             </Box>
                             : null}
-                        {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
+                        {location.pathname === "/shelves" ? 
+                            <IconButton color="secondary" handleClick={removeFromShelf}> 
+                                <RemoveCircleOutlineIcon />
+                            </IconButton> 
+                            : null}
                     </CardActions>
                 </Card>
         </Grid>
