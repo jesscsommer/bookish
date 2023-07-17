@@ -16,49 +16,91 @@ import Shelf from "./shelves/Shelf";
 import ShelfContainer from "./shelves/ShelfContainer";
 import NotFound from "./building_blocks/NotFound";
 import Filter from "./building_blocks/Filter";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
+import { orange, purple } from "@mui/material/colors";
+
+const font =  "'Syne', sans-serif";
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#EB6B59"
+        }, 
+        secondary: {
+            main: purple[500]
+        }
+    },
+    typography: {
+        fontFamily: font, 
+        fontWeightLight: 400,
+        fontWeightRegular: 500,
+        fontWeightMedium: 600,
+        fontWeightBold: 700, 
+        h1: {
+            fontFamily: font
+        },
+        h2: {
+            fontFamily: font
+        },
+        h3: {
+            fontFamily: font
+        },
+        h4: {
+            fontFamily: font
+        },
+        h5: {
+            fontFamily: font
+        },
+        h6: {
+            fontFamily: font
+        }
+    }
+})
 
 const App = () => {
     const { user } = useContext(UserContext)
 
     return (
-        <div className="app">
-        <Header />
-        <Routes>
-            <Route 
-            path="/login" 
-            element={
-                <AuthForm />
-            }/>
-            <Route 
-                path="/shelves" 
+        <ThemeProvider theme={theme}> 
+            <div className="app">
+            <Header />
+            <Routes>
+                <Route 
+                path="/login" 
                 element={
-                    <ShelfContainer />
+                    <AuthForm />
                 }/>
-            <Route 
-                path="/profile/:username" 
-                element={
-                    <Profile />
-                }/>
-            <Route 
-                path="/books/:id" 
-                element={
-                    <BookDetail />
-                }/>
-            <Route 
-                path="/" 
-                element={
-                    <BooksContainer />
-                }/>
-            <Route 
-                path="*" 
-                element={
-                    <NotFound />
-                }/>
-        </Routes>
-        </div>
+                <Route 
+                    path="/shelves" 
+                    element={
+                        <ShelfContainer />
+                    }/>
+                <Route 
+                    path="/profile/:username" 
+                    element={
+                        <Profile />
+                    }/>
+                <Route 
+                    path="/books/:id" 
+                    element={
+                        <BookDetail />
+                    }/>
+                <Route 
+                    path="/" 
+                    element={
+                        <BooksContainer />
+                    }/>
+                <Route 
+                    path="*" 
+                    element={
+                        <NotFound />
+                    }/>
+            </Routes>
+            </div>
+        </ThemeProvider>
     )
 }
 

@@ -14,8 +14,6 @@ const ReviewsContainer = ({ reviews, updateReview, deleteReview }) => {
     // const { books } = useContext(BookContext)
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
             <main>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid container spacing={4}>
@@ -25,7 +23,6 @@ const ReviewsContainer = ({ reviews, updateReview, deleteReview }) => {
                 </Grid>
             </Container>
             </main>
-        </ThemeProvider>
     )
 }
 

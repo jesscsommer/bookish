@@ -123,7 +123,6 @@ const AuthForm = () => {
     // }
 
     return (
-        <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -240,7 +239,6 @@ const AuthForm = () => {
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
     )
 }
 

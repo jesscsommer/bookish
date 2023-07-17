@@ -28,8 +28,6 @@ const ShelfContainer = () => {
     // const test = bookShelves.map(bs => console.log(bs.shelf))
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
             <main>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid container spacing={4}>
@@ -39,7 +37,6 @@ const ShelfContainer = () => {
                 </Grid>
             </Container>
             </main>
-        </ThemeProvider>
     )
 }
 

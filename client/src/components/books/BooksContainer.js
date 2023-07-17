@@ -45,7 +45,6 @@ const BooksContainer = () => {
     }
 
     return (
-        <ThemeProvider theme={defaultTheme}>
             <Box sx={{ py: 8 }} 
                     maxWidth="md"
                     // display="flex"
@@ -63,7 +62,6 @@ const BooksContainer = () => {
                 ))}
                 </Grid>
             </Box>
-        </ThemeProvider>
     )
 }
 

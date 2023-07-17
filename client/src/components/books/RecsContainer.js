@@ -14,8 +14,6 @@ const defaultTheme = createTheme()
 
 const RecsContainer = ({ recs }) => {
     return (
-        <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
             <main>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid container spacing={4}>
@@ -23,7 +21,6 @@ const RecsContainer = ({ recs }) => {
                 </Grid>
             </Container>
             </main>
-        </ThemeProvider>
     )
 }
 

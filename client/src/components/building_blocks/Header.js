@@ -61,15 +61,15 @@ const Header = () => {
             <Toolbar disableGutters>
             <Box component="img" src="../books.png" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box>
             <Typography
-                variant="h6"
+                // variant="h6"
                 noWrap
                 component={Link}
                 to="/"
                 sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
+                // fontFamily: 'monospace',
+                // fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
