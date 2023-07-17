@@ -12,7 +12,8 @@ import { useState, useContext } from "react";
 import { UserContext } from '../../context/userContext';
 import { useFormik } from "formik";
 import * as yup from "yup";
-
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
@@ -71,9 +72,12 @@ const AddToShelfForm = ({ book }) => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            {/* <Button variant="outlined" onClick={handleClickOpen}>
                 Add to shelf
-            </Button>
+            </Button> */}
+            <IconButton color="primary" onClick={handleClickOpen}>
+                <AddIcon />
+            </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add to Shelf</DialogTitle>
                 <DialogContent>

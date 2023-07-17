@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Box } from "@mui/material";
 
 import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
@@ -54,7 +55,7 @@ const BookCard = ({ book, shelf }) => {
                     // height="65%"
                     // width="85%"
                     />
-                    <CardContent sx={{ flexGrow: 1 }}>
+                    <CardContent>
                     <Typography gutterBottom variant="h6" component="h2">
                         {book.title}
                     </Typography>
@@ -64,8 +65,12 @@ const BookCard = ({ book, shelf }) => {
                     <BookRating rating={book.avg_rating} /> 
                     </CardContent>
                     </Link>
-                    <CardActions>
-                        {user &&  shelves?.length ? <AddToShelfForm book={book} /> : null}
+                    <CardActions disableSpacing>
+                        {user && shelves?.length ? 
+                            <Box sx={{ px: 25 }}>
+                                <AddToShelfForm book={book} /> 
+                            </Box>
+                            : null}
                         {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
                     </CardActions>
                 </Card>
