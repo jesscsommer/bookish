@@ -26,9 +26,7 @@ const BooksContainer = () => {
         sortBy === "avg_rating" ?
         
         filteredBooks.sort((a, b) => b.avg_rating - a.avg_rating) :
-        filteredBooks.sort((a, b) => b.avg_rating - a.avg_rating) :
 
-        filteredBooks.sort((a, b) => {
         filteredBooks.sort((a, b) => {
             const titleA = a.title.toUpperCase()
             const titleB = b.title.toUpperCase()
@@ -69,4 +67,4 @@ const BooksContainer = () => {
     )
 }
 
-export default BooksContainer
+export default BooksContainer;
