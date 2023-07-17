@@ -9,6 +9,10 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+
 
 
 import { useFormik } from "formik";
@@ -88,9 +92,15 @@ const EditReviewForm = ({ review, updateReview }) => {
 
     return (
         <div>
-            <IconButton onClick={handleClickOpen} aria-label="edit">
-                <EditIcon />
+            <IconButton 
+                color="primary"
+                // sx={{ px: 2 }}
+                onClick={handleClickOpen}>
+                <ModeEditOutlineOutlinedIcon />
             </IconButton>
+            {/* <IconButton onClick={handleClickOpen} aria-label="edit">
+                <EditIcon />
+            </IconButton> */}
             <Dialog component="form" open={open} onClose={handleClose}>
                 <DialogTitle>Edit review</DialogTitle>
                 <DialogContent>
