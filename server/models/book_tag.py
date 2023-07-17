@@ -7,11 +7,9 @@ class BookTag(db.Model):
 
     book_id = db.Column(db.Integer, db.ForeignKey("books.id"))
     tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     book = db.relationship("Book", back_populates="book_tags")
     tag = db.relationship("Tag", back_populates="book_tags")
-    user = db.relationship("User", back_populates="book_tags")
 
     def __repr__(self):
         return (

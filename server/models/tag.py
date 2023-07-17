@@ -8,9 +8,6 @@ class Tag(db.Model):
 
     book_tags = db.relationship("BookTag", back_populates="tag", cascade="all, delete-orphan")
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    user = db.relationship("User", back_populates="tags")
-
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 

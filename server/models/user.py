@@ -21,10 +21,6 @@ class User(db.Model):
     book_shelves = db.relationship("BookShelf", back_populates="user")
     # book_shelves = association_proxy("shelves", "book_shelves")
 
-    tags = db.relationship("Tag", back_populates="user")
-    book_tags = db.relationship("BookTag", back_populates="user")
-
-
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     

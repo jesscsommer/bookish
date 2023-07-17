@@ -50,8 +50,6 @@ from blueprints.book_by_id import BookById
 from blueprints.book_avg_rating_by_id import book_avg_rating_by_id_bp
 from blueprints.book_shelves import BookShelves
 from blueprints.book_shelf_by_id import BookShelfById
-from blueprints.book_tags import BookTags
-from blueprints.book_tag_by_id import BookTagById
 from blueprints.quotes import Quotes
 from blueprints.quote_by_id import QuoteById
 from blueprints.shelves import Shelves
@@ -59,8 +57,6 @@ from blueprints.shelf_by_id import ShelfById
 from blueprints.users import Users
 from blueprints.reviews import Reviews
 from blueprints.review_by_id import ReviewById
-from blueprints.tags import Tags
-from blueprints.tag_by_id import TagById
 from blueprints.user_by_id import UserById, user_schema
 from blueprints.user_by_username import user_by_username_bp
 
@@ -72,8 +68,6 @@ api.add_resource(Books, "/books")
 api.add_resource(BookById, "/books/<int:id>")
 api.add_resource(BookShelves, "/book_shelves")
 api.add_resource(BookShelfById, "/book_shelves/<int:id>")
-api.add_resource(BookTags, "/book_tags")
-api.add_resource(BookTagById, "/book_tags/<int:id>")
 api.add_resource(Quotes, "/quotes")
 api.add_resource(QuoteById, "/quotes/<int:id>")
 api.add_resource(Shelves, "/shelves")
@@ -82,8 +76,6 @@ api.add_resource(Users, "/users")
 api.add_resource(UserById, "/users/<int:id>")
 api.add_resource(Reviews, "/reviews")
 api.add_resource(ReviewById, "/reviews/<int:id>")
-api.add_resource(Tags, "/tags")
-api.add_resource(TagById, "/tags/<int:id>")
 
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)

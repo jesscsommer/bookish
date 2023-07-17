@@ -15,9 +15,7 @@ class Book(db.Model):
     quotes = db.relationship("Quote", back_populates="book")
 
     reviews = db.relationship("Review", back_populates="book", cascade="all, delete-orphan")
-    
     book_tags = db.relationship("BookTag", back_populates="book", cascade="all, delete-orphan")
-    tags = association_proxy("book_tags", "tag")
     
     book_shelves = db.relationship("BookShelf", back_populates="book")
     shelves = association_proxy("book_shelves", "shelf")

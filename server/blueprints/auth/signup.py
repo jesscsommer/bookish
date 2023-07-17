@@ -43,7 +43,6 @@ def signup():
         db.session.commit()
 
         session["user_id"] = new_user.id
-        # import ipdb; ipdb.set_trace()
         create_default_shelves(new_user)
         
         return make_response({"user": user_schema.dump(new_user)}, 200)
