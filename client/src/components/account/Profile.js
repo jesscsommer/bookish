@@ -5,6 +5,10 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { Button, Grid, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+
 
 import EditProfileForm from './EditProfileForm';
 import { UserContext } from '../../context/userContext';
@@ -81,7 +85,13 @@ const Profile = () => {
                     <Grid item mt={1} key={shelf?.id}>
                         <Typography variant="h6">
                             {shelf?.name}
-                            {shelf?.default ? null : <DeleteButton handleClick={() => handleClick(shelf?.id)} />} 
+                            {shelf?.default ? null : 
+                                <IconButton 
+                                    color="secondary"
+                                    onClick={() => handleClick(shelf?.id)}>
+                                    <RemoveCircleOutlineIcon />
+                                </IconButton> }
+                                {/* // <DeleteButton handleClick={() => handleClick(shelf?.id)} />}  */}
                         </Typography>
                     </Grid>)}
                 </Grid>
