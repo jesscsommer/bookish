@@ -5,6 +5,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+
 
 
 import { useState, useContext } from "react";
@@ -69,10 +73,15 @@ const AddShelfForm = () => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <IconButton 
+                color="primary"
+                onClick={handleClickOpen}>
+                <AddIcon />
+            </IconButton>
+            {/* <Button variant="outlined" onClick={handleClickOpen}>
                 Add shelf
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
+            </Button> */}
+            <Dialog fullWidth maxWidth="xs" open={open} onClose={handleClose}>
                 <DialogTitle>Add Shelf</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -94,13 +103,26 @@ const AddShelfForm = () => {
                         {errors ? <Error severity="error" error={errors} /> : null}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                <IconButton
+                        color="secondary"
+                        onClick={handleClose}>
+                        <RemoveCircleOutlineIcon />
+                    </IconButton>
+                    <IconButton
+                        color="primary"
+                        onClick={(e) => {
+                            formik.handleSubmit()
+                            handleClose()
+                        }}>
+                        <AddIcon />
+                    </IconButton>
+                    {/* <Button onClick={handleClose}>Cancel</Button>
                     <Button 
                         onClick={() => {
                             formik.handleSubmit()
                         }}>
                             Add
-                    </Button>
+                    </Button> */}
                 </DialogActions>
             </Dialog>
     </div>
