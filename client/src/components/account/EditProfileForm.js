@@ -5,6 +5,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
+import { IconButton } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -109,10 +115,15 @@ const EditProfileForm = () => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <IconButton 
+                color="primary"
+                onClick={handleClickOpen}>
+                <ModeEditOutlineOutlinedIcon />
+            </IconButton>
+            {/* <Button variant="outlined" onClick={handleClickOpen}>
                 Edit profile
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
+            </Button> */}
+            <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
                 <DialogTitle>Edit profile</DialogTitle>
                 <DialogContent>
                 <TextField
@@ -182,6 +193,7 @@ const EditProfileForm = () => {
                     {/* <Button onClick={handleClose}>Cancel</Button> */}
                     <Button
                         // sx={{ maxWidth: 1/8 }}
+                        color="secondary"
                         onClick={handleDelete}
                         variant="text">
                             Delete account

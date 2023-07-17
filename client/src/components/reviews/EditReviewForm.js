@@ -105,7 +105,6 @@ const EditReviewForm = ({ review, updateReview }) => {
         <div>
             <IconButton 
                 color="primary"
-                // sx={{ px: 2 }}
                 onClick={handleClickOpen}>
                 <ModeEditOutlineOutlinedIcon />
             </IconButton>
