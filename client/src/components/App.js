@@ -22,7 +22,11 @@ import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { orange, purple } from "@mui/material/colors";
 
-const font =  "'Syne', sans-serif";
+const Syne =  "'Syne', sans-serif";
+const YoungSerif = "YoungSerif";
+const Karla = "'Karla', sans-serif";
+const Inter = "'Inter', sans-serif";
+const SpaceMono = "'Space Mono', monospace";
 
 const theme = createTheme({
     palette: {
@@ -34,28 +38,28 @@ const theme = createTheme({
         }
     },
     typography: {
-        fontFamily: font, 
+        fontFamily: Syne, 
         fontWeightLight: 400,
         fontWeightRegular: 500,
         fontWeightMedium: 600,
         fontWeightBold: 700, 
         h1: {
-            fontFamily: font
+            fontFamily: YoungSerif
         },
         h2: {
-            fontFamily: font
+            fontFamily: YoungSerif
         },
         h3: {
-            fontFamily: font
+            fontFamily: YoungSerif
         },
         h4: {
-            fontFamily: font
+            fontFamily: Syne
         },
         h5: {
-            fontFamily: font
+            fontFamily: Syne
         },
         h6: {
-            fontFamily: font
+            fontFamily: Syne
         }
     }
 })

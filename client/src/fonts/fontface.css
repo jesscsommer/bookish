@@ -1,0 +1,7 @@
+@font-face {
+	font-family: "YoungSerif";
+	src: local("YoungSerif"),
+		url("YoungSerif-Regular.woff") format("woff");
+		font-weight: normal;
+		font-style: normal;
+}
