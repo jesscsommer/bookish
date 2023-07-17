@@ -74,6 +74,10 @@ const theme = createTheme({
         },
         h6: {
             fontFamily: YoungSerif
+        },
+        body1: {
+            fontFamily: Karla,
+            fontWeight: 300
         }
     }
 })

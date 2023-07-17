@@ -18,6 +18,7 @@ import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
 import EditButton from "../building_blocks/EditButton";
 import EditReviewForm from "./EditReviewForm";
+import BookRating from "./BookRating";
 
 const ReviewCard = ({ review, updateReview, deleteReview }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
@@ -58,13 +59,14 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
                         { onProfile && review?.user?.id === user?.id ? <DeleteButton handleClick={() => handleDelete(review?.id)} /> : null }
                     </Box>
                 </Link>
-                <Rating 
+                {/* <Rating 
                     id="rating"
                     name="rating" 
                     precision={0.5} 
                     value={review?.rating}
                     readOnly
-                    />
+                    /> */}
+                <BookRating rating={review?.rating} />
                 <Typography variant="body2">
                     {review?.comment}
                 </Typography>

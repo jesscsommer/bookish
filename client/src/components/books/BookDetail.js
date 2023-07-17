@@ -11,6 +11,7 @@ import { UserContext } from '../../context/userContext';
 import ReviewsContainer from '../reviews/ReviewsContainer';
 import BookRating from '../reviews/BookRating';
 import Rating from '@mui/material/Rating';
+import { v4 as uuid } from "uuid";
 
 
 const BookDetail = () => {
@@ -48,44 +49,45 @@ const BookDetail = () => {
 
     const reviewedByUser = currentBook?.reviews.find(review => review.user.id === user?.id)
 
+    const desc_paragraphs = currentBook?.description.split("\n").map(p => p.replace("\\n", ""))
+
     return (
-        <Box>
+        <Box m={5} ml={10} mr={10}>
             <Box sx={{padding: 3}} display="flex" alignItems="top">
-            {/* <Box sx={{padding: 3}} alignItems="top"> */}
                 <Box
                     component="img"
                     sx={{
-                        width: 1/3,
-                        // height: 300,
-                        // backgroundColor: 'primary.dark',
-                        // '&:hover': {
-                        //     backgroundColor: 'primary.main',
-                        //     opacity: [0.9, 0.8, 0.7],
-                        // },
-                        objectFit: "contain"
+                        maxHeight: 400,
+                        objectFit: "contain",
+                        borderRadius: "16px"
                     }}
                     alt="alt text"
                     src={currentBook?.cover_photo}
                 />
                 <Box sx={{ padding: "0 3em 0 3em", width: 2/3 }}>
-                    <Typography variant="h4">
+                    <Typography variant="h3">
                         {currentBook?.title}
                     </Typography>
-                    <Typography variant="h6">
+                    <Typography mb={1} variant="h5">
                         {currentBook?.author.full_name}
                     </Typography>
                     <BookRating rating={rating} />
-                    <Typography variant="body1">
-                        {currentBook?.description}
-                    </Typography>
+                    {desc_paragraphs?.map(p => 
+                        <Typography key={uuid()} mt={2} variant="body1">
+                            {p}
+                        </Typography>
+                    )}
                 </Box>
             </Box>
             { recs.length ? 
+                <RecsContainer recs={recs} /> 
+                : null }
+            {/* { recs.length ? 
                 <Box sx={{ padding: 3}}>
                     <Typography variant="h5">You might also like ... </Typography>
                     <RecsContainer recs={recs} /> 
                 </Box> :
-                null }
+                null } */}
             { user && !reviewedByUser ? < AddReviewForm book={currentBook} addReview={addReview} /> : null }
             <ReviewsContainer reviews={reviews} />
         </Box>

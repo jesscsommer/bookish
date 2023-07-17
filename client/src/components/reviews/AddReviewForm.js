@@ -3,8 +3,10 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
-
-
+import InputAdornment from '@mui/material/InputAdornment';
+import AddIcon from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
 
 import { useState, useContext } from "react";
 import { UserContext } from '../../context/userContext';
@@ -15,6 +17,7 @@ import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
 import { BookContext } from '../../context/bookContext';
+import { Input } from '@mui/material';
 
 const AddReviewForm = ({ book, addReview }) => {
     const { user, dispatch : userDispatch } = useContext(UserContext)
@@ -64,11 +67,20 @@ const AddReviewForm = ({ book, addReview }) => {
         }
     })
 
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+            color: '#FF8849',
+        },
+        '& .MuiRating-iconHover': {
+            color: '#B24A13',
+        },
+    });
+
     return (
         <Box sx={{ padding: 3, maxWidth: 500 }}>
             <Typography mb={3} variant="h5">Review {book?.title}</Typography>
             <Typography component="legend">Rating</Typography>
-            <Rating 
+            <StyledRating 
                 id="rating"
                 name="rating" 
                 precision={0.5} 
@@ -88,19 +100,20 @@ const AddReviewForm = ({ book, addReview }) => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values?.comment}
+                InputProps={{
+                    endAdornment: 
+                    <InputAdornment position="end">
+                        <IconButton onClick={formik.handleSubmit}>
+                            <AddIcon />
+                        </IconButton>
+                    </InputAdornment>
+                }}
             >
             </TextField>
             {formik.errors.comment && formik.touched.comment ? 
                 <Error severity="warning" error={formik.errors.comment} /> 
                 : null}
             {errors ? <Error severity="error" error={errors} /> : null}
-            <Button 
-                onClick={(e) => {
-                    formik.handleSubmit()
-                }}
-                    >
-                    Add
-            </Button>
         </Box>
     )
 }
