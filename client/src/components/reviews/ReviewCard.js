@@ -42,7 +42,7 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
     }
 
     return (
-        <Box sx={{ minWidth: 275 }}>
+        <Box xs={12} sx={{ width: "100%" }}>
             <Card variant="outlined">
             <CardContent>
                 <Link to={`/profile/${review?.user?.username}`} style={{ textDecoration: "none", color: "black" }}>
@@ -59,15 +59,8 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
                         { onProfile && review?.user?.id === user?.id ? <DeleteButton handleClick={() => handleDelete(review?.id)} /> : null }
                     </Box>
                 </Link>
-                {/* <Rating 
-                    id="rating"
-                    name="rating" 
-                    precision={0.5} 
-                    value={review?.rating}
-                    readOnly
-                    /> */}
                 <BookRating rating={review?.rating} />
-                <Typography variant="body2">
+                <Typography variant="body1">
                     {review?.comment}
                 </Typography>
                 </CardContent>
