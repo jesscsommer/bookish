@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import Divider from '@mui/material/Divider';
 
 
 import EditProfileForm from './EditProfileForm';
@@ -60,7 +61,7 @@ const Profile = () => {
     }
 
     return (
-        <Box>
+        <Box sx={{ py: 3 }}>
                 <Box
                     sx={{ padding: 3}}
                     display="flex"
@@ -74,9 +75,9 @@ const Profile = () => {
                     </Box>
                     { user?.id === profileUser?.id ? <EditProfileForm /> : null }
                 </Box>
-            
+                <Divider variant="middle" />
             { user?.id === profileUser?.id ? 
-                <Grid>
+                <Grid sx={{ padding : 3 }}>
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <Typography variant="h4" mt={3}>Manage shelves</Typography>
                         <AddShelfForm />
@@ -96,9 +97,9 @@ const Profile = () => {
                     </Grid>)}
                 </Grid>
             : null }
-
-            <Grid>
-                <Typography variant="h4" mt={3}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
+            <Divider variant="middle" sx={{ py: 3 }} />
+            <Grid sx={{ padding : 3 }}>
+                <Typography variant="h4" sx={{ py: 3 }}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
                 <ReviewsContainer reviews={reviews} updateReview={updateReview} deleteReview={deleteReview} /> 
             </Grid>
     </Box>

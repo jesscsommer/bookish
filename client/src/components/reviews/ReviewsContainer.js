@@ -15,8 +15,8 @@ const ReviewsContainer = ({ reviews, updateReview, deleteReview }) => {
     // const { books } = useContext(BookContext)
 
     return (
-        <Box maxWidth="md" sx={{ padding: 3, py: 12 }}> 
-            <Grid container sx={{ px: 3 }} spacing={4}>
+        <Box maxWidth="md"> 
+            <Grid container sx={{ px: 3, py: 3 }} spacing={4}>
                 {reviews?.map(review => 
                     <ReviewCard 
                         key={review.id} 
