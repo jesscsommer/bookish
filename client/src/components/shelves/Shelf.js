@@ -16,32 +16,14 @@ import DeleteButton from "../building_blocks/DeleteButton"
 import { UserContext } from '../../context/userContext';
 import { useContext } from 'react';
 import { BookShelfContext } from '../../context/bookShelfContext';
-
-const defaultTheme = createTheme()
-
-const cards = [1, 2, 3];
+import { BookContext } from '../../context/bookContext';
 
 const Shelf = ({ shelf }) => {
-    const { user, dispatch : userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
 
-    // console.log("This is the shelf")
-    // console.log
-
-    // console.log(shelf.books)
-
-    // const handleClick = (shelf_id) => {
-    //     (async () => {
-    //         const res = await fetch(`/shelves/${shelf_id}`, { method: "DELETE" })
-    //         if (res.ok){
-    //             userDispatch({ type: "fetch", payload: { ...user }})
-    //         }
-    //     })();
-    // }
-
-    // console.log(shelf.books)
-
-    console.log(shelf)
+    const booksOnShelves = bookShelves?.filter(bs => bs.shelf_id === shelf.id)
+    // console.log(shelf.name)
+    // console.log(booksOnShelves[0]?.book)
 
     return (
         <Box>
@@ -50,24 +32,14 @@ const Shelf = ({ shelf }) => {
                 {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
             </Typography>
             <Grid container spacing={4}>
-                {shelf?.books?.map(book => 
+                {booksOnShelves.map(bookShelf => 
                     <BookCard 
                     key={uuid()}
-                    book={book}
-                    shelf={shelf} />)}
+                    book={bookShelf.book}
+                    shelf={shelf} 
+                    bookShelfId={bookShelf.id} />)}
             </Grid>
         </Box>
-        // <Grid container mt={2} spacing={4} sx={{ maxHeight: 450 }}>
-        //     <Box sx={{ width: 1 }}>
-        //         <Typography variant="h5">
-        //             {shelf?.name}
-        //             {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
-        //         </Typography>
-        //     </Box>
-        //     {shelf?.books?.map((book) => (
-        //         <BookCard key={uuid()} book={book} shelf={shelf}/>
-        //     ))}
-        // </Grid>
     )
 }
 

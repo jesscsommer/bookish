@@ -14,7 +14,7 @@ class BookSchema(ma.SQLAlchemySchema):
         load_instance = True
         ordered = True
         fields = ("id", "title", "cover_photo", "genre", "page_count", \
-                "description", "reviews", "author", "url")
+                "description", "reviews", "book_shelves", "author", "url")
         
     title = fields.String(validate=validate.Length(min=1, max=150), \
                     error="Title must be less than 150 characters")
@@ -24,7 +24,7 @@ class BookSchema(ma.SQLAlchemySchema):
                     validate=validate.Range(min=1, max=25000), \
                     error="Page count must be between 1 and 25000")
     author = fields.Nested(AuthorSchema, only=("id", "full_name", "url"))
-    # book_shelves = fields.Nested("BookShelfSchema", only=("id", "url"), many=True)
+    book_shelves = fields.Nested("BookShelfSchema", only=("id", "shelf_id", "url"), many=True)
     # shelves = fields.Nested("ShelfSchema", only=("id", "name", "user_id"), many=True)
     reviews = fields.Nested("ReviewSchema", only=("id", "rating", "user", "comment", "url"), many=True)
 

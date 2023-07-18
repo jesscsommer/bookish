@@ -16,24 +16,45 @@ import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
 import BookRating from "../reviews/BookRating";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import Rating from '@mui/material/Rating';
+import { styled } from '@mui/material/styles';
 
-const BookCard = ({ book, shelf }) => {
+const BookCard = ({ book, shelf, bookShelfId }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
+    const [ avg, setAvg ] = useState(book.avg_rating)
     const location = useLocation()
+
+    if (!avg) {
+        (async () => {
+            const res = await fetch(`/avg_rating/books/${book.id}`)
+            if (res.ok){
+                const data = await res.json()
+                setAvg(data.avg_rating)
+            }
+        })()
+    }
 
     const removeFromShelf = () => {
         (async () => {
-            const book_shelf_id = user?.book_shelves?.find(bs => bs.book_id === book.id && bs.shelf_id === shelf.id)?.id
-            const res = await fetch(`/api/v1/book_shelves/${book_shelf_id}`, { method: "DELETE"})
+            const res = await fetch(`/api/v1/book_shelves/${bookShelfId}`, { method: "DELETE"})
             if (res.ok) {
-                shelf["books"] = shelf.books.filter(b => b.id !== book.id)
-                shelfDispatch({ type: "patch", payload: shelf })
-
+                // shelf["books"] = shelf.books.filter(b => b.id !== book.id)
+                // shelfDispatch({ type: "patch", payload: shelf })
+                bookShelfDispatch({ type: "remove", payload: bookShelfId })
             }
         })();
     }
+
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+            color: '#FF8849',
+        },
+        '& .MuiRating-iconHover': {
+            color: '#B24A13',
+        },
+    });
 
     return (
         <Grid item sx={{objectFit: "contain"}} key={book.id} xs={12} sm={8} md={4} lg={3} xl={2}>
@@ -65,7 +86,15 @@ const BookCard = ({ book, shelf }) => {
                     <Typography>
                         {book.genre}
                     </Typography>
-                    <BookRating rating={book.avg_rating} />
+                    <StyledRating 
+                            id="rating"
+                            name="rating" 
+                            precision={0.5} 
+                            value={avg} 
+                            readOnly 
+                            />
+                
+                    {/* <BookRating rating={avg} /> */}
                     </CardContent>
                     </Link>
                     <CardActions disableSpacing> 
@@ -82,7 +111,7 @@ const BookCard = ({ book, shelf }) => {
                             {location.pathname === "/shelves" ? 
                                 <IconButton 
                                     color="secondary" 
-                                    handleClick={removeFromShelf}> 
+                                    onClick={removeFromShelf}> 
                                     <RemoveCircleOutlineIcon />
                                 </IconButton> 
                                 : null}
