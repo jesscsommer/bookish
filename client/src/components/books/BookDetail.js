@@ -12,6 +12,7 @@ import ReviewsContainer from '../reviews/ReviewsContainer';
 import BookRating from '../reviews/BookRating';
 import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
+import { ReviewContext } from '../../context/reviewContext';
 
 import Rating from '@mui/material/Rating';
 import { v4 as uuid } from "uuid";
@@ -23,13 +24,14 @@ const BookDetail = () => {
     const { user } = useContext(UserContext)
     const { errors, dispatch: errorDispatch } = useContext(ErrorContext)
     const { books, dispatch: bookDispatch } = useContext(BookContext)
+    const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ currentBook, setCurrentBook ] = useState(null)
-    const [ reviews, setReviews ] = useState(null)
+    // const [ reviews, setReviews ] = useState(null)
     const [ rating, setRating ] = useState(null)
 
-    const addReview = (newReview) => {
-        setReviews(reviews => [...reviews, newReview])
-    }
+    // const addReview = (newReview) => {
+    //     setReviews(reviews => [...reviews, newReview])
+    // }
 
     useEffect(() => {
         (async () => {
@@ -37,8 +39,9 @@ const BookDetail = () => {
             if (res.ok) {
                 const bookData = await res.json()
                 setCurrentBook(bookData)
-                setReviews(bookData.reviews)
-                setRating(bookData.avg_rating)
+                reviewDispatch({ type: "setByBook", payload: bookData?.reviews })
+                // setReviews(bookData.reviews)
+                // setRating(bookData.avg_rating)
             } else {
                 const errorData = await res.json()
                 errorDispatch({ type: "add", payload: errorData })
@@ -53,7 +56,7 @@ const BookDetail = () => {
             book?.genre === currentBook?.genre
     })
 
-    const reviewedByUser = currentBook?.reviews.find(review => review.user.id === user?.id)
+    const reviewedByUser = currentBook?.reviews.find(review => review?.user?.id === user?.id)
 
     const desc_paragraphs = currentBook?.description.split("\n").map(p => p.replace("\\n", ""))
 
@@ -77,7 +80,7 @@ const BookDetail = () => {
                     <Typography mb={1} variant="h5">
                         {currentBook?.author.full_name}
                     </Typography>
-                    <BookRating rating={rating} />
+                    <BookRating rating={currentBook?.avg_rating} />
                     {desc_paragraphs?.map(p => 
                         <Typography key={uuid()} mt={2} variant="body1">
                             {p}
@@ -95,7 +98,12 @@ const BookDetail = () => {
                 </Box> :
                 null } */}
             <Box sx={{ py: 4 }}>              
-                { user && !reviewedByUser ? < AddReviewForm book={currentBook} addReview={addReview} /> : null }
+                { user && !reviewedByUser ? 
+                < AddReviewForm 
+                    book={currentBook} 
+                    // addReview={addReview} 
+                    /> 
+                    : null }
                 <Box sx={{ px: 3 }}>
                     <ReviewsContainer reviews={reviews} />
                 </Box>

@@ -57,7 +57,7 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
                         >
                         <Avatar sx={{ width: 25, height: 25 }} alt={review?.user?.username} src={review?.user?.profile_pic} />
                         <Typography sx={{ px: 2 }} variant="h6" component="div">
-                            {review?.user.username}
+                            {review?.user?.username}
                         </Typography>
                         <Box
                             sx={{

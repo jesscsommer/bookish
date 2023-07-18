@@ -25,11 +25,11 @@ const BookShelfProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch("/me")
+            const res = await fetch("/api/v1/book_shelves")
             // debugger
             if (res.ok) {
                 const data = await res.json()
-                dispatch({ type: "fetch", payload: data.user?.book_shelves })
+                dispatch({ type: "fetch", payload: data })
             } 
         })();
     }, [])

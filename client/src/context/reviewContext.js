@@ -6,7 +6,7 @@ const initialState = []
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case "fetch":
+        case "setByBook":
             return action.payload
         case "add":
             return [action.payload, ...state]
@@ -25,16 +25,16 @@ const reducer = (state, action) => {
 const ReviewProvider = ({ children }) => {
     const [reviews, dispatch] = useReducer(reducer, initialState)
 
-    useEffect(() => {
-        (async () => {
-            const res = await fetch("/me")
-            // debugger
-            if (res.ok) {
-                const data = await res.json()
-                dispatch({ type: "fetch", payload: data.user?.reviews })
-            } 
-        })();
-    }, [])
+    // useEffect(() => {
+    //     (async () => {
+    //         const res = await fetch("/api/v1/reviews")
+    //         // debugger
+    //         if (res.ok) {
+    //             const data = await res.json()
+    //             dispatch({ type: "fetch", payload: data })
+    //         } 
+    //     })();
+    // }, [])
 
     return (
         <ReviewContext.Provider value={{ reviews, dispatch }}>
