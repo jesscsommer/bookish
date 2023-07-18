@@ -85,12 +85,6 @@ const theme = createTheme({
 
 const App = () => {
     const { user } = useContext(UserContext)
-    // const { dispatch: shelfDispatch } = useContext(ShelfContext)
-
-    // useEffect(() => {
-
-    // })
-    // shelfDispatch({ type: "set", payload: user?.shelves })
 
     return (
         <ThemeProvider theme={theme}> 

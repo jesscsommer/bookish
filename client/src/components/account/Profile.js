@@ -30,6 +30,8 @@ const Profile = () => {
     const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
+    // console.log(shelves)
+
     useEffect(() => {
         (async () => {
             const res = await fetch(`/users/${username}`)
@@ -51,6 +53,7 @@ const Profile = () => {
             if (res.ok){
                 // userDispatch({ type: "fetch", payload: { ...user }})
                 shelfDispatch({ type: "remove", payload: shelf_id })
+                // setShelves(shelves => shelves.filter(shelf => shelf.id !== shelf_id))
             }
         })();
     }
