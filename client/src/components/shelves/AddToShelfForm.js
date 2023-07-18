@@ -60,7 +60,6 @@ const AddToShelfForm = ({ book }) => {
                     user.book_shelves.push(data)
                     userDispatch({ type: "fetch", payload: user })
                     bookDispatch({ type: "patch", payload: data.book })
-                    // console.log(user)
                     resetForm()
                 }
             })();
@@ -73,9 +72,6 @@ const AddToShelfForm = ({ book }) => {
 
     return (
         <div>
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
-                Add to shelf
-            </Button> */}
             <IconButton color="primary" onClick={handleClickOpen}>
                 <AddIcon />
             </IconButton>
@@ -92,10 +88,8 @@ const AddToShelfForm = ({ book }) => {
                             name="shelf_id"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            // defaultValue={""}
                             value={formik.values?.shelf_id}
                         >
-                            {/* <MenuItem value={1}>One</MenuItem> */}
                             {notInShelves?.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
                         </TextField>
                         {formik.errors.shelf_id && formik.touched.shelf_id ? 
@@ -116,17 +110,6 @@ const AddToShelfForm = ({ book }) => {
                         }}>
                         <AddIcon />
                     </IconButton>
-                    {/* <Button 
-                        color="secondary"
-                        onClick={handleClose}>Cancel</Button>
-                    <Button 
-                        color="primary"
-                        onClick={(e) => {
-                            formik.handleSubmit()
-                            handleClose()
-                        }}>
-                            Add
-                    </Button> */}
                 </DialogActions>
             </Dialog>
     </div>

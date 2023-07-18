@@ -21,31 +21,11 @@ const defaultTheme = createTheme()
 
 const ShelfContainer = () => {
     const { user } = useContext(UserContext)
-    // const [ shelves, setShelves ] = useState(user?.shelves)
     const { shelves, dispatch: shelfDispatch } = useContext(ShelfContext)
-    // const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
-
-    // console.log(bookShelves)
-    // console.log(bookShelves[0].shelf)
-    // const test = bookShelves.map(bs => console.log(bs.shelf))
-
-    // const { shelves, dispatch: shelfDispatch } = useContext(ShelfContext)
-
-    // useEffect(() => {
-    //     shelfDispatch({ type: "set", payload: user?.shelves })
-    // }, [])
-
 
     return (
             <Box sx={{ paddingLeft: 10, paddingRight: 10 }}  maxWidth="lg">
                 {shelves?.map((shelf) => <Shelf key={shelf.id} shelf={shelf} />)}
-                {/* <Grid container spacing={4}>
-                {shelves?.map((shelf) => (
-                    <Box key={shelf.id} mb={3} sx={{ maxHeight: "100%", objectFit: "contain" }}>
-                        <Shelf key={shelf.id} shelf={shelf} />
-                    </Box>
-                ))}
-                </Grid> */}
             </Box>
     )
 }

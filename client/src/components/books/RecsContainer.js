@@ -15,13 +15,6 @@ const defaultTheme = createTheme()
 
 const RecsContainer = ({ recs }) => {
     return (
-            // <main>
-            // <Container sx={{ py: 8 }} maxWidth="md">
-            //     <Grid container spacing={4}>
-            //     {recs?.map(rec => <BookCard book={rec} key={rec.id} />)}
-            //     </Grid>
-            // </Container>
-            // </main>
             <Box maxWidth="lg" sx={{ padding: 3, py: 8 }}>
                 <Typography mb={4} variant="h5">
                     You might also like ...

@@ -58,8 +58,6 @@ const AddReviewForm = ({ book, addReview }) => {
                 })
                 if (res.ok) {
                     const data = await res.json()
-                    // set context 
-                    // addReview(data)
                     reviewDispatch({ type: "add", payload: data })
                     resetForm()
                 } else {

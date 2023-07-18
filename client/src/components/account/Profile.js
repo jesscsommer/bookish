@@ -39,8 +39,6 @@ const Profile = () => {
                 const data = await res.json()
                 setProfileUser(data)
                 reviewDispatch({ type: "set", payload: data?.reviews })
-                // shelfDispatch({ type: "set", payload: data?.shelves })
-                // setReviews(data.reviews)
             } else {
                 navigate("/404")
             }
@@ -51,9 +49,7 @@ const Profile = () => {
         (async () => {
             const res = await fetch(`/api/v1/shelves/${shelf_id}`, { method: "DELETE" })
             if (res.ok){
-                // userDispatch({ type: "fetch", payload: { ...user }})
                 shelfDispatch({ type: "remove", payload: shelf_id })
-                // setShelves(shelves => shelves.filter(shelf => shelf.id !== shelf_id))
             }
         })();
     }
@@ -92,7 +88,6 @@ const Profile = () => {
                                     onClick={() => handleClick(shelf?.id)}>
                                     <RemoveCircleOutlineIcon />
                                 </IconButton> }
-                                {/* // <DeleteButton handleClick={() => handleClick(shelf?.id)} />}  */}
                         </Typography>
                     </Grid>)}
                 </Grid>
@@ -102,8 +97,6 @@ const Profile = () => {
                 <Typography variant="h4" mb={3} sx={{ py: 3 }}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
                 <ReviewsContainer 
                     reviews={reviews} 
-                    // updateReview={updateReview} 
-                    // deleteReview={deleteReview} 
                     /> 
             </Grid>
     </Box>

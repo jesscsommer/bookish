@@ -121,9 +121,6 @@ const EditProfileForm = () => {
                 onClick={handleClickOpen}>
                 <ModeEditOutlineOutlinedIcon />
             </IconButton>
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
-                Edit profile
-            </Button> */}
             <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
                 <DialogTitle>Edit profile</DialogTitle>
                 <DialogContent>
@@ -175,7 +172,6 @@ const EditProfileForm = () => {
                         : null}
                     <TextField
                         margin="normal"
-                        // required
                         fullWidth
                         multiline
                         id="bio"
@@ -191,17 +187,13 @@ const EditProfileForm = () => {
                         : null}
                 </DialogContent>
                 <DialogActions>
-                    {/* <Button onClick={handleClose}>Cancel</Button> */}
                     <Button
-                        // sx={{ maxWidth: 1/8 }}
                         color="secondary"
                         onClick={handleDelete}
                         variant="text">
                             Delete account
                     </Button>
                     <Button 
-                        // sx={{ maxWidth: 1/3 }}
-                        // justifyContent="center"
                         variant="contained"
                         onClick={() => {
                             formik.handleSubmit()

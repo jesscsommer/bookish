@@ -22,14 +22,11 @@ const Shelf = ({ shelf }) => {
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
 
     const booksOnShelves = bookShelves?.filter(bs => bs.shelf_id === shelf.id)
-    // console.log(shelf.name)
-    // console.log(booksOnShelves[0]?.book)
 
     return (
         <Box>
             <Typography mt={6} mb={2} variant="h5">
                 {shelf?.name}
-                {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
             </Typography>
             <Grid container spacing={4}>
                 {booksOnShelves.map(bookShelf => 

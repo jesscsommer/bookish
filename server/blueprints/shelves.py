@@ -24,8 +24,7 @@ class Shelves(Resource):
         return make_response(shelves_schema.dump(shelves), 200)
     
     def post(self):
-        try: 
-            # import ipdb; ipdb.set_trace()
+        try:
             data = request.get_json()
             shelf_schema.validate(data)
             data["user_id"] = session["user_id"]

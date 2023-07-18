@@ -65,12 +65,10 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
                     id="sort_by"
                     fullWidth
                     sx={{ maxHeight: 45, marginBottom: 2 }}
-                    // value={age}
                     onChange={(e) => updateSortBy(e.target.value)}
                 >
                     <MenuItem value="avg_rating">Avg. rating</MenuItem>
                     <MenuItem value="title">Title</MenuItem>
-                    {/* // add more options, most reviewed, etc. */}
                 </Select>
                 <Button 
                     variant="text"

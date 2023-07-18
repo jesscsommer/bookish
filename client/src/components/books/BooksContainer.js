@@ -56,13 +56,6 @@ const BooksContainer = () => {
             <Box sx={{ py: 5, paddingLeft: 10, paddingRight: 10 }} 
                     maxWidth="xl"
                     justifyContent="right"
-                    // display="flex"
-                    // alignItems="top"
-                    // justify="center"
-                    // display="flex"
-                    // justifyContent="center"
-                    // alignItems="top"
-                    // minHeight="100vh"
                     >
                 <Filter updateMinAvgRating={updateMinAvgRating} updateSortBy={updateSortBy} />
                 <Grid container spacing={4}>

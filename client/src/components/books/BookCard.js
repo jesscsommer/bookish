@@ -40,8 +40,6 @@ const BookCard = ({ book, shelf, bookShelfId }) => {
         (async () => {
             const res = await fetch(`/api/v1/book_shelves/${bookShelfId}`, { method: "DELETE"})
             if (res.ok) {
-                // shelf["books"] = shelf.books.filter(b => b.id !== book.id)
-                // shelfDispatch({ type: "patch", payload: shelf })
                 bookShelfDispatch({ type: "remove", payload: bookShelfId })
             }
         })();
@@ -77,7 +75,6 @@ const BookCard = ({ book, shelf, bookShelfId }) => {
                             borderRadius: "16px", 
                             boxShadow: "2px 2px 2px #E3E1E1" }}
                         image={book.cover_photo}
-                        // maxHeight="450px"
                     />
                     <CardContent>
                     <Typography variant="h6" component="h2">

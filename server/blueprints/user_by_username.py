@@ -12,7 +12,6 @@ from config import app
 from models import db, joinedload
 from models.user import User
 from schemas.user_schema import UserSchema
-# from blueprints.user_by_id import user_schema
 
 user_schema = UserSchema(exclude=("shelves", "book_shelves"))
 user_by_username_bp = Blueprint("user_by_username", __name__)

@@ -25,7 +25,6 @@ class BookSchema(ma.SQLAlchemySchema):
                     error="Page count must be between 1 and 25000")
     author = fields.Nested(AuthorSchema, only=("id", "full_name", "url"))
     book_shelves = fields.Nested("BookShelfSchema", only=("id", "shelf_id", "url"), many=True)
-    # shelves = fields.Nested("ShelfSchema", only=("id", "name", "user_id"), many=True)
     reviews = fields.Nested("ReviewSchema", only=("id", "rating", "user", "comment", "url"), many=True)
 
     url = ma.Hyperlinks(

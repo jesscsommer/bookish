@@ -16,7 +16,6 @@ class QuoteSchema(ma.SQLAlchemySchema):
                             validate=validate.Length(min=1, max=1000), \
                             error="Quote must be less than 1000 characters")
     book = fields.Nested("BookSchema", only=("id", "title", "url"))
-    # book = fields.Nested("BookSchema", only=("id", "title", "author.full_name", "url"))
 
     url = ma.Hyperlinks(
         {
