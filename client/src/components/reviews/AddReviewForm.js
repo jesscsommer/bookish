@@ -77,7 +77,7 @@ const AddReviewForm = ({ book, addReview }) => {
     });
 
     return (
-        <Box sx={{ padding: 3, maxWidth: 500 }}>
+        <Box mb={3} sx={{ padding: 3, maxWidth: 500 }}>
             <Typography mb={3} variant="h5">Review {book?.title}</Typography>
             <Typography component="legend">Rating</Typography>
             <StyledRating 

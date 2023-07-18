@@ -94,8 +94,12 @@ const BookDetail = () => {
                     <RecsContainer recs={recs} /> 
                 </Box> :
                 null } */}
-            { user && !reviewedByUser ? < AddReviewForm book={currentBook} addReview={addReview} /> : null }
-            <ReviewsContainer reviews={reviews} />
+            <Box sx={{ py: 4 }}>              
+                { user && !reviewedByUser ? < AddReviewForm book={currentBook} addReview={addReview} /> : null }
+                <Box sx={{ px: 3 }}>
+                    <ReviewsContainer reviews={reviews} />
+                </Box>
+            </Box>
         </Box>
     )
 }

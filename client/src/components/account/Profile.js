@@ -102,7 +102,7 @@ const Profile = () => {
             : null }
             <Divider variant="middle" sx={{ py: 3 }} />
             <Grid ml={5} sx={{ px: "56px" }}>
-                <Typography variant="h4" sx={{ py: 3 }}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
+                <Typography variant="h4" mb={3} sx={{ py: 3 }}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
                 <ReviewsContainer reviews={reviews} updateReview={updateReview} deleteReview={deleteReview} /> 
             </Grid>
     </Box>

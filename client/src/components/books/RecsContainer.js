@@ -22,7 +22,7 @@ const RecsContainer = ({ recs }) => {
             //     </Grid>
             // </Container>
             // </main>
-            <Box maxWidth="lg" sx={{ padding: 3, py: 12 }}>
+            <Box maxWidth="lg" sx={{ padding: 3, py: 8 }}>
                 <Typography mb={4} variant="h5">
                     You might also like ...
                 </Typography>
