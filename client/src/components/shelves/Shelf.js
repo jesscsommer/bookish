@@ -39,9 +39,11 @@ const Shelf = ({ shelf }) => {
     //     })();
     // }
 
+    console.log(shelf.books)
+
     return (
         <Box
-            maxWidth="sm" >
+            maxWidth="xl" >
             <Typography mt={6} mb={2} variant="h5">
                 {shelf?.name}
                 {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}

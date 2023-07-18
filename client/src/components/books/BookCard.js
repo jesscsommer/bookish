@@ -36,7 +36,7 @@ const BookCard = ({ book, shelf }) => {
     }
 
     return (
-        <Grid item sx={{objectFit: "contain"}} key={book.id} xs={12} sm={8} md={5}>
+        <Grid item sx={{objectFit: "contain"}} key={book.id} md={1} lg={3}>
                 <Card
                     // component={Link}
                     // to={`/books/${book.id}`}

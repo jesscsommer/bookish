@@ -52,7 +52,7 @@ const BooksContainer = () => {
 
     return (
             <Box sx={{ py: 8 }} 
-                    maxWidth="md"
+                    maxWidth="xl"
                     // display="flex"
                     // alignItems="top"
                     // justify="center"
