@@ -27,7 +27,7 @@ const BookDetail = () => {
     const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ currentBook, setCurrentBook ] = useState(null)
     // const [ reviews, setReviews ] = useState(null)
-    const [ rating, setRating ] = useState(null)
+    // const [ rating, setRating ] = useState(null)
 
     // const addReview = (newReview) => {
     //     setReviews(reviews => [...reviews, newReview])
