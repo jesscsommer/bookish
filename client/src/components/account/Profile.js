@@ -80,7 +80,7 @@ const Profile = () => {
                 </Box>
                 <Divider variant="middle" />
             { user?.id === profileUser?.id ? 
-                <Grid sx={{ padding : 3 }}>
+                <Grid ml={5} sx={{ px: "56px" }}>
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                         <Typography variant="h4" mt={3}>Manage shelves</Typography>
                         <AddShelfForm />
@@ -101,7 +101,7 @@ const Profile = () => {
                 </Grid>
             : null }
             <Divider variant="middle" sx={{ py: 3 }} />
-            <Grid sx={{ padding : 3 }}>
+            <Grid ml={5} sx={{ px: "56px" }}>
                 <Typography variant="h4" sx={{ py: 3 }}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
                 <ReviewsContainer reviews={reviews} updateReview={updateReview} deleteReview={deleteReview} /> 
             </Grid>
