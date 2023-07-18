@@ -3,16 +3,7 @@ import { useState } from "react";
 import { styled } from '@mui/material/styles';
 
 const Filter = ({ updateMinAvgRating, updateSortBy }) => {
-    // const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-
-    // const handleClickOpen = () => {
-    //     setOpen(true);
-    // };
-    
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
 
     const handleClick = (e) => {
         setAnchorEl(anchorEl ? null : e.target);
@@ -49,7 +40,7 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
                 <Paper sx={{ 
                     padding: 3,
                     borderRadius: "5px", 
-                    boxShadow: "2px 2px 2px #E3E1E1" }}>
+                    boxShadow: "2px 2px 2px #E3E1E1"}}>
                 <Typography variant="h6">Avg. reader rating</Typography>
                 {NUMS.map(NUM => 
                     <Box
@@ -69,20 +60,24 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
                         <Typography variant="body1" sx={{ ml: 1 }}>& up</Typography>
                     </Box>
                 )}
-                <Typography mt={3} variant="h6">Sort by:</Typography>
+                <Typography mt={3} variant="h6">Sort by</Typography>
                 <Select
                     id="sort_by"
-                    sx={{ minWidth: 125 }}
+                    fullWidth
+                    sx={{ maxHeight: 45, marginBottom: 2 }}
                     // value={age}
                     onChange={(e) => updateSortBy(e.target.value)}
                 >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="avg_rating">Avg. Reader Review</MenuItem>
+                    <MenuItem value="avg_rating">Avg. rating</MenuItem>
                     <MenuItem value="title">Title</MenuItem>
                     {/* // add more options, most reviewed, etc. */}
                 </Select>
+                <Button 
+                    variant="text"
+                    color="secondary"
+                    onClick={() => updateMinAvgRating(0)}>
+                        Clear
+                </Button>
                 </Paper>
             </Popper>
         </div>
