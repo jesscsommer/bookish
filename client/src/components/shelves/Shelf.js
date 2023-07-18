@@ -41,6 +41,8 @@ const Shelf = ({ shelf }) => {
 
     // console.log(shelf.books)
 
+    console.log(shelf)
+
     return (
         <Box>
             <Typography mt={6} mb={2} variant="h5">

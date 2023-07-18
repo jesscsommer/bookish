@@ -23,16 +23,16 @@ const reducer = (state, action) => {
 const BookShelfProvider = ({ children }) => {
     const [bookShelves, dispatch] = useReducer(reducer, initialState)
 
-    useEffect(() => {
-        (async () => {
-            const res = await fetch("/api/v1/book_shelves")
-            // debugger
-            if (res.ok) {
-                const data = await res.json()
-                dispatch({ type: "fetch", payload: data })
-            } 
-        })();
-    }, [])
+    // useEffect(() => {
+    //     (async () => {
+    //         const res = await fetch("/api/v1/book_shelves")
+    //         // debugger
+    //         if (res.ok) {
+    //             const data = await res.json()
+    //             dispatch({ type: "fetch", payload: data })
+    //         } 
+    //     })();
+    // }, [])
 
 
     return (

@@ -39,7 +39,7 @@ const Profile = () => {
                 const data = await res.json()
                 setProfileUser(data)
                 reviewDispatch({ type: "set", payload: data?.reviews })
-                shelfDispatch({ type: "set", payload: data?.shelves })
+                // shelfDispatch({ type: "set", payload: data?.shelves })
                 // setReviews(data.reviews)
             } else {
                 navigate("/404")
