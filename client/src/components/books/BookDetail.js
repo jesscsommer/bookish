@@ -10,8 +10,12 @@ import AddReviewForm from '../reviews/AddReviewForm';
 import { UserContext } from '../../context/userContext';
 import ReviewsContainer from '../reviews/ReviewsContainer';
 import BookRating from '../reviews/BookRating';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
+
 import Rating from '@mui/material/Rating';
 import { v4 as uuid } from "uuid";
+import Loading from '../building_blocks/Loading';
 
 
 const BookDetail = () => {
@@ -41,6 +45,8 @@ const BookDetail = () => {
             }
         })();
     }, [book_id])
+
+    if (!currentBook) return <Loading />
 
     const recs = books?.filter(book => book?.id !== currentBook?.id).filter(book => {
         return book?.author.full_name === currentBook?.author.full_name ||
