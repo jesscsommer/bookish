@@ -30,7 +30,6 @@ const Profile = () => {
     const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
-    // console.log(shelves)
 
     useEffect(() => {
         (async () => {

@@ -24,6 +24,7 @@ from config import (
 from models import db
 from models.user import User
 from blueprints.user_by_id import user_schema
+from blueprints.auth.signup import create_default_shelves
 
 login_with_google_bp = Blueprint("login_with_google", __name__)
 
@@ -97,6 +98,8 @@ def callback():
         db.session.commit()
 
         session["user_id"] = user.id 
+        create_default_shelves(user)
+        
         return redirect("/"), 301
     
     
