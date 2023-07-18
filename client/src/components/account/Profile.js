@@ -18,6 +18,7 @@ import DeleteButton from "../building_blocks/DeleteButton";
 import { ShelfContext } from "../../context/shelfContext";
 import ReviewsContainer from "../reviews/ReviewsContainer";
 import EditReviewForm from "../reviews/EditReviewForm";
+import Loading from "../building_blocks/Loading";
 
 const Profile = () => {
     const { username } = useParams()
@@ -59,6 +60,8 @@ const Profile = () => {
             }
         })();
     }
+
+    if (!profileUser) return <Loading />
 
     return (
         <Box sx={{ py: 3 }}>

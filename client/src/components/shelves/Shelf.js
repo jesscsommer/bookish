@@ -39,7 +39,7 @@ const Shelf = ({ shelf }) => {
     //     })();
     // }
 
-    console.log(shelf.books)
+    // console.log(shelf.books)
 
     return (
         <Box
