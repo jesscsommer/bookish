@@ -29,7 +29,7 @@ const ShelfContainer = () => {
     // const test = bookShelves.map(bs => console.log(bs.shelf))
 
     return (
-            <Box sx={{ margin: "auto" }}  maxWidth="lg">
+            <Box sx={{ paddingLeft: 10, paddingRight: 10 }}  maxWidth="lg">
                 {shelves?.map((shelf) => <Shelf key={shelf.id} shelf={shelf} />)}
                 {/* <Grid container spacing={4}>
                 {shelves?.map((shelf) => (

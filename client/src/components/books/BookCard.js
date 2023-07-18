@@ -36,7 +36,7 @@ const BookCard = ({ book, shelf }) => {
     }
 
     return (
-        <Grid item sx={{objectFit: "contain"}} key={book.id} md={1} lg={3}>
+        <Grid item sx={{objectFit: "contain"}} key={book.id} xs={12} sm={8} md={6} lg={3} xl={2}>
                 <Card
                     sx={{ 
                         height: "100%", 
