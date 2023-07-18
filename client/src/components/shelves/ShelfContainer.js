@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { ShelfContext } from '../../context/shelfContext';
 import { UserContext } from '../../context/userContext';
 import { BookShelfContext } from '../../context/bookShelfContext';
@@ -20,8 +20,8 @@ import Shelf from "./Shelf"
 const defaultTheme = createTheme()
 
 const ShelfContainer = () => {
-    const { shelves } = useContext(ShelfContext)
     const { user } = useContext(UserContext)
+    const { shelves, dispatch: shelfDispatch } = useContext(ShelfContext)
     const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
 
     // console.log(bookShelves)

@@ -20,6 +20,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
+import { ShelfContext } from "../context/shelfContext";
 import { orange, purple } from "@mui/material/colors";
 
 const Syne =  "'Syne', sans-serif";
@@ -84,6 +85,12 @@ const theme = createTheme({
 
 const App = () => {
     const { user } = useContext(UserContext)
+    // const { dispatch: shelfDispatch } = useContext(ShelfContext)
+
+    // useEffect(() => {
+
+    // })
+    // shelfDispatch({ type: "set", payload: user?.shelves })
 
     return (
         <ThemeProvider theme={theme}> 

@@ -76,8 +76,8 @@ const BookCard = ({ book, shelf }) => {
                                 justifyContent: "flex-end",
                                 margin: 0
                             }}>
-                            {user && shelves?.length ? 
-                                    <AddToShelfForm book={book} /> 
+                            {user ? 
+                                <AddToShelfForm book={book} /> 
                                 : null}
                             {location.pathname === "/shelves" ? 
                                 <IconButton 

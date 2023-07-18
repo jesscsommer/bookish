@@ -37,6 +37,7 @@ const Profile = () => {
                 const data = await res.json()
                 setProfileUser(data)
                 reviewDispatch({ type: "set", payload: data?.reviews })
+                shelfDispatch({ type: "set", payload: data?.shelves })
                 // setReviews(data.reviews)
             } else {
                 navigate("/404")
@@ -48,7 +49,7 @@ const Profile = () => {
         (async () => {
             const res = await fetch(`/api/v1/shelves/${shelf_id}`, { method: "DELETE" })
             if (res.ok){
-                userDispatch({ type: "fetch", payload: { ...user }})
+                // userDispatch({ type: "fetch", payload: { ...user }})
                 shelfDispatch({ type: "remove", payload: shelf_id })
             }
         })();

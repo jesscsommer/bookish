@@ -6,7 +6,7 @@ const initialState = []
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case "fetch":
+        case "set":
             return action.payload
         case "add":
             return [action.payload, ...state]
@@ -25,16 +25,16 @@ const reducer = (state, action) => {
 const ShelfProvider = ({ children }) => {
     const [shelves, dispatch] = useReducer(reducer, initialState)
 
-    useEffect(() => {
-        (async () => {
-            const res = await fetch("/shelves")
-            // debugger
-            if (res.ok) {
-                const data = await res.json()
-                dispatch({ type: "fetch", payload: data })
-            } 
-        })();
-    }, [])
+    // useEffect(() => {
+    //     (async () => {
+    //         const res = await fetch("/shelves")
+    //         // debugger
+    //         if (res.ok) {
+    //             const data = await res.json()
+    //             dispatch({ type: "fetch", payload: data })
+    //         } 
+    //     })();
+    // }, [])
 
     return (
         <ShelfContext.Provider value={{ shelves, dispatch }}>
