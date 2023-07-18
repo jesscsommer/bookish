@@ -65,9 +65,10 @@ const Header = () => {
             padding: 1,
             boxShadow: "12px 12px 12px #f7f5f5"
             }}
-        position="static" 
-        color="secondary">
-        <Container maxWidth="xl">
+            fullWidth
+            position="static" 
+            color="primary">
+        <Container>
             <Toolbar disableGutters>
             {/* <Box component="img" src="../orange-glasses.PNG" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box> */}
             <Typography
