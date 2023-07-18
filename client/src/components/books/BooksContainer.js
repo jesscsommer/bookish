@@ -14,6 +14,7 @@ import { useContext, useState } from "react"
 import { BookContext } from '../../context/bookContext';
 
 import BookCard from './BookCard';
+import Loading from '../building_blocks/Loading';
 
 const defaultTheme = createTheme()
 
@@ -49,6 +50,7 @@ const BooksContainer = () => {
         setSortBy(old => newSort)
     }
 
+    if (!books) return <Loading /> 
 
     return (
             <Box sx={{ py: 5, paddingLeft: 10, paddingRight: 10 }} 
