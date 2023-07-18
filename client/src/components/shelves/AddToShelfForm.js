@@ -19,12 +19,14 @@ import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
 import { BookContext } from '../../context/bookContext';
+import { BookShelfContext } from '../../context/bookShelfContext';
 
 const AddToShelfForm = ({ book }) => {
     const [open, setOpen] = useState(false);
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const { books, dispatch : bookDispatch } = useContext(BookContext)
+    const { bookShelves, dispatch: bookShelfDispatch } = useContext(BookShelfContext)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -56,11 +58,11 @@ const AddToShelfForm = ({ book }) => {
                 })
                 if (res.ok) {
                     const data = await res.json()
-                    shelfDispatch({ type: "patch", payload: data.shelf })
-                    user.book_shelves.push(data)
-                    userDispatch({ type: "fetch", payload: user })
-                    bookDispatch({ type: "patch", payload: data.book })
-                    // console.log(user)
+                    bookShelfDispatch({ type: "add", payload: data })
+                    // shelfDispatch({ type: "patch", payload: data.shelf })
+                    // user.book_shelves.push(data)
+                    // userDispatch({ type: "fetch", payload: user })
+                    // bookDispatch({ type: "patch", payload: data.book })
                     resetForm()
                 }
             })();
@@ -68,14 +70,11 @@ const AddToShelfForm = ({ book }) => {
     })
 
 
-    const alreadyInShelves = book.shelves.filter(s => s.user_id === user.id).map(s => s.id)
-    const notInShelves = shelves.filter(shelf => !alreadyInShelves.includes(shelf.id))
+    const alreadyInShelves = bookShelves.filter(bs => bs.book_id == book.id).map(bs => bs.shelf_id)
+    const notInShelves = shelves?.filter(shelf => !alreadyInShelves?.includes(shelf.id))
 
     return (
         <div>
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
-                Add to shelf
-            </Button> */}
             <IconButton color="primary" onClick={handleClickOpen}>
                 <AddIcon />
             </IconButton>
@@ -92,10 +91,8 @@ const AddToShelfForm = ({ book }) => {
                             name="shelf_id"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            // defaultValue={""}
                             value={formik.values?.shelf_id}
                         >
-                            {/* <MenuItem value={1}>One</MenuItem> */}
                             {notInShelves?.map(shelf => <MenuItem key={shelf.id} value={shelf.id}>{shelf.name}</MenuItem>)}
                         </TextField>
                         {formik.errors.shelf_id && formik.touched.shelf_id ? 
@@ -116,17 +113,6 @@ const AddToShelfForm = ({ book }) => {
                         }}>
                         <AddIcon />
                     </IconButton>
-                    {/* <Button 
-                        color="secondary"
-                        onClick={handleClose}>Cancel</Button>
-                    <Button 
-                        color="primary"
-                        onClick={(e) => {
-                            formik.handleSubmit()
-                            handleClose()
-                        }}>
-                            Add
-                    </Button> */}
                 </DialogActions>
             </Dialog>
     </div>

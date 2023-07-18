@@ -11,8 +11,7 @@ import ReviewCard from './ReviewCard';
 
 const defaultTheme = createTheme()
 
-const ReviewsContainer = ({ reviews, updateReview, deleteReview }) => {
-    // const { books } = useContext(BookContext)
+const ReviewsContainer = ({ reviews }) => {
 
     return (
         <Box maxWidth="md" sx={{ px: 4 }}> 
@@ -20,20 +19,9 @@ const ReviewsContainer = ({ reviews, updateReview, deleteReview }) => {
                 {reviews?.map(review => 
                     <ReviewCard 
                         key={review.id} 
-                        review={review}
-                        updateReview={updateReview}
-                        deleteReview={deleteReview} />)}
+                        review={review} />)}
             </Grid>
         </Box>
-            // <main>
-            // <Container sx={{ py: 8 }} maxWidth="md">
-            //     <Grid container spacing={4}>
-            //     {reviews?.map((review) => (
-            //         <ReviewCard key={review.id} review={review} updateReview={updateReview} deleteReview={deleteReview} />
-            //     ))}
-            //     </Grid>
-            // </Container>
-            // </main>
     )
 }
 

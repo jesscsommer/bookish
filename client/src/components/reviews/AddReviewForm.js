@@ -18,11 +18,13 @@ import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
 import { BookContext } from '../../context/bookContext';
 import { Input } from '@mui/material';
+import { ReviewContext } from '../../context/reviewContext';
 
 const AddReviewForm = ({ book, addReview }) => {
     const { user, dispatch : userDispatch } = useContext(UserContext)
     const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
     const { books, dispatch : bookDispatch } = useContext(BookContext)
+    const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ errors, setErrors ] = useState(null)
 
     const reviewSchema = yup.object().shape({
@@ -56,8 +58,7 @@ const AddReviewForm = ({ book, addReview }) => {
                 })
                 if (res.ok) {
                     const data = await res.json()
-                    // set context 
-                    addReview(data)
+                    reviewDispatch({ type: "add", payload: data })
                     resetForm()
                 } else {
                     const err = await res.json()

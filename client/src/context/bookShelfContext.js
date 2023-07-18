@@ -23,18 +23,6 @@ const reducer = (state, action) => {
 const BookShelfProvider = ({ children }) => {
     const [bookShelves, dispatch] = useReducer(reducer, initialState)
 
-    useEffect(() => {
-        (async () => {
-            const res = await fetch("/me")
-            // debugger
-            if (res.ok) {
-                const data = await res.json()
-                dispatch({ type: "fetch", payload: data.user?.book_shelves })
-            } 
-        })();
-    }, [])
-
-
     return (
         <BookShelfContext.Provider value={{ bookShelves, dispatch }}>
             { children }

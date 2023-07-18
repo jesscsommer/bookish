@@ -29,8 +29,6 @@ const BookProvider = ({ children }) => {
             if (res.ok) {
                 const books = await res.json()
                 dispatch({ type: "fetch", payload: books })
-            } else {
-                // add error handling
             }
         })();
     }, [])

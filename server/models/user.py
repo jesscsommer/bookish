@@ -1,4 +1,4 @@
-from models import db, association_proxy
+from models import db, association_proxy, joinedload
 from config import bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -19,7 +19,6 @@ class User(db.Model):
 
     shelves = db.relationship("Shelf", back_populates="user")
     book_shelves = db.relationship("BookShelf", back_populates="user")
-    # book_shelves = association_proxy("shelves", "book_shelves")
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())

@@ -20,7 +20,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
+import { ShelfContext } from "../context/shelfContext";
 import { orange, purple } from "@mui/material/colors";
+import { BookShelfContext } from "../context/bookShelfContext";
 
 const Syne =  "'Syne', sans-serif";
 const YoungSerif = "YoungSerif";
@@ -83,7 +85,21 @@ const theme = createTheme({
 })
 
 const App = () => {
-    const { user } = useContext(UserContext)
+    const { user, dispatch: userDispatch } = useContext(UserContext)
+    const { dispatch: shelfDispatch } = useContext(ShelfContext)
+    const { dispatch : bookShelfDispatch } = useContext(BookShelfContext)
+    
+    useEffect(() => {
+        (async () => {
+            const res = await fetch("/me")
+            if (res.ok) {
+                const data = await res.json()
+                userDispatch({ type: "fetch", payload: data.user })
+                shelfDispatch({ type: "fetch", payload: data.user.shelves })
+                bookShelfDispatch({ type: "fetch", payload: data.user.book_shelves })
+            } 
+        })();
+    }, [])
 
     return (
         <ThemeProvider theme={theme}> 

@@ -25,7 +25,6 @@ class BookShelves(Resource):
     def post(self):
         try: 
             data = request.get_json()
-            # import ipdb; ipdb.set_trace()
             book_shelf_schema.validate(data)
 
             new_book_shelf = book_shelf_schema.load(data)

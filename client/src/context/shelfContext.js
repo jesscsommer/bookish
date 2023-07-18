@@ -1,4 +1,5 @@
-import { useEffect, useReducer, createContext } from "react"
+import { useEffect, useReducer, createContext, useContext } from "react"
+import { UserContext } from "./userContext"
 
 const ShelfContext = createContext()
 
@@ -7,6 +8,8 @@ const initialState = []
 const reducer = (state, action) => {
     switch (action.type) {
         case "fetch":
+            return action.payload
+        case "set":
             return action.payload
         case "add":
             return [action.payload, ...state]
@@ -24,17 +27,6 @@ const reducer = (state, action) => {
 
 const ShelfProvider = ({ children }) => {
     const [shelves, dispatch] = useReducer(reducer, initialState)
-
-    useEffect(() => {
-        (async () => {
-            const res = await fetch("/me")
-            // debugger
-            if (res.ok) {
-                const data = await res.json()
-                dispatch({ type: "fetch", payload: data.user?.shelves })
-            } 
-        })();
-    }, [])
 
     return (
         <ShelfContext.Provider value={{ shelves, dispatch }}>

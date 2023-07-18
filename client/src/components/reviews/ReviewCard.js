@@ -23,24 +23,19 @@ import { BookShelfContext } from "../../context/bookShelfContext";
 import EditButton from "../building_blocks/EditButton";
 import EditReviewForm from "./EditReviewForm";
 import BookRating from "./BookRating";
+import { ReviewContext } from "../../context/reviewContext";
 
 const ReviewCard = ({ review, updateReview, deleteReview }) => {
-    const { user, dispatch: userDispatch } = useContext(UserContext)
-    const { bookShelves, dispatch : bookShelfDispatch } = useContext(BookShelfContext)
-    const { shelves, dispatch : shelfDispatch } = useContext(ShelfContext)
+    const { user } = useContext(UserContext)
+    const { dispatch: reviewDispatch } = useContext(ReviewContext)
     const location = useLocation()
     const onProfile = location.pathname.includes("profile")
-
-    // console.log(review)
-    // console.log(user.reviews)
 
     const handleDelete = (review_id) => {
         (async () => {
             const res = await fetch(`/api/v1/reviews/${review_id}`, { method: "DELETE" })
             if (res.ok){
-                userDispatch({ type: "fetch", payload: { ...user }})
-                deleteReview(review_id)
-                // shelfDispatch({ type: "remove", payload: shelf_id })
+                reviewDispatch({ type: "remove", payload: review_id })
             }
         })();
     }
@@ -57,7 +52,7 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
                         >
                         <Avatar sx={{ width: 25, height: 25 }} alt={review?.user?.username} src={review?.user?.profile_pic} />
                         <Typography sx={{ px: 2 }} variant="h6" component="div">
-                            {review?.user.username}
+                            {review?.user?.username}
                         </Typography>
                         <Box
                             sx={{
@@ -66,7 +61,7 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
                                 justifyContent: "flex-end"
                             }}>
                             { onProfile && review?.user?.id === user?.id ? 
-                                <EditReviewForm review={review} updateReview={updateReview} /> 
+                                <EditReviewForm /> 
                                 : null }
                             { onProfile && review?.user?.id === user?.id ? 
                                 <IconButton 

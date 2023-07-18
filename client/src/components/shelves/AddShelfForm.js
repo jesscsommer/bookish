@@ -47,7 +47,6 @@ const AddShelfForm = () => {
         },
         validationSchema: shelfSchema,
         onSubmit: (values, { resetForm }) => {
-            // debugger 
             (async () => {
                 const res = await fetch("/api/v1/shelves", {
                     method: "POST",
@@ -58,7 +57,6 @@ const AddShelfForm = () => {
                 })
                 if (res.ok) {
                     const data = await res.json()
-                    // userDispatch({ type: "fetch", payload: {...user} })
                     shelfDispatch({ type: "add", payload : data })
                     resetForm()
                     setErrors(null)
@@ -79,9 +77,6 @@ const AddShelfForm = () => {
                 onClick={handleClickOpen}>
                 <AddIcon />
             </IconButton>
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
-                Add shelf
-            </Button> */}
             <Dialog fullWidth maxWidth="xs" open={open} onClose={handleClose}>
                 <DialogTitle>Add Shelf</DialogTitle>
                 <DialogContent>
@@ -117,13 +112,6 @@ const AddShelfForm = () => {
                         }}>
                         <AddIcon />
                     </IconButton>
-                    {/* <Button onClick={handleClose}>Cancel</Button>
-                    <Button 
-                        onClick={() => {
-                            formik.handleSubmit()
-                        }}>
-                            Add
-                    </Button> */}
                 </DialogActions>
             </Dialog>
     </div>

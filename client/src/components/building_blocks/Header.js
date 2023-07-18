@@ -60,7 +60,6 @@ const Header = () => {
 
     return (
         <AppBar 
-            // elevation={6}
             sx={{
             padding: 1,
             boxShadow: "12px 12px 12px #f7f5f5"

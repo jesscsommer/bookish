@@ -109,19 +109,6 @@ const AuthForm = () => {
         }
     })
 
-    // const handleLoginWithGoogle = () => {
-    //     (async () => {
-    //         const res = await fetch("/login_with_google", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Access-Control-Allow-Origin": "*",
-    //                 "Access-Control-Allow-Headers": "Content-Type",
-    //             },
-    //             // mode: "no-cors"
-    //         })
-    //     })();
-    // }
-
     return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -133,8 +120,6 @@ const AuthForm = () => {
                     alignItems: 'center',
                     }}
                 >
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    </Avatar> */}
                     <Typography component="h1" variant="h5">
                     {isLogin ? "Log in" : "Sign up"}
                     </Typography>
@@ -171,7 +156,6 @@ const AuthForm = () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.email}
-                            // autoFocus
                         />}
                         {formik.errors.email && formik.touched.email ? 
                         <Error severity="warning" error={formik.errors.email} /> 

@@ -29,10 +29,12 @@ import EditButton from '../building_blocks/EditButton';
 import { FormControl } from '@mui/material';
 import BookRating from './BookRating';
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
+import { ReviewContext } from '../../context/reviewContext';
 
 const EditReviewForm = ({ review, updateReview }) => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { reviews, dispatch : reviewDispatch } = useContext(ReviewContext)
     const [ errors, setErrors ] = useState(null)
     const [ rating, setRating ] = useState(review?.rating)
 
@@ -47,11 +49,6 @@ const EditReviewForm = ({ review, updateReview }) => {
     };
 
     const reviewSchema = yup.object().shape({
-        // rating: yup
-        // .number()
-        // .min(0.5, "Rating must be at least 0.5 stars")
-        // .max(5, "Rating must be at most 5 stars")
-        // .required("Rating is required"),
         comment: yup
         .string()
         .min(100, "Comment must be at least 100 characters")
@@ -77,9 +74,7 @@ const EditReviewForm = ({ review, updateReview }) => {
                 })
                 if (res.ok) {
                     const data = await res.json()
-                    // set context 
-                    // console.log(data)
-                    updateReview(data)
+                    reviewDispatch({ type: "patch", payload: data })
                     handleClose()
                     resetForm()
                 } else {
@@ -98,8 +93,6 @@ const EditReviewForm = ({ review, updateReview }) => {
             color: '#B24A13',
         },
     });
-    
-    // console.log(formik.values)
 
     return (
         <div>
@@ -108,35 +101,18 @@ const EditReviewForm = ({ review, updateReview }) => {
                 onClick={handleClickOpen}>
                 <ModeEditOutlineOutlinedIcon />
             </IconButton>
-            {/* <IconButton onClick={handleClickOpen} aria-label="edit">
-                <EditIcon />
-            </IconButton> */}
             <Dialog fullWidth maxWidth="sm" component="form" open={open} onClose={handleClose}>
                 <DialogTitle>Edit review</DialogTitle>
                 <DialogContent>
-                {/* <Typography component="legend">Rating</Typography> */}
                 <StyledRating 
                     id="rating"
                     name="rating" 
                     precision={0.5} 
-                    // defaultValue={rating}
                     value={rating} 
-                    // onChange={(e) => {
-                    //     console.log(e.target.value)
-                    //     setRating(currValue => e.target.value)
-                    //     console.log(rating)
-                    // }} 
                     onClick={e => {
-                        // debugger
-                        // console.log(e.target)
-                        // console.log(Number(e.target.children[1].innerText.split(" ")[0]))
                         setRating(Number(e.target.children[1].innerText.split(" ")[0]))
                     }}
-                    // onBlur={formik.handleBlur} 
                     />
-            {/* {formik.errors.rating && formik.touched.rating ? 
-                <Error severity="warning" error={formik.errors.rating} /> 
-                : null} */}
             <TextField
                 margin="normal"
                 fullWidth
@@ -165,16 +141,6 @@ const EditReviewForm = ({ review, updateReview }) => {
                         onClick={formik.handleSubmit}>
                             <SaveAsOutlinedIcon />
                     </IconButton>
-                    {/* <Button onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    <Button 
-                        onClick={(e) => {
-                            formik.handleSubmit()
-                        }}
-                            >
-                            Update
-                    </Button> */}
                 </DialogActions>
             </Dialog>
     </div>

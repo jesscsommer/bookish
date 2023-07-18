@@ -24,7 +24,7 @@ class ShelfSchema(ma.SQLAlchemySchema):
     book_shelves = fields.Nested("BookShelfSchema", \
                                 only=("id", "book_id", "shelf_id", "url"), \
                                 many=True)
-    books = fields.Nested("BookSchema", exclude=("book_shelves",), many=True)
+    books = fields.Nested("BookSchema", many=True)
 
     url = ma.Hyperlinks(
         {
@@ -38,12 +38,6 @@ class ShelfSchema(ma.SQLAlchemySchema):
 
     @validates("name")
     def validates_name(self, name): 
-        # import ipdb; ipdb.set_trace()
         if Shelf.query.filter(Shelf.user_id == session["user_id"]) \
                             .filter(Shelf.name == name).first():
             raise ValidationError("Shelf name must be unique")
-        # pass
-        ## get current user id 
-        # if Shelf.query.filter(Shelf.name == name \
-        #                     and Shelf.user.id == current user id):
-        #     raise ValidationError("Shelf name must be unique")
