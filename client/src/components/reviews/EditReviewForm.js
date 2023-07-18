@@ -29,10 +29,12 @@ import EditButton from '../building_blocks/EditButton';
 import { FormControl } from '@mui/material';
 import BookRating from './BookRating';
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
+import { ReviewContext } from '../../context/reviewContext';
 
 const EditReviewForm = ({ review, updateReview }) => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
+    const { reviews, dispatch : reviewDispatch } = useContext(ReviewContext)
     const [ errors, setErrors ] = useState(null)
     const [ rating, setRating ] = useState(review?.rating)
 
@@ -79,7 +81,8 @@ const EditReviewForm = ({ review, updateReview }) => {
                     const data = await res.json()
                     // set context 
                     // console.log(data)
-                    updateReview(data)
+                    // updateReview(data)
+                    reviewDispatch({ type: "patch", payload: data })
                     handleClose()
                     resetForm()
                 } else {

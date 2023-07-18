@@ -39,7 +39,7 @@ const BookDetail = () => {
             if (res.ok) {
                 const bookData = await res.json()
                 setCurrentBook(bookData)
-                reviewDispatch({ type: "setByBook", payload: bookData?.reviews })
+                reviewDispatch({ type: "set", payload: bookData?.reviews })
                 // setReviews(bookData.reviews)
                 // setRating(bookData.avg_rating)
             } else {

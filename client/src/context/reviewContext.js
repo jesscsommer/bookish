@@ -6,7 +6,7 @@ const initialState = []
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case "setByBook":
+        case "set":
             return action.payload
         case "add":
             return [action.payload, ...state]

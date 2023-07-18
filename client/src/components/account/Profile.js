@@ -19,6 +19,7 @@ import { ShelfContext } from "../../context/shelfContext";
 import ReviewsContainer from "../reviews/ReviewsContainer";
 import EditReviewForm from "../reviews/EditReviewForm";
 import Loading from "../building_blocks/Loading";
+import { ReviewContext } from "../../context/reviewContext";
 
 const Profile = () => {
     const { username } = useParams()
@@ -26,17 +27,8 @@ const Profile = () => {
 
     const { user, dispatch: userDispatch } = useContext(UserContext)
     const { shelves, dispatch: shelfDispatch } = useContext(ShelfContext)
+    const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ profileUser, setProfileUser ] = useState(null)
-    const [ reviews, setReviews ] = useState(null)
-
-    const updateReview = (updatedReview) => {
-        setReviews(reviews => reviews.map(review => review.id === updatedReview.id ? 
-            updatedReview : review))
-    }
-
-    const deleteReview = (deletedReviewId) => {
-        setReviews(reviews => reviews.filter(review => review.id !== deletedReviewId))
-    }
 
     useEffect(() => {
         (async () => {
@@ -44,7 +36,8 @@ const Profile = () => {
             if (res.ok) {
                 const data = await res.json()
                 setProfileUser(data)
-                setReviews(data.reviews)
+                reviewDispatch({ type: "set", payload: data?.reviews })
+                // setReviews(data.reviews)
             } else {
                 navigate("/404")
             }
@@ -103,7 +96,11 @@ const Profile = () => {
             <Divider variant="middle" sx={{ py: 3 }} />
             <Grid ml={5} sx={{ px: "56px" }}>
                 <Typography variant="h4" mb={3} sx={{ py: 3 }}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
-                <ReviewsContainer reviews={reviews} updateReview={updateReview} deleteReview={deleteReview} /> 
+                <ReviewsContainer 
+                    reviews={reviews} 
+                    // updateReview={updateReview} 
+                    // deleteReview={deleteReview} 
+                    /> 
             </Grid>
     </Box>
     )
