@@ -78,7 +78,7 @@ const Profile = () => {
                     </Box>
                     { user?.id === profileUser?.id ? <EditProfileForm /> : null }
                 </Box>
-                <Divider variant="middle" />
+            { user?.id === profileUser?.id ? <Divider variant="middle" /> : null }
             { user?.id === profileUser?.id ? 
                 <Grid ml={5} sx={{ px: "56px" }}>
                     <Box sx={{ display: "flex", alignItems: "flex-end" }}>
