@@ -59,10 +59,6 @@ const AddToShelfForm = ({ book }) => {
                 if (res.ok) {
                     const data = await res.json()
                     bookShelfDispatch({ type: "add", payload: data })
-                    // shelfDispatch({ type: "patch", payload: data.shelf })
-                    // user.book_shelves.push(data)
-                    // userDispatch({ type: "fetch", payload: user })
-                    // bookDispatch({ type: "patch", payload: data.book })
                     resetForm()
                 }
             })();
