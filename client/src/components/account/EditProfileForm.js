@@ -117,6 +117,7 @@ const EditProfileForm = () => {
         <div>
             <IconButton 
                 color="primary"
+                sx={{ px: 12, py: 2 }}
                 onClick={handleClickOpen}>
                 <ModeEditOutlineOutlinedIcon />
             </IconButton>
