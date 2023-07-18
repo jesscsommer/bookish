@@ -39,18 +39,34 @@ const Shelf = ({ shelf }) => {
     //     })();
     // }
 
+    // console.log(shelf.books)
+
     return (
-        <Grid container mt={2} spacing={4}>
-            <Box sx={{ width: 1 }}>
-                <Typography variant="h5">
-                    {shelf?.name}
-                    {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
-                </Typography>
-            </Box>
-            {shelf?.books?.map((book) => (
-                <BookCard key={uuid()} book={book} shelf={shelf}/>
-            ))}
-        </Grid>
+        <Box
+            fullWidth>
+            <Typography mt={6} mb={2} variant="h5">
+                {shelf?.name}
+                {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
+            </Typography>
+            <Grid container spacing={4}>
+                {shelf?.books?.map(book => 
+                    <BookCard 
+                    key={uuid()}
+                    book={book}
+                    shelf={shelf} />)}
+            </Grid>
+        </Box>
+        // <Grid container mt={2} spacing={4} sx={{ maxHeight: 450 }}>
+        //     <Box sx={{ width: 1 }}>
+        //         <Typography variant="h5">
+        //             {shelf?.name}
+        //             {/* <DeleteButton handleClick={() => handleClick(shelf.id)} /> */}
+        //         </Typography>
+        //     </Box>
+        //     {shelf?.books?.map((book) => (
+        //         <BookCard key={uuid()} book={book} shelf={shelf}/>
+        //     ))}
+        // </Grid>
     )
 }
 

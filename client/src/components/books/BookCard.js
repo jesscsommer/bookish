@@ -6,7 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-
+import { Box } from "@mui/material";
+import { IconButton } from "@mui/material";
 import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
 import { UserContext } from "../../context/userContext";
@@ -14,6 +15,7 @@ import { useLocation, Link } from "react-router-dom";
 import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
 import BookRating from "../reviews/BookRating";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 const BookCard = ({ book, shelf }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
@@ -34,40 +36,58 @@ const BookCard = ({ book, shelf }) => {
     }
 
     return (
-        <Grid item key={book.id} xs={12} sm={8} md={4}>
+        <Grid item sx={{objectFit: "contain"}} key={book.id} xs={12} sm={8} md={4} lg={3} xl={2}>
                 <Card
-                    // component={Link}
-                    // to={`/books/${book.id}`}
-                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                    sx={{ 
+                        height: "100%", 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        justifyContent: "space-between", 
+                        borderRadius: "16px", 
+                        boxShadow: "0px 2px 2px #E3E1E1" }}
                 >
-                    <Link to={`/books/${book.id}`} style={{ textDecoration: "none", color: "black" }}>
+                    <Link 
+                        to={`/books/${book.id}`} 
+                        style={{ textDecoration: "none", color: "black" }}>
                     <CardMedia
-                    // component="div"
-                    // sx={{
-                    //     9:16,
-                    //     pt: '100%',
-                    //     objectFit: "contain"
-                    // }}
-                    component="img"
-                    sx={{ objectFit: "contain"}}
-                    image={book.cover_photo}
-                    // height="65%"
-                    // width="85%"
+                        component="img"
+                        sx={{ 
+                            objectFit: "contain", 
+                            borderRadius: "16px", 
+                            boxShadow: "2px 2px 2px #E3E1E1" }}
+                        image={book.cover_photo}
+                        // maxHeight="450px"
                     />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h6" component="h2">
-                        {book.title}
+                    <CardContent>
+                    <Typography variant="h6" component="h2">
+                            {book.title}
                     </Typography>
                     <Typography>
                         {book.genre}
                     </Typography>
-                    <BookRating rating={book.avg_rating} /> 
+                    <BookRating rating={book.avg_rating} />
                     </CardContent>
                     </Link>
-                    <CardActions>
-                        {user &&  shelves?.length ? <AddToShelfForm book={book} /> : null}
-                        {location.pathname === "/shelves" ? <DeleteButton handleClick={removeFromShelf}/> : null}
-                    </CardActions>
+                    <CardActions disableSpacing> 
+                        <Box 
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                margin: 0
+                            }}>
+                            {user && shelves?.length ? 
+                                    <AddToShelfForm book={book} /> 
+                                : null}
+                            {location.pathname === "/shelves" ? 
+                                <IconButton 
+                                    color="secondary" 
+                                    handleClick={removeFromShelf}> 
+                                    <RemoveCircleOutlineIcon />
+                                </IconButton> 
+                                : null}
+                        </Box>
+                    </CardActions> 
                 </Card>
         </Grid>
     )

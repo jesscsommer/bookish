@@ -9,6 +9,10 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { styled } from '@mui/material/styles';
 
 
 import { useFormik } from "formik";
@@ -23,6 +27,8 @@ import { UserContext } from '../../context/userContext';
 import Error from '../building_blocks/Error';
 import EditButton from '../building_blocks/EditButton';
 import { FormControl } from '@mui/material';
+import BookRating from './BookRating';
+import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 
 const EditReviewForm = ({ review, updateReview }) => {
     const navigate = useNavigate()
@@ -84,18 +90,32 @@ const EditReviewForm = ({ review, updateReview }) => {
         }
     })
 
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+            color: '#FF8849',
+        },
+        '& .MuiRating-iconHover': {
+            color: '#B24A13',
+        },
+    });
+    
     // console.log(formik.values)
 
     return (
         <div>
-            <IconButton onClick={handleClickOpen} aria-label="edit">
-                <EditIcon />
+            <IconButton 
+                color="primary"
+                onClick={handleClickOpen}>
+                <ModeEditOutlineOutlinedIcon />
             </IconButton>
-            <Dialog component="form" open={open} onClose={handleClose}>
+            {/* <IconButton onClick={handleClickOpen} aria-label="edit">
+                <EditIcon />
+            </IconButton> */}
+            <Dialog fullWidth maxWidth="sm" component="form" open={open} onClose={handleClose}>
                 <DialogTitle>Edit review</DialogTitle>
                 <DialogContent>
                 {/* <Typography component="legend">Rating</Typography> */}
-                <Rating 
+                <StyledRating 
                     id="rating"
                     name="rating" 
                     precision={0.5} 
@@ -135,7 +155,17 @@ const EditReviewForm = ({ review, updateReview }) => {
             {errors ? <Error severity="error" error={errors} /> : null}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>
+                    <IconButton
+                            color="secondary"
+                            onClick={handleClose}>
+                            <RemoveCircleOutlineIcon />
+                        </IconButton>
+                    <IconButton 
+                        color="primary"
+                        onClick={formik.handleSubmit}>
+                            <SaveAsOutlinedIcon />
+                    </IconButton>
+                    {/* <Button onClick={handleClose}>
                         Cancel
                     </Button>
                     <Button 
@@ -144,7 +174,7 @@ const EditReviewForm = ({ review, updateReview }) => {
                         }}
                             >
                             Update
-                    </Button>
+                    </Button> */}
                 </DialogActions>
             </Dialog>
     </div>

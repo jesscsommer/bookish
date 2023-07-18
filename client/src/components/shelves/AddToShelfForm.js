@@ -6,13 +6,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from '@mui/material/MenuItem';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { IconButton } from "@mui/material";
 
 
 import { useState, useContext } from "react";
 import { UserContext } from '../../context/userContext';
 import { useFormik } from "formik";
 import * as yup from "yup";
-
+import AddIcon from '@mui/icons-material/Add';
 import Error from '../building_blocks/Error';
 import Cookies from "js-cookie"
 import { ShelfContext } from '../../context/shelfContext';
@@ -71,10 +73,13 @@ const AddToShelfForm = ({ book }) => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            {/* <Button variant="outlined" onClick={handleClickOpen}>
                 Add to shelf
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
+            </Button> */}
+            <IconButton color="primary" onClick={handleClickOpen}>
+                <AddIcon />
+            </IconButton>
+            <Dialog fullWidth maxWidth="xs" sx={{ margin: "auto" }} open={open} onClose={handleClose}>
                 <DialogTitle>Add to Shelf</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -98,14 +103,30 @@ const AddToShelfForm = ({ book }) => {
                             : null}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <IconButton
+                        color="secondary"
+                        onClick={handleClose}>
+                        <RemoveCircleOutlineIcon />
+                    </IconButton>
+                    <IconButton
+                        color="primary"
+                        onClick={(e) => {
+                            formik.handleSubmit()
+                            handleClose()
+                        }}>
+                        <AddIcon />
+                    </IconButton>
+                    {/* <Button 
+                        color="secondary"
+                        onClick={handleClose}>Cancel</Button>
                     <Button 
+                        color="primary"
                         onClick={(e) => {
                             formik.handleSubmit()
                             handleClose()
                         }}>
                             Add
-                    </Button>
+                    </Button> */}
                 </DialogActions>
             </Dialog>
     </div>

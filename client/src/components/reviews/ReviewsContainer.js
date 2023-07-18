@@ -1,6 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import { Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useContext } from "react"
@@ -14,18 +15,25 @@ const ReviewsContainer = ({ reviews, updateReview, deleteReview }) => {
     // const { books } = useContext(BookContext)
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
-            <main>
-            <Container sx={{ py: 8 }} maxWidth="md">
-                <Grid container spacing={4}>
-                {reviews?.map((review) => (
-                    <ReviewCard key={review.id} review={review} updateReview={updateReview} deleteReview={deleteReview} />
-                ))}
-                </Grid>
-            </Container>
-            </main>
-        </ThemeProvider>
+        <Box maxWidth="md" sx={{ px: 4 }}> 
+            <Grid container spacing={4}>
+                {reviews?.map(review => 
+                    <ReviewCard 
+                        key={review.id} 
+                        review={review}
+                        updateReview={updateReview}
+                        deleteReview={deleteReview} />)}
+            </Grid>
+        </Box>
+            // <main>
+            // <Container sx={{ py: 8 }} maxWidth="md">
+            //     <Grid container spacing={4}>
+            //     {reviews?.map((review) => (
+            //         <ReviewCard key={review.id} review={review} updateReview={updateReview} deleteReview={deleteReview} />
+            //     ))}
+            //     </Grid>
+            // </Container>
+            // </main>
     )
 }
 

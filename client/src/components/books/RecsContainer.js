@@ -9,21 +9,31 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BookCard from './BookCard';
+import { Box } from '@mui/material';
 
 const defaultTheme = createTheme()
 
 const RecsContainer = ({ recs }) => {
     return (
-        <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
-            <main>
-            <Container sx={{ py: 8 }} maxWidth="md">
+            // <main>
+            // <Container sx={{ py: 8 }} maxWidth="md">
+            //     <Grid container spacing={4}>
+            //     {recs?.map(rec => <BookCard book={rec} key={rec.id} />)}
+            //     </Grid>
+            // </Container>
+            // </main>
+            <Box maxWidth="lg" sx={{ padding: 3, py: 8 }}>
+                <Typography mb={4} variant="h5">
+                    You might also like ...
+                </Typography>
                 <Grid container spacing={4}>
-                {recs?.map(rec => <BookCard book={rec} key={rec.id} />)}
+                    {recs?.map(rec => 
+                        <BookCard 
+                            key={rec?.id}
+                            book={rec}
+                        />)}
                 </Grid>
-            </Container>
-            </main>
-        </ThemeProvider>
+            </Box>
     )
 }
 

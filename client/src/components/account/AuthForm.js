@@ -123,7 +123,6 @@ const AuthForm = () => {
     // }
 
     return (
-        <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -134,8 +133,8 @@ const AuthForm = () => {
                     alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    </Avatar>
+                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    </Avatar> */}
                     <Typography component="h1" variant="h5">
                     {isLogin ? "Log in" : "Sign up"}
                     </Typography>
@@ -240,7 +239,6 @@ const AuthForm = () => {
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
     )
 }
 

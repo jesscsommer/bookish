@@ -9,6 +9,10 @@ import Typography from '@mui/material/Typography';
 import { Box } from "@mui/material";
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
 import AddToShelfForm from "../shelves/AddToShelfForm";
 import DeleteButton from "../building_blocks/DeleteButton";
@@ -18,6 +22,7 @@ import { ShelfContext } from "../../context/shelfContext";
 import { BookShelfContext } from "../../context/bookShelfContext";
 import EditButton from "../building_blocks/EditButton";
 import EditReviewForm from "./EditReviewForm";
+import BookRating from "./BookRating";
 
 const ReviewCard = ({ review, updateReview, deleteReview }) => {
     const { user, dispatch: userDispatch } = useContext(UserContext)
@@ -41,31 +46,40 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
     }
 
     return (
-        <Box sx={{ minWidth: 275 }}>
+        <Box xs={12} sx={{ width: "100%" }}>
             <Card variant="outlined">
             <CardContent>
                 <Link to={`/profile/${review?.user?.username}`} style={{ textDecoration: "none", color: "black" }}>
                     <Box
                         display="flex"
-                        alignItems="top"
-                        mb={2}
+                        alignItems="center"
+                        m={1}
                         >
-                        <Avatar sx={{ width: 30, height: 30 }} alt={review?.user?.username} src={review?.user?.profile_pic} />
-                        <Typography ml={1} variant="h6" component="div">
+                        <Avatar sx={{ width: 25, height: 25 }} alt={review?.user?.username} src={review?.user?.profile_pic} />
+                        <Typography sx={{ px: 2 }} variant="h6" component="div">
                             {review?.user.username}
                         </Typography>
-                        { onProfile && review?.user?.id === user?.id ? <EditReviewForm review={review} updateReview={updateReview} /> : null }
-                        { onProfile && review?.user?.id === user?.id ? <DeleteButton handleClick={() => handleDelete(review?.id)} /> : null }
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "flex-end"
+                            }}>
+                            { onProfile && review?.user?.id === user?.id ? 
+                                <EditReviewForm review={review} updateReview={updateReview} /> 
+                                : null }
+                            { onProfile && review?.user?.id === user?.id ? 
+                                <IconButton 
+                                    color="secondary"
+                                    onClick={() => handleDelete(review?.id)}>
+                                    <RemoveCircleOutlineIcon />
+                                </IconButton>
+                                : null }
+                        </Box>
                     </Box>
                 </Link>
-                <Rating 
-                    id="rating"
-                    name="rating" 
-                    precision={0.5} 
-                    value={review?.rating}
-                    readOnly
-                    />
-                <Typography variant="body2">
+                <BookRating rating={review?.rating} />
+                <Typography variant="body1">
                     {review?.comment}
                 </Typography>
                 </CardContent>

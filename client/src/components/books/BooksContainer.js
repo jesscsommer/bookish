@@ -4,11 +4,17 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Filter from '../building_blocks/Filter';
 import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import IconButton from '@mui/material/IconButton';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import { useContext, useState } from "react"
 import { BookContext } from '../../context/bookContext';
 
 import BookCard from './BookCard';
+import Loading from '../building_blocks/Loading';
 
 const defaultTheme = createTheme()
 
@@ -44,16 +50,18 @@ const BooksContainer = () => {
         setSortBy(old => newSort)
     }
 
+    if (!books) return <Loading /> 
+
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Box sx={{ py: 8 }} 
-                    maxWidth="md"
+            <Box sx={{ py: 5, paddingLeft: 10, paddingRight: 10 }} 
+                    maxWidth="xl"
+                    justifyContent="right"
                     // display="flex"
                     // alignItems="top"
                     // justify="center"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="top"
+                    // display="flex"
+                    // justifyContent="center"
+                    // alignItems="top"
                     // minHeight="100vh"
                     >
                 <Filter updateMinAvgRating={updateMinAvgRating} updateSortBy={updateSortBy} />
@@ -63,8 +71,7 @@ const BooksContainer = () => {
                 ))}
                 </Grid>
             </Box>
-        </ThemeProvider>
-    )
+    );
 }
 
 export default BooksContainer;

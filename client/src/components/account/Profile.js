@@ -5,6 +5,11 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { Button, Grid, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import Divider from '@mui/material/Divider';
+
 
 import EditProfileForm from './EditProfileForm';
 import { UserContext } from '../../context/userContext';
@@ -13,6 +18,7 @@ import DeleteButton from "../building_blocks/DeleteButton";
 import { ShelfContext } from "../../context/shelfContext";
 import ReviewsContainer from "../reviews/ReviewsContainer";
 import EditReviewForm from "../reviews/EditReviewForm";
+import Loading from "../building_blocks/Loading";
 
 const Profile = () => {
     const { username } = useParams()
@@ -55,38 +61,48 @@ const Profile = () => {
         })();
     }
 
+    if (!profileUser) return <Loading />
+
     return (
-        <Box>
+        <Box sx={{ py: 3 }}>
                 <Box
                     sx={{ padding: 3}}
                     display="flex"
-                    alignItems="top"
+                    alignItems="flex-start"
                 >
                     <Avatar alt={profileUser?.username} src={profileUser?.profile_pic} sx={{ width : 56, height : 56}} />
                     <Box ml={3} display="block">
                         <Typography variant="h3" mb={3}>{profileUser?.display_name}</Typography>
                         <Typography variant="h5" mb={3}>{profileUser?.username}</Typography>
                         <Typography mb={3}>{profileUser?.bio}</Typography>
-                        { user?.id === profileUser?.id ? <EditProfileForm /> : null }
                     </Box>
+                    { user?.id === profileUser?.id ? <EditProfileForm /> : null }
                 </Box>
-            
+                <Divider variant="middle" />
             { user?.id === profileUser?.id ? 
-                <Grid>
-                    <Typography variant="h4" mt={3}>Manage shelves</Typography>
+                <Grid ml={5} sx={{ px: "56px" }}>
+                    <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                        <Typography variant="h4" mt={3}>Manage shelves</Typography>
+                        <AddShelfForm />
+                    </Box>
                 {shelves?.map((shelf) => 
                     <Grid item mt={1} key={shelf?.id}>
                         <Typography variant="h6">
                             {shelf?.name}
-                            {shelf?.default ? null : <DeleteButton handleClick={() => handleClick(shelf?.id)} />} 
+                            {shelf?.default ? null : 
+                                <IconButton 
+                                    color="secondary"
+                                    onClick={() => handleClick(shelf?.id)}>
+                                    <RemoveCircleOutlineIcon />
+                                </IconButton> }
+                                {/* // <DeleteButton handleClick={() => handleClick(shelf?.id)} />}  */}
                         </Typography>
                     </Grid>)}
-                    <AddShelfForm />
                 </Grid>
             : null }
-
-            <Grid>
-                <Typography variant="h4" mt={3}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
+            <Divider variant="middle" sx={{ py: 3 }} />
+            <Grid ml={5} sx={{ px: "56px" }}>
+                <Typography variant="h4" mb={3} sx={{ py: 3 }}>{ user?.id === profileUser?.id ? "Manage reviews" : "All reviews" }</Typography>
                 <ReviewsContainer reviews={reviews} updateReview={updateReview} deleteReview={deleteReview} /> 
             </Grid>
     </Box>
