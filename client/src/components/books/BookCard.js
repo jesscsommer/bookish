@@ -56,7 +56,7 @@ const BookCard = ({ book, shelf }) => {
                             borderRadius: "16px", 
                             boxShadow: "2px 2px 2px #E3E1E1" }}
                         image={book.cover_photo}
-                        maxHeight="450px"
+                        // maxHeight="450px"
                     />
                     <CardContent>
                     <Typography variant="h6" component="h2">

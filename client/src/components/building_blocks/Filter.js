@@ -20,6 +20,8 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
     
     const open = !!anchorEl
 
+    const NUMS = [5, 4, 3, 2, 1]
+
     const StyledRating = styled(Rating)({
         '& .MuiRating-iconFilled': {
             color: '#FF8849',
@@ -39,7 +41,7 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
                     justifyContent: "flex-end",
                 }}
                 mb={1}>
-                <Button justifyContent="right" id="anchor" color="primary" onClick={handleClick}>
+                <Button id="anchor" color="primary" onClick={handleClick}>
                     Filters
                 </Button>
             </Box>
@@ -48,8 +50,25 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
                     padding: 3,
                     borderRadius: "5px", 
                     boxShadow: "2px 2px 2px #E3E1E1" }}>
-                <Typography variant="h6">Filter by minimum avg rating:</Typography>
-                <StyledRating name="min-avg-rating" onChange={(e) => updateMinAvgRating(e.target.value)}/>
+                <Typography variant="h6">Avg. reader rating</Typography>
+                {NUMS.map(NUM => 
+                    <Box
+                        sx={{
+                            width: 200,
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                        key={NUM}
+                        onClick={() => updateMinAvgRating(NUM)}
+                        >
+                        <StyledRating
+                            name="min-avg-rating"
+                            value={NUM}
+                            readOnly
+                        />
+                        <Typography variant="body1" sx={{ ml: 1 }}>& up</Typography>
+                    </Box>
+                )}
                 <Typography mt={3} variant="h6">Sort by:</Typography>
                 <Select
                     id="sort_by"
