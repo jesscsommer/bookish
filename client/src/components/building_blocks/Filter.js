@@ -1,4 +1,4 @@
-import { Typography, Popper, Dialog, DialogActions, DialogTitle, DialogContent, Button, Box, Rating, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import { Typography, Paper, Popper, Dialog, DialogActions, DialogTitle, DialogContent, Button, Box, Rating, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import { useState } from "react";
 
 const Filter = ({ updateMinAvgRating, updateSortBy }) => {
@@ -21,10 +21,19 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
 
     return (
         <div>
-            <Button id="anchor" color="primary" onClick={handleClick}>
-                Filters
-            </Button>
+            <Box 
+                sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                }}
+                mb={1}>
+                <Button justifyContent="right" id="anchor" color="primary" onClick={handleClick}>
+                    Filters
+                </Button>
+            </Box>
             <Popper open={open} anchorEl={anchorEl} placement="bottom-end">
+                <Paper>
                 <Typography variant="h6">Filter by minimum avg rating:</Typography>
                 <Rating name="min-avg-rating" defaultValue={0} onChange={(e) => updateMinAvgRating(e.target.value)}/>
 
@@ -42,6 +51,7 @@ const Filter = ({ updateMinAvgRating, updateSortBy }) => {
                     <MenuItem value="title">Title</MenuItem>
                     {/* // add more options, most reviewed, etc. */}
                 </Select>
+                </Paper>
             </Popper>
         </div>
     )
