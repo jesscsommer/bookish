@@ -38,51 +38,56 @@ const BookCard = ({ book, shelf }) => {
     return (
         <Grid item sx={{objectFit: "contain"}} key={book.id} md={1} lg={3}>
                 <Card
-                    // component={Link}
-                    // to={`/books/${book.id}`}
-                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: "16px", boxShadow: "0px 2px 2px #E3E1E1" }}
+                    sx={{ 
+                        height: "100%", 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        justifyContent: "space-between", 
+                        borderRadius: "16px", 
+                        boxShadow: "0px 2px 2px #E3E1E1" }}
                 >
-                    <Link to={`/books/${book.id}`} style={{ textDecoration: "none", color: "black" }}>
+                    <Link 
+                        to={`/books/${book.id}`} 
+                        style={{ textDecoration: "none", color: "black" }}>
                     <CardMedia
-                    // component="div"
-                    // sx={{
-                    //     9:16,
-                    //     pt: '100%',
-                    //     objectFit: "contain"
-                    // }}
-                    component="img"
-                    sx={{ objectFit: "contain", borderRadius: "16px", boxShadow: "2px 2px 2px #E3E1E1" }}
-                    image={book.cover_photo}
-                    // height="65%"
-                    // width="85%"
+                        component="img"
+                        sx={{ 
+                            objectFit: "contain", 
+                            borderRadius: "16px", 
+                            boxShadow: "2px 2px 2px #E3E1E1" }}
+                        image={book.cover_photo}
+                        maxHeight="450px"
                     />
                     <CardContent>
-                    <Typography gutterBottom variant="h6" component="h2">
-                        {book.title}
+                    <Typography variant="h6" component="h2">
+                            {book.title}
                     </Typography>
                     <Typography>
                         {book.genre}
                     </Typography>
-                    <BookRating rating={book.avg_rating} /> 
+                    <BookRating rating={book.avg_rating} />
                     </CardContent>
                     </Link>
-                    <CardActions disableSpacing>
+                    <CardActions disableSpacing> 
                         <Box 
                             sx={{
                                 width: "100%",
                                 display: "flex",
-                                justifyContent: "flex-end"
+                                justifyContent: "flex-end",
+                                margin: 0
                             }}>
                             {user && shelves?.length ? 
                                     <AddToShelfForm book={book} /> 
                                 : null}
                             {location.pathname === "/shelves" ? 
-                                <IconButton color="secondary" handleClick={removeFromShelf}> 
+                                <IconButton 
+                                    color="secondary" 
+                                    handleClick={removeFromShelf}> 
                                     <RemoveCircleOutlineIcon />
                                 </IconButton> 
                                 : null}
                         </Box>
-                    </CardActions>
+                    </CardActions> 
                 </Card>
         </Grid>
     )
