@@ -51,7 +51,7 @@ const BooksContainer = () => {
 
 
     return (
-            <Box sx={{ py: 8 }} 
+            <Box sx={{ py: 8, padding: 10}} 
                     maxWidth="xl"
                     // display="flex"
                     // alignItems="top"
