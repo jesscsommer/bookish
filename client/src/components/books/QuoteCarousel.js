@@ -10,8 +10,6 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
 const QuoteCarousel = ({ currentBook }) => {
     const theme = useTheme();
     const [activeStep, setActiveStep] = useState(0);
@@ -43,11 +41,10 @@ const QuoteCarousel = ({ currentBook }) => {
             }}
         >
         </Paper>
-        <AutoPlaySwipeableViews
+        <SwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={activeStep}
             onChangeIndex={handleStepChange}
-            interval={6000}
             enableMouseEvents
         >
             {currentBook?.quotes.map((step, index) => (
@@ -67,7 +64,7 @@ const QuoteCarousel = ({ currentBook }) => {
                 ) : null}
             </div>
             ))}
-        </AutoPlaySwipeableViews>
+        </SwipeableViews>
         <MobileStepper
             sx={{ py: 5 }}
             steps={maxSteps}
