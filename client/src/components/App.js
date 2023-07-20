@@ -36,23 +36,17 @@ const theme = createTheme({
         mode: 'light',
         primary: {
             main: '#FF6B1C',
-            contrastText: '#ffffff',
+            contrastText: "#fff"
         },
         secondary: {
-            main: '#E3E1E1',
+            main: '#E3E1E1'
         },
-        error: {
-            main: '#FF1D0F',
+        header: {
+            main: "rgba(232,231,231,0.55)"
         },
-        warning: {
-            main: '#FFAE29',
-        },
-        info: {
-            main: '#0383FF',
-        },
-        success: {
-            main: '#36FF85',
-        },
+        emphasis: {
+            main: "#FF6B1C"
+        }
     },    
     typography: {
         fontFamily: Karla, 
