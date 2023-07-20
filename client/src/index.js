@@ -7,7 +7,6 @@ import "./index.css";
 import { BookProvider } from "./context/bookContext"
 import { BookShelfProvider } from "./context/bookShelfContext"
 import { ShelfProvider } from "./context/shelfContext"
-import { ErrorProvider } from "./context/errorContext"
 import { UserProvider } from "./context/userContext";
 import { ReviewProvider } from "./context/reviewContext";
 
@@ -15,7 +14,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <UserProvider>
-        <ErrorProvider>
             <BookProvider>
                 <ReviewProvider>
                     <ShelfProvider>
@@ -27,6 +25,5 @@ root.render(
                     </ShelfProvider>
                 </ReviewProvider>
             </BookProvider>
-        </ErrorProvider>
     </UserProvider>
 );

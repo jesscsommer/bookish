@@ -30,6 +30,9 @@ def login():
         password = data.get("password")
 
         if user := User.query.filter(User.username == username).first():
+    
+            if user.google_unique_id: 
+                return make_response({"error": "Please log in with Google"}, 401)
 
             if user.authenticate(password):
 
