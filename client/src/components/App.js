@@ -81,6 +81,11 @@ const theme = createTheme({
         body1: {
             fontFamily: Karla,
             fontWeight: 300
+        },
+        subtitle1: {
+            fontFamily: Karla,
+            fontWeight: 500,
+            fontStyle: "italic"
         }
     }
 })
