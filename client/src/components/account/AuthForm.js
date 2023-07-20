@@ -30,6 +30,11 @@ const defaultTheme = createTheme();
 const AuthForm = () => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
+
+    if (user) {
+        navigate("/")
+    }
+
     const { dispatch : shelfDispatch } = useContext(ShelfContext)
 
     const [ isLogin, setIsLogin ] = useState(true)
@@ -43,7 +48,7 @@ const AuthForm = () => {
 
     const [ errors, setErrors ] = useState(null)
 
-    const userSchema = yup.object().shape({
+    const loginSchema = yup.object().shape({
         username: yup
         .string()
         .min(5, "Username must be at least 5 characters")
@@ -56,16 +61,6 @@ const AuthForm = () => {
             }
         )
         .required("Username is required"),
-        email: yup
-        .string()
-        .test(
-            "valid-email",
-            "Email must be valid",
-            (value) => {
-                return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(value)
-            }
-        )
-        .required("Email is required"),
         password: yup
         .string()
         .test(
@@ -79,13 +74,50 @@ const AuthForm = () => {
         .required("Password is required"),
     });
 
+    const signupSchema = yup.object().shape({
+        username: yup
+        .string()
+        .min(5, "Username must be at least 5 characters")
+        .max(20, "Username must be at most 20 characters")
+        .test(
+            "valid-chs",
+            "Username may only contain letters and numbers",
+            (value) => {
+                return /^[A-z0-9]+$/.test(value);
+            }
+        )
+        .required("Username is required"),
+        password: yup
+        .string()
+        .test(
+            "valid-pw", 
+            "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+            (value) => {
+                return /[A-Z]/.test(value) && /[0-9]/.test(value) && /[!@#$%^&*]/.test(value);
+            }
+        )
+        .min(10, "Password must be at least 10 characters")
+        .required("Password is required"),
+        email: yup
+        .string()
+        .test(
+            "valid-email",
+            "Email must be valid",
+            (value) => {
+                return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(value)
+            }
+        )
+        .required("Email is required"),
+    })
+    
+
     const formik = useFormik({
         initialValues: {
             username: "",
             email: "",
             password: ""
         },
-        validationSchema: isLogin ? null : userSchema,
+        validationSchema: isLogin ? loginSchema : signupSchema,
         onSubmit: (values) => {
             (async () => {
                 const endpoint = isLogin ? "/login" : "/signup"
@@ -110,7 +142,7 @@ const AuthForm = () => {
     })
 
     return (
-            <Container component="main" maxWidth="xs">
+            <Container component="main" sx={{ width: 400 }}>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -126,7 +158,7 @@ const AuthForm = () => {
                     <Box 
                         component="form" 
                         onSubmit={formik.handleSubmit} 
-                        noValidate sx={{ mt: 1 }}
+                        sx={{ mt: 1 }}
                         >
                     <TextField
                         margin="normal"
@@ -214,6 +246,7 @@ const AuthForm = () => {
                             onClick={() => {
                                 setIsLogin(isLogin => !isLogin)
                                 setErrors(null)
+                                formik.setErrors({})
                             }} 
                             variant="body2">
                             {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Log in"}

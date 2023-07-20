@@ -92,7 +92,7 @@ app.register_blueprint(book_avg_rating_by_id_bp)
 @app.route("/profile/<string:username>")
 @app.route("/books/<int:id>")
 @app.route("/login")
-# @app.route("/login_with_google")
+@app.route("/confirmation")
 @app.route("/404")
 def index(id=0, username=""): 
     return render_template("index.html")

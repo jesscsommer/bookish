@@ -74,6 +74,17 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
                     </Box>
                 </Link>
                 <BookRating rating={review?.rating} />
+                { onProfile ? 
+                    <Link 
+                        to={`/books/${review?.book?.id}`}
+                        style={{ textDecoration: "none", color: "black" }}>
+                        <Typography 
+                            mt={1} 
+                            variant="subtitle1">
+                                {review?.book?.title}
+                            </Typography> 
+                    </Link>
+                    : null }
                 <Typography variant="body1">
                     {review?.comment}
                 </Typography>

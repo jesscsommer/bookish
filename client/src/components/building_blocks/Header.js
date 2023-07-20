@@ -62,29 +62,17 @@ const Header = () => {
         <AppBar 
             sx={{
             padding: 1,
-            boxShadow: "12px 12px 12px #f7f5f5"
+            paddingLeft: 3,
+            paddingRight: 3, 
+            boxShadow: "2px 2px 6px rgba(232,231,231)"
             }}
-            position="static" 
-            color="primary">
-        <Container>
+            position="static"
+            color="header">
             <Toolbar disableGutters>
-            {/* <Box component="img" src="../orange-glasses.PNG" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box> */}
-            <Typography
-                variant="h3"
-                noWrap
-                component={Link}
-                to="/"
-                sx={{
-                mr: 2,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none'
-                }}
-                alignSelf="center"
-                justifyContent="center"
-            >
-                bookish
-            </Typography>
+            <Link to="/">
+                <Box component="img" src="../bookishkarla.png" sx={{ maxHeight: 55, padding: "0 1em 0 0" }} />
+            </Link>
+            
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -133,7 +121,6 @@ const Header = () => {
                 </Menu>
             </Box>
             </Toolbar>
-        </Container>
         </AppBar>
     )
 }

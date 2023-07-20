@@ -20,6 +20,8 @@ import ReviewsContainer from "../reviews/ReviewsContainer";
 import EditReviewForm from "../reviews/EditReviewForm";
 import Loading from "../building_blocks/Loading";
 import { ReviewContext } from "../../context/reviewContext";
+import AccountDeletion from "./AccountDeletion";
+import useTitle from "../../hooks/useTitle";
 
 const Profile = () => {
     const { username } = useParams()
@@ -30,6 +32,7 @@ const Profile = () => {
     const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ profileUser, setProfileUser ] = useState(null)
 
+    useTitle(profileUser?.username)
 
     useEffect(() => {
         (async () => {

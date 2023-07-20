@@ -7,6 +7,7 @@ from schemas import (
     Book
 )
 from schemas.author_schema import AuthorSchema
+from schemas.quote_schema import QuoteSchema
 
 class BookSchema(ma.SQLAlchemySchema):
     class Meta():
@@ -14,7 +15,7 @@ class BookSchema(ma.SQLAlchemySchema):
         load_instance = True
         ordered = True
         fields = ("id", "title", "cover_photo", "genre", "page_count", \
-                "description", "reviews", "book_shelves", "author", "url")
+                "description", "quotes", "reviews", "book_shelves", "author", "url")
         
     title = fields.String(validate=validate.Length(min=1, max=150), \
                     error="Title must be less than 150 characters")
@@ -26,6 +27,7 @@ class BookSchema(ma.SQLAlchemySchema):
     author = fields.Nested(AuthorSchema, only=("id", "full_name", "url"))
     book_shelves = fields.Nested("BookShelfSchema", only=("id", "shelf_id", "url"), many=True)
     reviews = fields.Nested("ReviewSchema", only=("id", "rating", "user", "comment", "url"), many=True)
+    quotes = fields.Nested("QuoteSchema", only=("id", "content"), many=True)
 
     url = ma.Hyperlinks(
         {

@@ -16,6 +16,10 @@ import { ReviewContext } from '../../context/reviewContext';
 import Rating from '@mui/material/Rating';
 import { v4 as uuid } from "uuid";
 import Loading from '../building_blocks/Loading';
+import useTitle from '../../hooks/useTitle';
+import QuoteCarousel from './QuoteCarousel';
+import QuoteCard from './QuoteCard';
+import QuoteContainer from "./QuoteContainer"
 
 
 const BookDetail = () => {
@@ -26,6 +30,7 @@ const BookDetail = () => {
     const [ currentBook, setCurrentBook ] = useState(null)
     const [ errors, setErrors ] = useState(null)
 
+    useTitle(currentBook?.title)
 
     useEffect(() => {
         (async () => {
@@ -62,7 +67,7 @@ const BookDetail = () => {
                         objectFit: "contain",
                         borderRadius: "16px"
                     }}
-                    alt="alt text"
+                    alt={currentBook?.title}
                     src={currentBook?.cover_photo}
                 />
                 <Box sx={{ padding: "0 3em 0 3em", width: 2/3 }}>
@@ -80,6 +85,7 @@ const BookDetail = () => {
                     )}
                 </Box>
             </Box>
+            { currentBook?.quotes?.length ? <QuoteCarousel currentBook={currentBook} /> : null }
             { recs.length ? 
                 <RecsContainer recs={recs} /> 
                 : null }

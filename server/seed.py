@@ -186,14 +186,120 @@ with app.app_context():
     db.session.add_all(books)
 
     print("Creating quotes ...")
-    quotes = []
-    for _ in range(50): 
-        quote = Quote(
-            content=fake.paragraph(),
-            book = rc(books)
-        )
-        quotes.append(quote)
+    # quotes = []
+    # for _ in range(50): 
+    #     quote = Quote(
+    #         content=fake.paragraph(),
+    #         book = rc(books)
+    #     )
+    #     quotes.append(quote)
 
+    # db.session.add_all(quotes)
+
+    ## dearest creature 
+
+    q1 = Quote(
+        content="""
+            ...Your troublesome legacy,
+            and maybe part of your charm, is to shine
+            too hotly and brightly at times, to be lost
+            in a maze of sensations to have
+            trouble switching gears, to be socially
+            clueless, to love books as living things,
+            and therefore to be much alone. 
+    """,
+        book=b1
+    )
+
+    q2 = Quote(
+        content="""
+            ...Don't get sentimental 
+            about your discarded skins. Grow
+            quickly. Develop a yen for nettles. 
+    """,
+        book=b1
+    )
+
+    q3 = Quote(
+        content="""
+            Beauty only divides the world–
+            ugliness is far more fascinating, 
+            contains infinitely more variation,
+            its existence crucial to beauty, 
+            therefore all the more precious. 
+    """,
+        book=b1
+    )
+
+    ## the poppy war
+
+    q4 = Quote(
+        content="""
+            The Gatekeeper hung in a vacuum, frozen in a state of suspended animation, a place next to nowhere and on the way to everywhere.
+    """,
+        book=b2
+    )
+
+    q5 = Quote(
+        content="""
+            Altan's voice cracked. "I didn't need to be helped." 
+            "You needed it more than anything," Jiang said sadly.
+    """,
+        book=b2
+    )
+
+    q6 = Quote(
+        content="""
+            "I don't know what happened to you in that temple," he said. "But you are not Fang Runin." 
+    """,
+        book=b2
+    )
+
+    # the dragon republic 
+    q7 = Quote(
+        content="""
+            Moag wanted Yang Yuanfu dead. The Cike specialized in assassination. They were a matchmaker's dream.
+""",
+        book=b3
+    )
+
+    q8 = Quote(
+        content="""
+            They burned for someone else's war, someone else's wrongs; someone they had never met made the decision they should die, so in their last moments they had no idea why their skin was scorching off. 
+""",
+        book=b3
+    )
+
+    q9 = Quote(
+        content="""
+            "'You asked how large my sorrow is,'" Nezha recited. Rin recognized the line – it was from a poem she'd studied a lifetime ago, a lament by an Emperor whose last words became exam material for future generations. "'And I answered, like a river in spring flowing east.'"
+""",
+        book=b3
+    )
+
+    # the burning god 
+    q10 = Quote(
+        content="""
+            But she screamed it again, and then again, and then again. It felt so good to say that she'd survived, that she'd ... finally come out on top, that she didn't even care that she was screaming to corpses.
+""",
+        book=b4
+    )
+
+    q11 = Quote(
+        content="""
+            There are never any new stories, just old ones told again and again as this universe moves through its cycles of civilization and crumbles into despair.
+""",
+        book=b4
+    )
+
+    q12 = Quote(
+        content="""
+            The Dragon collects pretty things. Was it because the sea absorbed anything it touched? Because it was so vast and so unfathomably dark that it sought whatever ornament it could find to give it shape? 
+""",
+        book=b4
+    )
+
+    quotes = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12]
     db.session.add_all(quotes)
 
     # print("Creating tags ...")

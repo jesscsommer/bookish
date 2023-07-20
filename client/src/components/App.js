@@ -23,6 +23,7 @@ import { UserContext } from "../context/userContext";
 import { ShelfContext } from "../context/shelfContext";
 import { orange, purple } from "@mui/material/colors";
 import { BookShelfContext } from "../context/bookShelfContext";
+import Confirmation from "./building_blocks/Confirmation";
 
 const Syne =  "'Syne', sans-serif";
 const YoungSerif = "YoungSerif";
@@ -35,23 +36,17 @@ const theme = createTheme({
         mode: 'light',
         primary: {
             main: '#FF6B1C',
-            contrastText: '#ffffff',
+            contrastText: "#fff"
         },
         secondary: {
-            main: '#E3E1E1',
+            main: '#E3E1E1'
         },
-        error: {
-            main: '#FF1D0F',
+        header: {
+            main: "rgba(232,231,231,0.55)"
         },
-        warning: {
-            main: '#FFAE29',
-        },
-        info: {
-            main: '#0383FF',
-        },
-        success: {
-            main: '#36FF85',
-        },
+        emphasis: {
+            main: "#FF6B1C"
+        }
     },    
     typography: {
         fontFamily: Karla, 
@@ -80,6 +75,17 @@ const theme = createTheme({
         body1: {
             fontFamily: Karla,
             fontWeight: 300
+        },
+        subtitle1: {
+            fontFamily: Karla,
+            fontWeight: 500,
+            fontStyle: "italic"
+        },
+        pullquote: {
+            fontFamily: Karla,
+            fontWeight: 400,
+            fontStyle: "italic",
+            fontSize: "1.5rem"
         }
     }
 })
@@ -94,9 +100,9 @@ const App = () => {
             const res = await fetch("/me")
             if (res.ok) {
                 const data = await res.json()
-                userDispatch({ type: "fetch", payload: data.user })
-                shelfDispatch({ type: "fetch", payload: data.user.shelves })
-                bookShelfDispatch({ type: "fetch", payload: data.user.book_shelves })
+                userDispatch({ type: "fetch", payload: data?.user })
+                shelfDispatch({ type: "fetch", payload: data?.user?.shelves })
+                bookShelfDispatch({ type: "fetch", payload: data?.user?.book_shelves })
             } 
         })();
     }, [])
@@ -125,6 +131,11 @@ const App = () => {
                     path="/books/:id" 
                     element={
                         <BookDetail />
+                    }/>
+                <Route 
+                    path="/confirmation"
+                    element={
+                        <Confirmation />
                     }/>
                 <Route 
                     path="/" 
