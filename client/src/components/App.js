@@ -86,6 +86,12 @@ const theme = createTheme({
             fontFamily: Karla,
             fontWeight: 500,
             fontStyle: "italic"
+        },
+        pullquote: {
+            fontFamily: Karla,
+            fontWeight: 400,
+            fontStyle: "italic",
+            fontSize: "1.25rem"
         }
     }
 })

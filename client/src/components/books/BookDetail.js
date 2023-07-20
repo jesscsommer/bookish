@@ -17,6 +17,7 @@ import Rating from '@mui/material/Rating';
 import { v4 as uuid } from "uuid";
 import Loading from '../building_blocks/Loading';
 import useTitle from '../../hooks/useTitle';
+import QuoteCarousel from './QuoteCarousel';
 
 
 const BookDetail = () => {
@@ -82,6 +83,7 @@ const BookDetail = () => {
                     )}
                 </Box>
             </Box>
+            <QuoteCarousel currentBook={currentBook} />
             { recs.length ? 
                 <RecsContainer recs={recs} /> 
                 : null }
