@@ -30,6 +30,11 @@ const defaultTheme = createTheme();
 const AuthForm = () => {
     const navigate = useNavigate()
     const { user, dispatch : userDispatch } = useContext(UserContext)
+
+    if (user) {
+        navigate("/")
+    }
+
     const { dispatch : shelfDispatch } = useContext(ShelfContext)
 
     const [ isLogin, setIsLogin ] = useState(true)
