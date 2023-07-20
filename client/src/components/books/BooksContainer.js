@@ -12,6 +12,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import { useContext, useState } from "react"
 import { BookContext } from '../../context/bookContext';
+import useTitle from '../../hooks/useTitle';
 
 import BookCard from './BookCard';
 import Loading from '../building_blocks/Loading';
@@ -23,6 +24,8 @@ const BooksContainer = () => {
     const [ sortBy, setSortBy ] = useState(null)
     const { books } = useContext(BookContext)
     const filteredBooks = books.filter(book => book.avg_rating >= minAvgRating)
+
+    useTitle("bookish")
 
     const updateMinAvgRating = (newAvg) => {
         setMinAvgRating(avg => newAvg)

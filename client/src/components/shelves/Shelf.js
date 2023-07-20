@@ -29,7 +29,7 @@ const Shelf = ({ shelf }) => {
                 {shelf?.name}
             </Typography>
             <Grid container spacing={4}>
-                {booksOnShelves.map(bookShelf => 
+                {booksOnShelves?.map(bookShelf => 
                     <BookCard 
                     key={uuid()}
                     book={bookShelf.book}

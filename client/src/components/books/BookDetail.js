@@ -16,6 +16,7 @@ import { ReviewContext } from '../../context/reviewContext';
 import Rating from '@mui/material/Rating';
 import { v4 as uuid } from "uuid";
 import Loading from '../building_blocks/Loading';
+import useTitle from '../../hooks/useTitle';
 
 
 const BookDetail = () => {
@@ -26,6 +27,7 @@ const BookDetail = () => {
     const [ currentBook, setCurrentBook ] = useState(null)
     const [ errors, setErrors ] = useState(null)
 
+    useTitle(currentBook?.title)
 
     useEffect(() => {
         (async () => {

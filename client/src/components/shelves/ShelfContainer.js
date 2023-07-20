@@ -16,12 +16,15 @@ import { UserContext } from '../../context/userContext';
 import { BookShelfContext } from '../../context/bookShelfContext';
 
 import Shelf from "./Shelf"
+import useTitle from '../../hooks/useTitle';
 
 const defaultTheme = createTheme()
 
 const ShelfContainer = () => {
     const { user } = useContext(UserContext)
     const { shelves, dispatch: shelfDispatch } = useContext(ShelfContext)
+    
+    useTitle("My shelves")
 
     return (
             <Box sx={{ paddingLeft: 10, paddingRight: 10 }}  maxWidth="lg">
