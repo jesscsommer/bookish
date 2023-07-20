@@ -83,7 +83,7 @@ const BookDetail = () => {
                     )}
                 </Box>
             </Box>
-            <QuoteCarousel currentBook={currentBook} />
+            { currentBook?.quotes?.length ? <QuoteCarousel currentBook={currentBook} /> : null }
             { recs.length ? 
                 <RecsContainer recs={recs} /> 
                 : null }

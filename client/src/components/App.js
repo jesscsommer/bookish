@@ -91,7 +91,7 @@ const theme = createTheme({
             fontFamily: Karla,
             fontWeight: 400,
             fontStyle: "italic",
-            fontSize: "1.25rem"
+            fontSize: "1.5rem"
         }
     }
 })

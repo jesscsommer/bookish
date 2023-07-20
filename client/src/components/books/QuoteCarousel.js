@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
+import { v4 as uuid } from "uuid";
 
 const QuoteCarousel = ({ currentBook }) => {
     const theme = useTheme();
@@ -28,19 +28,7 @@ const QuoteCarousel = ({ currentBook }) => {
     };
 
     return (
-        <Box sx={{ maxWidth: 800, flexGrow: 1, margin: "auto" }}>
-        <Paper
-            square
-            elevation={0}
-            sx={{
-            display: 'flex',
-            alignItems: 'center',
-            height: 50,
-            pl: 2,
-            bgcolor: 'background.default',
-            }}
-        >
-        </Paper>
+        <Box sx={{ maxWidth: 800, flexGrow: 1, margin: "auto", py: 10 }}>
         <SwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={activeStep}
@@ -59,7 +47,9 @@ const QuoteCarousel = ({ currentBook }) => {
                     width: '100%',
                     }}
                 >
-                    <Typography variant="pullquote">{step?.content}</Typography>
+                    {step?.content.split("\n").map(line => 
+                        <Typography key={uuid()} sx={{ display: "flex", flexDirection: "column" }} variant="pullquote">{line}</Typography>
+                        )}
                     </Box>
                 ) : null}
             </div>

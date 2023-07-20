@@ -15,7 +15,7 @@ const defaultTheme = createTheme()
 
 const RecsContainer = ({ recs }) => {
     return (
-            <Box maxWidth="lg" sx={{ padding: 3, py: 8 }}>
+            <Box maxWidth="lg" sx={{ padding: 3 }}>
                 <Typography mb={4} variant="h5">
                     You might also like ...
                 </Typography>
