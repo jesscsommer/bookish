@@ -186,15 +186,6 @@ with app.app_context():
     db.session.add_all(books)
 
     print("Creating quotes ...")
-    # quotes = []
-    # for _ in range(50): 
-    #     quote = Quote(
-    #         content=fake.paragraph(),
-    #         book = rc(books)
-    #     )
-    #     quotes.append(quote)
-
-    # db.session.add_all(quotes)
 
     ## dearest creature 
 
@@ -295,11 +286,69 @@ with app.app_context():
     q12 = Quote(
         content="""
             The Dragon collects pretty things. Was it because the sea absorbed anything it touched? Because it was so vast and so unfathomably dark that it sought whatever ornament it could find to give it shape? 
-""",
+        """,
         book=b4
     )
 
-    quotes = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12]
+    ## the overstory 
+
+    q13 = Quote(
+        content="""
+            There are seeds that need fire. Seeds that need freezing. Seeds that need to be swallowed, etched in digestive acid, dispelled as waste. Seeds that must be smashed open before they'll germinate.
+            
+            A thing can travel everywhere, just by holding still. 
+        """,
+        book=b5
+    )
+
+    q14 = Quote(
+        content="""
+            There's a thing in programming called branching. And that's what Neelay Mehta does. He will reincarnate himself, live again as people of all races, genders, colors, and creeds. He'll raise decaying corpses and eat the souls of the young. He'll tent high up in the canopies of lush forests, lie in broken heaps at the bottom of impossibly high cliffs, and swim in the seas of planets with many suns. He'll spend his life in the service of an immense conspiracy, launched from the Valley of Heart's Delight, to take over the human brain and change it more than anything since writing.
+        """,
+        book=b5
+    )
+
+    q15 = Quote(
+        content="""
+            Let me sing to you now, about how people turn into other things.
+            At those words, she's back where acorns are a step away from faces and pine cones compose the bodies of angels. She reads the book. The stories are odd and fluid, as old as humankind. They're somehow familiar, as if she were born knowing them. The fables seem to be less about people turning into other living things than about other living things somehow reabsorbing, at the moment of greatest danger, the wildness inside people that never really went away.
+        """,
+        book=b5
+    )
+
+    ## who's afraid of virginia woolf
+
+    ## where the wild things are
+
+    q16 = Quote(
+        content="""
+            his mother called him "WILD THING!" 
+            and Max said "I'LL EAT YOU UP!"
+            so he was sent to bed without eating anything.
+    """,
+        book=b7
+    )
+
+    q17 = Quote(
+        content="""
+            And when he came to the place where the wild things are 
+            they roared their terrible roars and gnashed their terrible teeth
+    """,
+        book=b7
+    )
+
+    q18 = Quote(
+        content="""
+            "And now," cried Max, "let the wild rumpus start!"
+    """,
+        book=b7
+    )
+
+    ## the interestings 
+
+    ## all but my life 
+
+    quotes = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18]
     db.session.add_all(quotes)
 
     # print("Creating tags ...")
@@ -313,32 +362,35 @@ with app.app_context():
     # db.session.add_all(tags)
 
     print("Creating users ...")
-    users = []
-    usernames = []
-    emails = []
 
-    for _ in range(15):
-        username = fake.first_name()
-        email = fake.email()
+    u1 = User(
+        username="claire123",
+        email="claire123@gmail.com",
+        profile_pic="https://images.unsplash.com/photo-1531123414780-f74242c2b052?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+        display_name="Claire",
+        bio="Reader from the Midwest, partial to thrillers and mysteries"
+    )
+    u1.password_hash = u1.username + "password"
 
-        while username in usernames:
-            username = fake.first_name()
-        usernames.append(username)
+    u2 = User(
+        username="ben456",
+        email="ben456@gmail.com",
+        profile_pic="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+        display_name="Ben",
+        bio="7th grade English teacher. Recommend your favorite middle-grade reads!"
+    )
+    u2.password_hash = u2.username + "password"
 
-        while email in emails: 
-            email = fake.email()
-        emails.append(email)
+    u3=User(
+        username="meow789",
+        email="meow789@gmail.com",
+        profile_pic="https://images.unsplash.com/photo-1587723958656-ee042cc565a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+        display_name="Meow",
+        bio="Books left in direct sunlight make excellent nap pads"
+    )
+    u3.password_hash = u3.username + "password"
 
-        user = User(
-            username=username,
-            email=email,
-            profile_pic=fake.image_url(),
-            display_name=fake.first_name(),
-            bio=fake.paragraph()
-        )
-        user.password_hash = user.username + "password"
-
-        users.append(user)
+    users = [u1, u2, u3]
 
     db.session.add_all(users)
 
@@ -357,7 +409,11 @@ with app.app_context():
             name="Favorites",
             user=user
         )
-        shelves.extend([s1, s2, s3])
+        s4 = Shelf(
+            name="Currently reading",
+            user=user
+        )
+        shelves.extend([s1, s2, s3, s4])
     
     db.session.add_all(shelves)
 
@@ -389,12 +445,35 @@ with app.app_context():
     # db.session.add_all(book_tags)
 
     print("Creating reviews ...")
+
+    BAD_REVIEWS=[
+        "This book was so incredibly slow. I stuck with it because I kept hearing about it from my friend, but it needed a lot more action.",
+        "Eh, super predictable. I'm always looking for a twist or turn, and I didn't get that here. Then again, I'm hard to surprise!",
+        "I had a hard time picking this one up again once I put it down. There were some lines I really enjoyed though."
+    ]
+
+    GOOD_REVIEWS=[
+        "This is one of my favorite books of all time. It made my heart hurt in the best way. Give me two days, and I'll be reading it again.",
+        "The drama, the action, the surprise! Excellent book, super glad that I found out about it here. Has this author written anything else?",
+        "A bit of a guilty pleasure. It's not going to win any awards but it's a wild ride. Very fun to bring with you to the beach."
+    ]
+
+
     reviews = []
     
-    for _ in range(50):
+    for _ in range(25):
         review = Review(
-            rating=randint(1,5),
-            comment=fake.paragraph(),
+            rating=randint(1,3),
+            comment=rc(BAD_REVIEWS),
+            book=rc(books),
+            user=rc(users)
+        )
+        reviews.append(review)
+
+    for _ in range(25):
+        review = Review(
+            rating=randint(3,5),
+            comment=rc(GOOD_REVIEWS),
             book=rc(books),
             user=rc(users)
         )
