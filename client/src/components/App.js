@@ -94,9 +94,9 @@ const App = () => {
             const res = await fetch("/me")
             if (res.ok) {
                 const data = await res.json()
-                userDispatch({ type: "fetch", payload: data.user })
-                shelfDispatch({ type: "fetch", payload: data.user.shelves })
-                bookShelfDispatch({ type: "fetch", payload: data.user.book_shelves })
+                userDispatch({ type: "fetch", payload: data?.user })
+                shelfDispatch({ type: "fetch", payload: data?.user?.shelves })
+                bookShelfDispatch({ type: "fetch", payload: data?.user?.book_shelves })
             } 
         })();
     }, [])

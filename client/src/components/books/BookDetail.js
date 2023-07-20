@@ -62,7 +62,7 @@ const BookDetail = () => {
                         objectFit: "contain",
                         borderRadius: "16px"
                     }}
-                    alt="alt text"
+                    alt={currentBook?.title}
                     src={currentBook?.cover_photo}
                 />
                 <Box sx={{ padding: "0 3em 0 3em", width: 2/3 }}>
