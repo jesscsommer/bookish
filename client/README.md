@@ -1,6 +1,6 @@
 # bookish
 
-![Home page of a book review application](client/public/bookishhome.png)
+![Home page of a book review application](./public/bookishhome.png)
 
 ## User Stories 
 As a user, you will be able to: 
