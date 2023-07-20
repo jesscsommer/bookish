@@ -11,6 +11,7 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 import { IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import AccountDeletion from './AccountDeletion';
 
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -108,7 +109,7 @@ const EditProfileForm = () => {
             const res = await fetch(`/api/v1/users/${user.id}`, { method : "DELETE" })
             if (res.ok) {
                 userDispatch({ type: "fetch", payload: null })
-                navigate("/")
+                navigate("/confirmation")
             }
         })();
     }
@@ -187,12 +188,7 @@ const EditProfileForm = () => {
                         : null}
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        color="secondary"
-                        onClick={handleDelete}
-                        variant="text">
-                            Delete account
-                    </Button>
+                    <AccountDeletion />
                     <Button 
                         variant="contained"
                         onClick={() => {

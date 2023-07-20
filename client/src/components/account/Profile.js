@@ -20,6 +20,7 @@ import ReviewsContainer from "../reviews/ReviewsContainer";
 import EditReviewForm from "../reviews/EditReviewForm";
 import Loading from "../building_blocks/Loading";
 import { ReviewContext } from "../../context/reviewContext";
+import AccountDeletion from "./AccountDeletion";
 
 const Profile = () => {
     const { username } = useParams()

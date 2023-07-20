@@ -66,7 +66,7 @@ const AddToShelfForm = ({ book }) => {
     })
 
 
-    const alreadyInShelves = bookShelves.filter(bs => bs.book_id == book.id).map(bs => bs.shelf_id)
+    const alreadyInShelves = bookShelves?.filter(bs => bs.book_id == book.id).map(bs => bs.shelf_id)
     const notInShelves = shelves?.filter(shelf => !alreadyInShelves?.includes(shelf.id))
 
     return (

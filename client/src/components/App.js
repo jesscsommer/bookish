@@ -23,6 +23,7 @@ import { UserContext } from "../context/userContext";
 import { ShelfContext } from "../context/shelfContext";
 import { orange, purple } from "@mui/material/colors";
 import { BookShelfContext } from "../context/bookShelfContext";
+import Confirmation from "./building_blocks/Confirmation";
 
 const Syne =  "'Syne', sans-serif";
 const YoungSerif = "YoungSerif";
@@ -125,6 +126,11 @@ const App = () => {
                     path="/books/:id" 
                     element={
                         <BookDetail />
+                    }/>
+                <Route 
+                    path="/confirmation"
+                    element={
+                        <Confirmation />
                     }/>
                 <Route 
                     path="/" 
