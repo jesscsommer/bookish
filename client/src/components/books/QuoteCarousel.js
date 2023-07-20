@@ -28,7 +28,7 @@ const QuoteCarousel = ({ currentBook }) => {
     };
 
     return (
-        <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+        <Box sx={{ maxWidth: 800, flexGrow: 1, margin: "auto" }}>
         <Paper
             square
             elevation={0}
@@ -54,7 +54,7 @@ const QuoteCarousel = ({ currentBook }) => {
                     sx={{
                     // height: 255,
                     display: 'block',
-                    maxWidth: 400,
+                    maxWidth: 800,
                     overflow: 'hidden',
                     width: '100%',
                     }}
