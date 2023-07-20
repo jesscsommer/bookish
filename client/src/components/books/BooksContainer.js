@@ -17,8 +17,6 @@ import useTitle from '../../hooks/useTitle';
 import BookCard from './BookCard';
 import Loading from '../building_blocks/Loading';
 
-const defaultTheme = createTheme()
-
 const BooksContainer = () => {
     const [ minAvgRating, setMinAvgRating ] = useState(null)
     const [ sortBy, setSortBy ] = useState(null)

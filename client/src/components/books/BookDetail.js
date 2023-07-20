@@ -18,6 +18,8 @@ import { v4 as uuid } from "uuid";
 import Loading from '../building_blocks/Loading';
 import useTitle from '../../hooks/useTitle';
 import QuoteCarousel from './QuoteCarousel';
+import QuoteCard from './QuoteCard';
+import QuoteContainer from "./QuoteContainer"
 
 
 const BookDetail = () => {
