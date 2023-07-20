@@ -1,6 +1,15 @@
 # bookish
 
 ## User Stories 
+As a user, you will be able to: 
+* Manage your account (sign up, login, login with Google, edit your profile, delete account)
+* View other user profiles
+* View a collection of books
+* Filter and sort books by average rating
+* View an individual book with additional detail, such as quotes, recommendations, and reviews 
+* Create your own book shelves
+* Add books to default or custom shelves
+* Remove books from shelves or delete shelves 
 
 ## References and Acknowledgements
 [Sinziana Susa: open book photo](https://unsplash.com/photos/SNHsMunOPME) <br>
