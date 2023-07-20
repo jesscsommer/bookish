@@ -1,4 +1,4 @@
-# bookish
+# bookish 📚 
 
 ![Home page of a book review application](./public/bookishhome.png)
 
