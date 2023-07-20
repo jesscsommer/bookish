@@ -1,5 +1,7 @@
 # bookish
 
+![Home page of a book review application](client/public/bookishhome.png)
+
 ## User Stories 
 As a user, you will be able to: 
 * Manage your account (sign up, login, login with Google, edit your profile, delete account)
