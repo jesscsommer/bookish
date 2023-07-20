@@ -2,6 +2,8 @@
 
 This app to save and review your favorite books has a React frontend and Python with Flask backend. These instructions will walk through server-side setup. Visit [this README](/client/README.md) for a look at the app's user stories. 
 
+Jump directly to the deployed application [here](https://bookish-18vc.onrender.com/).
+
 ***
 
 ## Installation
