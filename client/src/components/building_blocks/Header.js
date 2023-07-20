@@ -68,8 +68,8 @@ const Header = () => {
             color="primary">
         <Container>
             <Toolbar disableGutters>
-            {/* <Box component="img" src="../orange-glasses.PNG" sx={{ maxHeight: 25, padding: "0 1em 0 0" }}></Box> */}
-            <Typography
+            <Box component="img" src="../bookishkarla.png" sx={{ maxHeight: 55, padding: "0 1em 0 0" }}></Box>
+            {/* <Typography
                 variant="h3"
                 noWrap
                 component={Link}
@@ -84,7 +84,7 @@ const Header = () => {
                 justifyContent="center"
             >
                 bookish
-            </Typography>
+            </Typography> */}
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
