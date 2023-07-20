@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from '@mui/material/MenuItem';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { IconButton } from "@mui/material";
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
 
 
 import { useState, useContext } from "react";
@@ -72,7 +73,7 @@ const AddToShelfForm = ({ book }) => {
     return (
         <div>
             <IconButton color="primary" onClick={handleClickOpen}>
-                <AddIcon />
+                <BookmarkAddOutlinedIcon />
             </IconButton>
             <Dialog fullWidth maxWidth="xs" sx={{ margin: "auto" }} open={open} onClose={handleClose}>
                 <DialogTitle>Add to Shelf</DialogTitle>
@@ -107,7 +108,7 @@ const AddToShelfForm = ({ book }) => {
                             formik.handleSubmit()
                             handleClose()
                         }}>
-                        <AddIcon />
+                        <BookmarkAddOutlinedIcon />
                     </IconButton>
                 </DialogActions>
             </Dialog>
