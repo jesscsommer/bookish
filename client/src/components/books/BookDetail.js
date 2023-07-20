@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 
 import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ErrorContext } from '../../context/errorContext';
 import RecsContainer from "./RecsContainer";
 import { BookContext } from '../../context/bookContext';
 import AddReviewForm from '../reviews/AddReviewForm';
@@ -22,10 +21,10 @@ import Loading from '../building_blocks/Loading';
 const BookDetail = () => {
     const { id : book_id } = useParams()
     const { user } = useContext(UserContext)
-    const { errors, dispatch: errorDispatch } = useContext(ErrorContext)
     const { books, dispatch: bookDispatch } = useContext(BookContext)
     const { reviews, dispatch: reviewDispatch } = useContext(ReviewContext)
     const [ currentBook, setCurrentBook ] = useState(null)
+    const [ errors, setErrors ] = useState(null)
 
 
     useEffect(() => {
@@ -37,7 +36,7 @@ const BookDetail = () => {
                 reviewDispatch({ type: "set", payload: bookData?.reviews })
             } else {
                 const errorData = await res.json()
-                errorDispatch({ type: "add", payload: errorData })
+                setErrors(errorData)
             }
         })();
     }, [book_id])
