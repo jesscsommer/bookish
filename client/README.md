@@ -1,4 +1,5 @@
-# bookish 📚 
+# bookish
+Welcome to bookish! Save, review, and explore books in this literary refuge. Keep track of everything from childhood favorites to the books lost in your last move, all while scoping out your next escape. Write your own reviews to shape future recommendations and contribute to our community of readers. 📚✨
 
 ![Home page of a book review application](./public/bookishhome.png)
 
