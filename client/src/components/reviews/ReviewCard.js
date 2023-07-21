@@ -61,7 +61,7 @@ const ReviewCard = ({ review, updateReview, deleteReview }) => {
                                 justifyContent: "flex-end"
                             }}>
                             { onProfile && review?.user?.id === user?.id ? 
-                                <EditReviewForm /> 
+                                <EditReviewForm review={review} /> 
                                 : null }
                             { onProfile && review?.user?.id === user?.id ? 
                                 <IconButton 
