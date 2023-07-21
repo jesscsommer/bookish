@@ -168,7 +168,6 @@ const AuthForm = () => {
                         label="Username"
                         name="username"
                         autoComplete="username"
-                        autoFocus
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
