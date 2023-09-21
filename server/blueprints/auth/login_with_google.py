@@ -29,7 +29,6 @@ from blueprints.auth.signup import create_default_shelves
 login_with_google_bp = Blueprint("login_with_google", __name__)
 
 def get_google_provider_cfg():
-    ## add error handling
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
